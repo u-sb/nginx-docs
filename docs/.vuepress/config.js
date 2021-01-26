@@ -13,18 +13,26 @@ module.exports = {
       search: false
     },
     head: [
-      ['link', { rel: 'icon', href: '/favicon.ico' }]
+      ['link', { rel: 'icon', href: '/favicon.ico' }],
+// add matomo analytics
+    ['script', {}, `
+    var _paq = window._paq = window._paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="https://stat.loli.net/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '7']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();`
+  ],
     ],
     markdown: {
       lineNumbers: false
     },
     plugins: [
-      [
-        "vuepress-plugin-matomo",
-        {
-          'siteId': 7,
-          'trackerUrl': "https://stat.loli.net/"
-        }
-      ]
+      ['@vuepress/back-to-top'],
+      ['@vuepress/nprogress']
     ]
   }

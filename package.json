@@ -7,6 +7,8 @@
   "author": "Showfom <showfom@gmail.com>",
   "license": "2-clause BSD-like",
   "devDependencies": {
+    "@vuepress/plugin-back-to-top": "^1.8.0",
+    "@vuepress/plugin-nprogress": "^1.8.0",
     "nodemon": "^2.0.7",
     "vuepress": "^1.8.0"
   },
