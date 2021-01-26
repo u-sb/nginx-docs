@@ -10,7 +10,7 @@
 
 ## Install via DEB
 
-```bash
+``` sh
 apt install apt-transport-https lsb-release ca-certificates curl gnupg -y
 curl https://mirror-cdn.xtom.com/sb/nginx/public.key | apt-key add -
 echo "deb https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/sb-nginx.list
@@ -31,7 +31,7 @@ Check [Docker image for sb-nginx](https://github.com/brentybh/docker-sb-nginx)
 
 We do not provide full and long term support for legacy OS, but you can use it at your own risk. Non-supported OS will not always get the latest update and is on a best efforts basis.
 
-```bash
+``` sh
 apt install apt-transport-https lsb-release ca-certificates curl gnupg -y
 curl https://mirror-cdn.xtom.com/sb/nginx/public-rsa.key | apt-key add -
 curl https://mirror-cdn.xtom.com/sb/nginx/public.key | apt-key add -
