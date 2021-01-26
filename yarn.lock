@@ -7610,6 +7610,11 @@ vuepress-plugin-container@^2.0.2:
     "@vuepress/shared-utils" "^1.2.0"
     markdown-it-container "^2.0.0"
 
+vuepress-plugin-matomo@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/vuepress-plugin-matomo/-/vuepress-plugin-matomo-1.0.2.tgz#04ce864f4f10dce14f13df76416fcaabdfdc9517"
+  integrity sha512-4hTvIhz7r1nZz5U9IqH/OHfkXE5r8+RHh+EY9Fj5t5J4x2s/pr7rAgvz6y5VN4nWP45Y1a9oarUsvJSkl2De+A==
+
 vuepress-plugin-smooth-scroll@^0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/vuepress-plugin-smooth-scroll/-/vuepress-plugin-smooth-scroll-0.0.3.tgz#6eff2d4c186cca917cc9f7df2b0af7de7c8c6438"

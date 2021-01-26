@@ -17,5 +17,14 @@ module.exports = {
     ],
     markdown: {
       lineNumbers: false
-    }
+    },
+    plugins: [
+      [
+        "vuepress-plugin-matomo",
+        {
+          'siteId': 7,
+          'trackerUrl': "https://stat.loli.net/"
+        },
+      ]
+    ]
   }

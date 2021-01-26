@@ -15,6 +15,7 @@
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
+    "vuepress-plugin-matomo": "^1.0.2",
     "vuepress-theme-default-prefers-color-scheme": "^2.0.0"
   }
 }
