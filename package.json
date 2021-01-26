@@ -1,0 +1,20 @@
+{
+  "name": "nginx-io-docs",
+  "version": "1.0.0",
+  "description": "nginx.io docs",
+  "main": "index.js",
+  "repository": "https://github.com/sb-sb/nginx-io-docs",
+  "author": "Showfom <showfom@gmail.com>",
+  "license": "2-clause BSD-like",
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "vuepress": "^1.8.0"
+  },
+  "scripts": {
+    "docs:dev": "nodemon --ext md,vue --watch .vuepress --watch . --exec vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "dependencies": {
+    "vuepress-theme-default-prefers-color-scheme": "^2.0.0"
+  }
+}
