@@ -24,7 +24,7 @@ module.exports = {
         {
           'siteId': 7,
           'trackerUrl': "https://stat.loli.net/"
-        },
+        }
       ]
     ]
   }
