@@ -4,6 +4,10 @@ sidebar: false
 
 # Changelog
 
+Mar 20, 2021
+
+- Upgrade Nginx to 1.19.8
+
 Mar 1, 2021
 
 - Upgrade Nginx to 1.19.7
