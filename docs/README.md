@@ -11,5 +11,5 @@ features:
   details: We packed OpenSSL 1.1.1 into our nginx as standard.
 - title: Modules
   details: Brotli compression and GeoIP2.
-footer: 2-Clause BSD License | Copyright © 2019 - 2020 xTom
+footer: 2-Clause BSD License | Copyright © 2019 - 2021 xTom
 ---
