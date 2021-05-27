@@ -10,7 +10,7 @@
     "@vuepress/plugin-back-to-top": "^1.8.0",
     "@vuepress/plugin-nprogress": "^1.8.0",
     "nodemon": "^2.0.7",
-    "vuepress": "^1.8.0"
+    "vuepress": "^1.8.2"
   },
   "scripts": {
     "docs:dev": "nodemon --ext md,vue --watch .vuepress --watch . --exec vuepress dev docs",

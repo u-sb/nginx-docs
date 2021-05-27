@@ -4,6 +4,11 @@ sidebar: false
 
 # Changelog
 
+May 27, 2021
+
+- Upgrade Nginx to 1.21.0
+- Add mirrors in Germany and Estonia
+
 April 20, 2021
 
 - Upgrade Nginx to 1.19.10

@@ -12,6 +12,14 @@ https://mirrors.xtom.com/sb/nginx/
 
 https://mirrors.xtom.nl/sb/nginx/
 
+## Germany
+
+https://mirrors.xtom.de/sb/nginx/
+
+## Estonia
+
+https://mirrors.xtom.ee/sb/nginx/
+
 ## Hong Kong
 
 https://mirrors.xtom.com.hk/sb/nginx/
