@@ -2,6 +2,11 @@ module.exports = {
     title: 'Nginx.io',
     theme: 'default-prefers-color-scheme',
     themeConfig: {
+      repo: "sb-sb/nginx-io-docs",
+      docsDir: "docs",
+      docsBranch: 'main',
+      editLinks: true,
+      lastUpdated: 'Last Updated',
       nav: [
         { text: 'Home', link: '/' },
         { text: 'Installation', link: '/install.html' },
