@@ -4,6 +4,10 @@ sidebar: false
 
 # Changelog
 
+July 17, 2021
+
+- Upgrade Nginx to 1.21.1
+
 May 27, 2021
 
 - Upgrade Nginx to 1.21.0
