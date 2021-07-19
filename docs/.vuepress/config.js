@@ -13,7 +13,6 @@ module.exports = {
         { text: 'Mirrors', link: '/mirrors.html' },
         { text: 'Changelog', link: '/changelog.html' },
         { text: 'Sponsor', link: 'https://xtom.com/' },
-        { text: 'Github', link: 'https://github.com/sb-sb/nginx-io-docs' },
       ],
       sidebar: 'auto',
       search: false
