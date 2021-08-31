@@ -4,7 +4,7 @@
   "description": "nginx.io docs",
   "main": "index.js",
   "repository": "https://github.com/sb-sb/nginx-io-docs",
-  "author": "Showfom <showfom@gmail.com>",
+  "author": "Showfom <sb@sb.sb>",
   "license": "2-clause BSD-like",
   "devDependencies": {
     "@vuepress/plugin-back-to-top": "^1.8.0",
@@ -14,7 +14,9 @@
   },
   "scripts": {
     "docs:dev": "nodemon --ext md,vue --watch .vuepress --watch . --exec vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "dev": "nodemon --ext md,vue --watch .vuepress --watch . --exec vuepress dev docs",
+    "build": "vuepress build docs"
   },
   "dependencies": {
     "vuepress-plugin-matomo": "^1.0.2",
