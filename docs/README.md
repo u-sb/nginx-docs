@@ -8,7 +8,7 @@ features:
 - title: Up-to-date
   details: We release latest mainline branch from nginx official source code.
 - title: TLS 1.3
-  details: We packed OpenSSL 1.1.1 into our nginx as standard.
+  details: We packed OpenSSL 3.0.0 into our nginx as standard.
 - title: Modules
   details: Brotli compression and GeoIP2.
 footer: 2-Clause BSD License | Copyright © 2019 - 2021 xTom

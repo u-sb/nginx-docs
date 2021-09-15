@@ -4,6 +4,11 @@ sidebar: false
 
 # Changelog
 
+September 15, 2021
+
+- Upgrade Nginx to 1.21.3
+- Upgrade OpenSSL to 3.0.0
+
 August 31, 2021
 
 - Upgrade Nginx to 1.21.2
