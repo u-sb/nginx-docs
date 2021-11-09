@@ -28,9 +28,9 @@ https://mirrors.xtom.com.hk/sb/nginx/
 
 https://mirrors.ustc.edu.cn/.private/sb/nginx/
 
-## Japan (Japan IPs only)
+## Japan
 
-https://mirrors.cat.net/sb/nginx/
+https://mirrors.xtom.jp/sb/nginx/
 
 ## Testing Repo
 
