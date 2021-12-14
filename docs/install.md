@@ -4,6 +4,7 @@
 
 * (LTS) Debian 10 Buster
 * (LTS) Debian 11 Bullseye
+* (Testing) Debian 12 Bookworm
 * (LTS) Ubuntu 18.04 Bionic
 * (LTS) Ubuntu 20.04 Focal
 * Ubuntu 21.10 Impish
