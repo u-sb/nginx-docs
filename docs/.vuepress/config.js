@@ -2,7 +2,7 @@ module.exports = {
     title: 'Nginx.io',
     theme: 'default-prefers-color-scheme',
     themeConfig: {
-      repo: "sb-sb/nginx-io-docs",
+      repo: "nginx-io/nginx-io-docs",
       docsDir: "docs",
       docsBranch: 'main',
       editLinks: true,
