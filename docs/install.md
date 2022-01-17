@@ -21,7 +21,7 @@ apt install nginx-extras -y
 
 ## Install from Docker
 
-Check [Docker image for sb-nginx](https://github.com/brentybh/docker-sb-nginx)
+Check [Docker image for nginx-io-docker](https://github.com/nginx-io/nginx-io-docker)
 
 ## Non-Supported OS
 
