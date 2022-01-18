@@ -12,16 +12,16 @@
 ## Install via DEB
 
 ``` sh
-apt install apt-transport-https lsb-release ca-certificates curl gnupg -y
-wget -O /etc/apt/trusted.gpg.d/sb-nginx.asc https://mirror-cdn.xtom.com/sb/nginx/public.key
-echo "deb https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/sb-nginx.list
+apt install -y lsb-release ca-certificates wget gnupg
+wget -O /usr/share/keyrings/sb-nginx.asc https://mirror-cdn.xtom.com/sb/nginx/public.key
+echo "deb [signed-by=/usr/share/keyrings/sb-nginx.asc] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/sb-nginx.list
 apt update
-apt install nginx-extras -y
+apt install -y nginx-extras
 ```
 
 ## Install from Docker
 
-Check [Docker image for nginx-io-docker](https://github.com/nginx-io/nginx-io-docker)
+Check out [Docker image for nginx-io-docker](https://github.com/nginx-io/nginx-io-docker)
 
 ## Non-Supported OS
 
@@ -34,10 +34,10 @@ Check [Docker image for nginx-io-docker](https://github.com/nginx-io/nginx-io-do
 We do not provide full and long term support for legacy OS, but you can use it at your own risk. Non-supported OS will not always get the latest update and is on a best efforts basis.
 
 ``` sh
-apt install apt-transport-https lsb-release ca-certificates curl gnupg -y
+apt install -y apt-transport-https lsb-release ca-certificates curl gnupg
 curl https://mirror-cdn.xtom.com/sb/nginx/public-rsa.key | apt-key add -
 curl https://mirror-cdn.xtom.com/sb/nginx/public.key | apt-key add -
 echo "deb https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/sb-nginx.list
 apt update
-apt install nginx-extras -y
+apt install -y nginx-extras
 ```
