@@ -38,7 +38,7 @@ xTom JP [https://mirrors.xtom.jp/sb/nginx/](https://mirrors.xtom.jp/sb/nginx/)
 
 [https://debian-repo.xxx.sb/nginx/](https://debian-repo.xxx.sb/nginx/)
 
-# Mirror our repo
+# Mirror Our Repo
 
 ```
 rsync rsync://mirrors.xtom.com/repo/sb/
