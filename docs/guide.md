@@ -2,7 +2,7 @@
 
 ## What is it?
 
-sb-nginx is a customized packaged version of famous [Nginx](https://nginx.org/) web server.
+`nginx.io` is a customized packaged version of famous [Nginx](https://nginx.org/) web server.
 
 ## Why do we make it?
 
@@ -10,7 +10,7 @@ Official Debian and Ubuntu releases are usually based on Nginx stable branch. Wh
 
 To enjoy the latest feature, you would normally have to compile and maintain the software by yourself. Now you don't have to do that any more, as we are providing and maintaining it for you. Simply include our repository in your source and enjoy the convenient rolling updates provided by our specialist.
 
-If you have heard about TLS 1.3, you would know that it comes with great improvement on performance and web security. Unfortunately most distributions are not ready for TLS 1.3, which means you may have to keep using the old protocol. We understand your concern, and that's why we packed OpenSSL 1.1.1 into our nginx as standard. Now TLS 1.3 is available to all of you regardless of what your distribution supports.
+If you have heard about TLS 1.3, you would know that it comes with great improvement on performance and web security. Unfortunately most distributions are not ready for TLS 1.3, which means you may have to keep using the old protocol. We understand your concern, and that's why we packed OpenSSL 3.0.x into our nginx as standard. Now TLS 1.3 is available to all of you regardless of what your distribution supports.
 
 On top of all those, we also include some extra modules that we think are handy to use.
 
@@ -35,7 +35,7 @@ Everything from Debian / Ubuntu official builds are included, with the following
 * [ngx_http_geoip2_module](https://github.com/leev/ngx_http_geoip2_module)
 * [ngx_http_ipdb_module](https://github.com/vislee/ngx_http_ipdb_module)
 
-Statically built with OpenSSL 3.0.1, so you can use TLS 1.3 even on distributions that don't have OpenSSL .
+Statically built with OpenSSL 3.0.x, so you can use TLS 1.3 even on distributions that don't have OpenSSL .
 
 Version info:
 
@@ -61,3 +61,9 @@ Nginx.io is distributed under the 2-clause BSD-like license.
 ## Changelog
 
 [View changelogs](changelog.md)
+
+## Contact
+
+```
+hello at nginx dot io
+```
