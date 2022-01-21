@@ -22,6 +22,6 @@ A nginx Debian / Ubuntu repository inspired by `nginx-team/nginx`, fully compati
 :::
 
 ::: slot footer
-Released under the 2-Clause BSD License.<br>
-Copyright © 2019 - 2022 Nginx.io
+Released under the 2-Clause BSD License.<br />
+Copyright © 2019 - 2022 [Nginx.io](https://nginx.io)
 :::
