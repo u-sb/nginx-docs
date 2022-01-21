@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "vuepress-plugin-matomo": "^1.0.2",
-    "vuepress-theme-default-prefers-color-scheme": "^2.0.0"
+    "vuepress-theme-default-prefers-color-scheme": "^2.0.0",
+    "vuepress-theme-vt": "^0.2.4"
   }
 }

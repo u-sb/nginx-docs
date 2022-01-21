@@ -1,6 +1,6 @@
 module.exports = {
     title: 'Nginx.io',
-    theme: 'default-prefers-color-scheme',
+    theme: 'vt',
     themeConfig: {
       repo: "nginx-io/nginx-io-docs",
       docsDir: "docs",
@@ -15,7 +15,8 @@ module.exports = {
         { text: 'Sponsor', link: 'https://xtom.com/' },
       ],
       sidebar: 'auto',
-      search: false
+      search: false,
+      enableDarkMode: true
     },
     head: [
       ['link', { rel: 'icon', href: '/favicon.ico' }],
