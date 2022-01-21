@@ -30,6 +30,10 @@ USTC [https://mirrors.ustc.edu.cn/.private/sb/nginx/](https://mirrors.ustc.edu.c
 
 NJU [https://mirror.nju.edu.cn/sb/nginx/](https://mirror.nju.edu.cn/sb/nginx/)
 
+TUNA [https://mirrors.tuna.tsinghua.edu.cn/nginx.io/](https://mirrors.tuna.tsinghua.edu.cn/nginx.io/)
+
+BFSU [https://mirrors.bfsu.edu.cn/nginx.io/](https://mirrors.bfsu.edu.cn/nginx.io/)
+
 ## Japan
 
 xTom JP [https://mirrors.xtom.jp/sb/nginx/](https://mirrors.xtom.jp/sb/nginx/)

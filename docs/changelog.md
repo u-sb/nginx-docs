@@ -4,6 +4,10 @@ sidebar: false
 
 # Changelog
 
+Jan 21, 2022
+
+- Add TUNA, BFSU, NJU mirrors in China Mainland
+
 Jan 17, 2022
 
 - Upgrade Nginx to 1.21.5
