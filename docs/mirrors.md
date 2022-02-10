@@ -38,6 +38,11 @@ BFSU [https://mirrors.bfsu.edu.cn/nginx.io/](https://mirrors.bfsu.edu.cn/nginx.i
 
 xTom JP [https://mirrors.xtom.jp/sb/nginx/](https://mirrors.xtom.jp/sb/nginx/)
 
+## India
+
+cdnweb IN [http://nginx-io.mirror.cdnweb.network/nginx/](http://nginx-io.mirror.cdnweb.network/nginx/)
+
+
 ## Testing Repo
 
 [https://debian-repo.xxx.sb/nginx/](https://debian-repo.xxx.sb/nginx/)
