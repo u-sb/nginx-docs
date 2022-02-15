@@ -49,6 +49,6 @@ cdnweb IN [http://nginx-io.mirror.cdnweb.network/nginx/](http://nginx-io.mirror.
 
 # Mirror Our Repo
 
-```
+```bash
 rsync rsync://mirrors.xtom.com/repo/sb/
 ```
