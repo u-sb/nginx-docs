@@ -15,7 +15,7 @@ We support LTS and current releases of Debian and Ubuntu, as well as releases th
 
 ``` sh
 apt install -y lsb-release ca-certificates wget gnupg
-wget -O /usr/share/keyrings/nginx.u.sb.asc https://u.sb/nginx.key
+wget -O /usr/share/keyrings/nginx.u.sb.asc https://nginx.u.sb/public.key
 echo "deb [signed-by=/usr/share/keyrings/nginx.u.sb.asc] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/nginx.u.sb.list
 apt update
 apt install -y nginx-extras

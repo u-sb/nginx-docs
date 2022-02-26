@@ -3,7 +3,7 @@ home: true
 title: Home
 heroImage: /apple-touch-icon.png
 heroText: Nginx by U.SB
-tagline: A nginx Debian / Ubuntu repository
+tagline: Open-source nginx Debian / Ubuntu repository
 actions:
   - text: Getting Started
     link: /guide.html
@@ -31,7 +31,7 @@ footer: MIT Licensed | Copyright © 2019 - 2022 SB Blog
 apt install wget gnupg apt-transport-https lsb-release ca-certificates -y
 
 # Download PGP Key
-wget -O /usr/share/keyrings/nginx.u.sb.asc https://u.sb/nginx.key
+wget -O /usr/share/keyrings/nginx.u.sb.asc https://nginx.u.sb/public.key
 
 # Add repo
 echo "deb [signed-by=/usr/share/keyrings/nginx.u.sb.asc] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/nginx.u.sb.list
