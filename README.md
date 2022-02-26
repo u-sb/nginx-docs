@@ -3,15 +3,13 @@
 ## Installation
 
 ```
-yarn init
-yarn add -D vuepress
-yarn add vuepress-theme-default-prefers-color-scheme
+yarn install
 ```
 
 ## Usage
 
 ```
-yarn docs:dev
+yarn dev
 ```
 
 ## License and Trademark

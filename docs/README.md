@@ -1,27 +1,71 @@
 ---
 home: true
-actionText: Getting Started
-actionLink: /guide.html
-subActionText: Install
-subActionLink: /install.html
+title: Home
+heroImage: /apple-touch-icon.png
+heroText: Nginx by U.SB
+tagline: A nginx Debian / Ubuntu repository
+actions:
+  - text: Getting Started
+    link: /guide.html
+    type: primary
+  - text: Install
+    link: /install.html
+    type: secondary
 features:
 - title: Up-to-date
   details: We release latest mainline branch from nginx official source code.
 - title: TLS 1.3
-  details: We packed OpenSSL 3.0.1 into our nginx as standard.
+  details: We packed OpenSSL 3.0.x into our nginx as standard.
 - title: Modules
   details: Brotli compression and GeoIP2.
+footer: MIT Licensed | Copyright © 2019 - 2022 SB Blog
 ---
 
-::: slot heroText
-<b class="gradient">Nginx.io</b>
-:::
+### As Easy as 1, 2, 3
 
-::: slot tagline
-A nginx Debian / Ubuntu repository inspired by `nginx-team/nginx`, fully compatible with nginx default repository.
-:::
+<CodeGroup>
+  <CodeGroupItem title="Debian / Ubuntu" active>
 
-::: slot footer
-Released under the 2-Clause BSD License.<br />
-Copyright © 2019 - 2022 [Nginx.io](https://nginx.io)
-:::
+```bash:no-line-numbers
+# Install required software
+apt install wget gnupg apt-transport-https lsb-release ca-certificates -y
+
+# Download PGP Key
+wget -O /usr/share/keyrings/nginx.u.sb.asc https://u.sb/nginx.key
+
+# Add repo
+echo "deb [signed-by=/usr/share/keyrings/nginx.u.sb.asc] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/nginx.u.sb.list
+
+# Update system
+apt update
+
+# Install Latest Nginx
+apt install nginx-extras -y
+```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="Docker">
+  
+```bash:no-line-numbers
+docker run --name nginx --net host --restart always -v $HOME/nginx-config:/usr/src/docker-nginx/conf:ro -d ghcr.io/nginx-io/nginx
+```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="Docker Compose">
+  
+```bash:no-line-numbers
+# Clone our repo
+git clone https://github.com/u-sb/nginx-docker
+
+# Change directory to nginx-docker folder
+cd nginx-docker
+
+# Run docker-compose
+docker-compose pull
+docker-compose up -d
+```
+
+  </CodeGroupItem>
+</CodeGroup>

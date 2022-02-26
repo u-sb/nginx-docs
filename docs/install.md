@@ -15,15 +15,15 @@ We support LTS and current releases of Debian and Ubuntu, as well as releases th
 
 ``` sh
 apt install -y lsb-release ca-certificates wget gnupg
-wget -O /usr/share/keyrings/nginx-io.asc https://nginx.io/public.key
-echo "deb [signed-by=/usr/share/keyrings/nginx-io.asc] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/nginx-io.list
+wget -O /usr/share/keyrings/nginx.u.sb.asc https://u.sb/nginx.key
+echo "deb [signed-by=/usr/share/keyrings/nginx.u.sb.asc] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/nginx.u.sb.list
 apt update
 apt install -y nginx-extras
 ```
 
 ## Install from Docker
 
-Check out [Docker image for nginx-io-docker](https://github.com/nginx-io/nginx-io-docker).
+Check out [Docker image for nginx-docker](https://github.com/u-sb/nginx-docker).
 
 ## Unsupported OS
 
@@ -36,9 +36,9 @@ We do not provide full and long term support for legacy OS, but you can use it a
 
 ``` sh
 apt install -y apt-transport-https lsb-release ca-certificates curl gnupg
-curl https://nginx.io/public-rsa.key | apt-key add -
-curl https://nginx.io/public.key | apt-key add -
-echo "deb https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/nginx-io.list
+curl https://u.sb/nginx-rsa.key | apt-key add -
+curl https://u.sb/nginx.key | apt-key add -
+echo "deb https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/nginx.u.sb.list
 apt update
 apt install -y nginx-extras
 ```

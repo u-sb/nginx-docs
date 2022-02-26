@@ -4,6 +4,11 @@ sidebar: false
 
 # Changelog
 
+Feb 27, 2022
+
+- Change domain and project name to `nginx.u.sb` and `nginx by u.sb`
+- Add cdnweb mirror in India
+
 Feb 16, 2022
 
 - Upgrade Nginx to 1.21.6
