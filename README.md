@@ -1,4 +1,4 @@
-# Nginx.io Docs
+# A nginx Debian / Ubuntu repository
 
 ## Installation
 
