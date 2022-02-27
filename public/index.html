@@ -11,7 +11,7 @@ script.defer = true;
 script['data-domain'] = 'nginx.u.sb';
 script.src = 'https://stat.u.sb/js/plausible.js';
 document.head.appendChild(script);</script><title>Home | Nginx by U.SB</title><meta name="description" content="A nginx Debian / Ubuntu repository">
-    <link rel="modulepreload" href="/assets/app.847e833c.js"><link rel="modulepreload" href="/assets/index.html.9f0e75a2.js"><link rel="modulepreload" href="/assets/index.html.7d25953b.js">
+    <link rel="modulepreload" href="/assets/app.62e4c27a.js"><link rel="modulepreload" href="/assets/index.html.9f0e75a2.js"><link rel="modulepreload" href="/assets/index.html.5e05a7ae.js">
     <link rel="stylesheet" href="/assets/style.281b512e.css">
   </head>
   <body>
@@ -29,7 +29,7 @@ document.head.appendChild(script);</script><title>Home | Nginx by U.SB</title><m
 <span class="line"></span>
 <span class="line"><span style="color:#768390;"># Install Latest Nginx</span></span>
 <span class="line"><span style="color:#ADBAC7;">apt install nginx-extras -y</span></span>
-<span class="line"></span></code></pre></div><!--]--></div><div class="code-group-item"><!--[--><div class="language-bash ext-sh"><pre class="shiki" style="background-color:#22272e;"><code><span class="line"><span style="color:#ADBAC7;">docker run --name nginx --net host --restart always -v $HOME/nginx-config:/usr/src/docker-nginx/conf:ro -d ghcr.io/nginx-io/nginx</span></span>
+<span class="line"></span></code></pre></div><!--]--></div><div class="code-group-item"><!--[--><div class="language-bash ext-sh"><pre class="shiki" style="background-color:#22272e;"><code><span class="line"><span style="color:#ADBAC7;">docker run --name nginx --net host --restart always -v $HOME/nginx-config:/usr/src/docker-nginx/conf:ro -d ghcr.io/u-sb/nginx</span></span>
 <span class="line"></span></code></pre></div><!--]--></div><div class="code-group-item"><!--[--><div class="language-bash ext-sh"><pre class="shiki" style="background-color:#22272e;"><code><span class="line"><span style="color:#768390;"># Clone our repo</span></span>
 <span class="line"><span style="color:#ADBAC7;">git clone https://github.com/u-sb/nginx-docker</span></span>
 <span class="line"></span>
@@ -40,6 +40,6 @@ document.head.appendChild(script);</script><title>Home | Nginx by U.SB</title><m
 <span class="line"><span style="color:#ADBAC7;">docker-compose pull</span></span>
 <span class="line"><span style="color:#ADBAC7;">docker-compose up -d</span></span>
 <span class="line"></span></code></pre></div><!--]--></div><!--]--></div><!--]--></div><!--[--><div class="footer">MIT Licensed | Copyright © 2019 - 2022 SB Blog</div><!--]--></main></div></div><!----><!--]--></div>
-    <script type="module" src="/assets/app.847e833c.js" defer></script>
+    <script type="module" src="/assets/app.62e4c27a.js" defer></script>
   </body>
 </html>

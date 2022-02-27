@@ -1,4 +1,4 @@
-import{_ as t,r as o,a as r,d as e,w as a,F as i,b as s,e as n,o as p}from"./app.847e833c.js";const d={},u=s("h3",{id:"as-easy-as-1-2-3",tabindex:"-1"},[s("a",{class:"header-anchor",href:"#as-easy-as-1-2-3","aria-hidden":"true"},"#"),n(" As Easy as 1, 2, 3")],-1),y=s("div",{class:"language-bash ext-sh"},[s("pre",{class:"shiki",style:{"background-color":"#22272e"}},[s("code",null,[s("span",{class:"line"},[s("span",{style:{color:"#768390"}},"# Install required software")]),n(`
+import{_ as t,r as o,a as r,d as e,w as a,F as p,b as s,e as n,o as i}from"./app.62e4c27a.js";const d={},u=s("h3",{id:"as-easy-as-1-2-3",tabindex:"-1"},[s("a",{class:"header-anchor",href:"#as-easy-as-1-2-3","aria-hidden":"true"},"#"),n(" As Easy as 1, 2, 3")],-1),y=s("div",{class:"language-bash ext-sh"},[s("pre",{class:"shiki",style:{"background-color":"#22272e"}},[s("code",null,[s("span",{class:"line"},[s("span",{style:{color:"#768390"}},"# Install required software")]),n(`
 `),s("span",{class:"line"},[s("span",{style:{color:"#ADBAC7"}},"apt install wget gnupg apt-transport-https lsb-release ca-certificates -y")]),n(`
 `),s("span",{class:"line"}),n(`
 `),s("span",{class:"line"},[s("span",{style:{color:"#768390"}},"# Download PGP Key")]),n(`
@@ -12,7 +12,7 @@ import{_ as t,r as o,a as r,d as e,w as a,F as i,b as s,e as n,o as p}from"./app
 `),s("span",{class:"line"}),n(`
 `),s("span",{class:"line"},[s("span",{style:{color:"#768390"}},"# Install Latest Nginx")]),n(`
 `),s("span",{class:"line"},[s("span",{style:{color:"#ADBAC7"}},"apt install nginx-extras -y")]),n(`
-`),s("span",{class:"line"})])])],-1),g=s("div",{class:"language-bash ext-sh"},[s("pre",{class:"shiki",style:{"background-color":"#22272e"}},[s("code",null,[s("span",{class:"line"},[s("span",{style:{color:"#ADBAC7"}},"docker run --name nginx --net host --restart always -v $HOME/nginx-config:/usr/src/docker-nginx/conf:ro -d ghcr.io/nginx-io/nginx")]),n(`
+`),s("span",{class:"line"})])])],-1),g=s("div",{class:"language-bash ext-sh"},[s("pre",{class:"shiki",style:{"background-color":"#22272e"}},[s("code",null,[s("span",{class:"line"},[s("span",{style:{color:"#ADBAC7"}},"docker run --name nginx --net host --restart always -v $HOME/nginx-config:/usr/src/docker-nginx/conf:ro -d ghcr.io/u-sb/nginx")]),n(`
 `),s("span",{class:"line"})])])],-1),h=s("div",{class:"language-bash ext-sh"},[s("pre",{class:"shiki",style:{"background-color":"#22272e"}},[s("code",null,[s("span",{class:"line"},[s("span",{style:{color:"#768390"}},"# Clone our repo")]),n(`
 `),s("span",{class:"line"},[s("span",{style:{color:"#ADBAC7"}},"git clone https://github.com/u-sb/nginx-docker")]),n(`
 `),s("span",{class:"line"}),n(`
@@ -22,4 +22,4 @@ import{_ as t,r as o,a as r,d as e,w as a,F as i,b as s,e as n,o as p}from"./app
 `),s("span",{class:"line"},[s("span",{style:{color:"#768390"}},"# Run docker-compose")]),n(`
 `),s("span",{class:"line"},[s("span",{style:{color:"#ADBAC7"}},"docker-compose pull")]),n(`
 `),s("span",{class:"line"},[s("span",{style:{color:"#ADBAC7"}},"docker-compose up -d")]),n(`
-`),s("span",{class:"line"})])])],-1);function x(_,A){const l=o("CodeGroupItem"),c=o("CodeGroup");return p(),r(i,null,[u,e(c,null,{default:a(()=>[e(l,{title:"Debian / Ubuntu",active:""},{default:a(()=>[y]),_:1}),e(l,{title:"Docker"},{default:a(()=>[g]),_:1}),e(l,{title:"Docker Compose"},{default:a(()=>[h]),_:1})]),_:1})],64)}var b=t(d,[["render",x]]);export{b as default};
+`),s("span",{class:"line"})])])],-1);function _(x,A){const l=o("CodeGroupItem"),c=o("CodeGroup");return i(),r(p,null,[u,e(c,null,{default:a(()=>[e(l,{title:"Debian / Ubuntu",active:""},{default:a(()=>[y]),_:1}),e(l,{title:"Docker"},{default:a(()=>[g]),_:1}),e(l,{title:"Docker Compose"},{default:a(()=>[h]),_:1})]),_:1})],64)}var C=t(d,[["render",_]]);export{C as default};

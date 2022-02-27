@@ -48,7 +48,7 @@ apt install nginx-extras -y
   <CodeGroupItem title="Docker">
   
 ```bash:no-line-numbers
-docker run --name nginx --net host --restart always -v $HOME/nginx-config:/usr/src/docker-nginx/conf:ro -d ghcr.io/nginx-io/nginx
+docker run --name nginx --net host --restart always -v $HOME/nginx-config:/usr/src/docker-nginx/conf:ro -d ghcr.io/u-sb/nginx
 ```
 
   </CodeGroupItem>
