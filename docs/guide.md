@@ -54,10 +54,6 @@ configure arguments: --with-cc-opt='-g -O2 -ffile-prefix-map=/build/nginx=. -fst
 
 [View mirrors](mirrors.md)
 
-## License
-
-Nginx.io is distributed under the 2-clause BSD-like license. 
-
 ## Changelog
 
 [View changelogs](changelog.md)
@@ -76,4 +72,4 @@ We distribute this software under the MIT license.
 
 NGINX is a trademark of F5 NETWORKS, INC. 
 
-We are not affiliated with NGINX Inc. and/or F5 NETWORKS, INC.
+This project simply distributes Nginx binaries packages and is not sponsored by or affiliated with Nginx official or F5, Inc.
