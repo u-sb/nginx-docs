@@ -12,6 +12,10 @@ yarn install
 yarn dev
 ```
 
+## Domain Change
+
+Due to some reasons, we changed our domain and project name from `nginx.io` and `nginx.u.sb` to `n.wtf`.
+
 ## License and Trademark
 
 We distribute this software under the MIT license.

@@ -4,6 +4,10 @@ sidebar: false
 
 # Changelog
 
+Mar 14, 2022
+
+- Change domain and project name to `n.wtf`
+
 Feb 27, 2022
 
 - Change domain and project name to `nginx.u.sb` and `nginx by u.sb`
