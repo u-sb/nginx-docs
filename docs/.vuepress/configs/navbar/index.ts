@@ -28,7 +28,7 @@ export const en: NavbarConfig = [
     link: '/changelog.html',
   },
   {
-    text: '烧饼博客',
+    text: 'SB Blog',
     link: 'https://u.sb/',
   },
   {

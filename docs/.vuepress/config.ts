@@ -28,8 +28,8 @@ export default defineUserConfig<MixThemeConfig>({
       },
     ],
     ['link', { rel: 'manifest', href: '/site.webmanifestt' }],
-    ['meta', { name: 'application-name', content: 'Nginx by U.SB' }],
-    ['meta', { name: 'apple-mobile-web-app-title', content: 'Nginx by U.SB' }],
+    ['meta', { name: 'application-name', content: 'n.wtf' }],
+    ['meta', { name: 'apple-mobile-web-app-title', content: 'n.wtf' }],
     [
       'meta',
       { name: 'apple-mobile-web-app-status-bar-style', content: 'black' },
@@ -44,7 +44,7 @@ export default defineUserConfig<MixThemeConfig>({
 const script = document.createElement('script');
 script.async = true;
 script.defer = true;
-script['data-domain'] = 'nginx.u.sb';
+script['data-domain'] = 'n.wtf';
 script.src = 'https://stat.u.sb/js/plausible.js';
 document.head.appendChild(script);`
 ],
@@ -53,7 +53,7 @@ document.head.appendChild(script);`
   locales: {
     '/': {
       lang: 'en-US',
-      title: 'Nginx by U.SB', // for broswer tabs
+      title: 'n.wtf', // for broswer tabs
       description: 'A nginx Debian / Ubuntu repository',
     },
   },
@@ -68,7 +68,7 @@ document.head.appendChild(script);`
   theme: 'vuepress-theme-mix',
   themeConfig: {
     logo: '/apple-touch-icon.png',
-    title: 'Nginx by U.SB', // for navbar
+    title: 'n.wtf', // for navbar
     docsRepo: 'u-sb/nginx-docs',
     docsDir: 'docs',
     editLink: true,
