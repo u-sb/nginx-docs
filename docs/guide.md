@@ -2,7 +2,7 @@
 
 ## What is it?
 
-`nginx by u.sb` is a customized packaged version of famous [Nginx](https://nginx.org/) web server.
+`n.wtf` is a customized packaged version of famous [Nginx](https://nginx.org/) web server.
 
 ## Why do we make it?
 
