@@ -34,6 +34,8 @@ TUNA [https://mirrors.tuna.tsinghua.edu.cn/u.sb/](https://mirrors.tuna.tsinghua.
 
 BFSU [https://mirrors.tuna.tsinghua.edu.cn/u.sb/](https://mirrors.bfsu.edu.cn/u.sb/)
 
+ISRC-ISCAS [https://mirror.iscas.ac.cn/sb/nginx/](https://mirror.iscas.ac.cn/sb/nginx/)
+
 ## Japan
 
 xTom JP [https://mirrors.xtom.jp/sb/nginx/](https://mirrors.xtom.jp/sb/nginx/)
