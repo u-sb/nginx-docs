@@ -8,6 +8,7 @@
 * Ubuntu 18.04 Bionic (LTS)
 * Ubuntu 20.04 Focal (LTS)
 * Ubuntu 21.10 Impish
+* Ubuntu 22.04 Jammy (LTS)
 
 We support LTS and current releases of Debian and Ubuntu, as well as releases that are going to be GA soon. Running on an ARM64 platform is currently an experimental feature, but we plan to keep supporting it in the long term.
 
@@ -16,7 +17,7 @@ We support LTS and current releases of Debian and Ubuntu, as well as releases th
 ``` sh
 apt install -y lsb-release ca-certificates wget gnupg
 wget -O /usr/share/keyrings/n.wtf.asc https://n.wtf/public.key
-echo "deb [signed-by=/usr/share/keyrings/n.wtf.asc] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.asc] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list
 apt update
 apt install -y nginx-extras
 ```

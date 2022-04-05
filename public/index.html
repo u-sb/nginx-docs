@@ -11,7 +11,7 @@ script.defer = true;
 script['data-domain'] = 'n.wtf';
 script.src = 'https://stat.u.sb/js/plausible.js';
 document.head.appendChild(script);</script><title>Home | n.wtf</title><meta name="description" content="A nginx Debian / Ubuntu repository">
-    <link rel="modulepreload" href="/assets/app.3f7ff62f.js"><link rel="modulepreload" href="/assets/index.html.3a80f5cc.js"><link rel="modulepreload" href="/assets/index.html.d292610c.js">
+    <link rel="modulepreload" href="/assets/app.27eeb25f.js"><link rel="modulepreload" href="/assets/index.html.3a80f5cc.js"><link rel="modulepreload" href="/assets/index.html.c55f0ba3.js">
     <link rel="stylesheet" href="/assets/style.281b512e.css">
   </head>
   <body>
@@ -22,7 +22,7 @@ document.head.appendChild(script);</script><title>Home | n.wtf</title><meta name
 <span class="line"><span style="color:#ADBAC7;">wget -O /usr/share/keyrings/n.wtf.asc https://n.wtf/public.key</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#768390;"># Add repo</span></span>
-<span class="line"><span style="color:#6CB6FF;">echo</span><span style="color:#ADBAC7;"> </span><span style="color:#96D0FF;">&quot;deb [signed-by=/usr/share/keyrings/n.wtf.asc] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main&quot;</span><span style="color:#ADBAC7;"> </span><span style="color:#F47067;">&gt;</span><span style="color:#ADBAC7;"> /etc/apt/sources.list.d/n.wtf.list</span></span>
+<span class="line"><span style="color:#6CB6FF;">echo</span><span style="color:#ADBAC7;"> </span><span style="color:#96D0FF;">&quot;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.asc] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main&quot;</span><span style="color:#ADBAC7;"> </span><span style="color:#F47067;">&gt;</span><span style="color:#ADBAC7;"> /etc/apt/sources.list.d/n.wtf.list</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#768390;"># Update system</span></span>
 <span class="line"><span style="color:#ADBAC7;">apt update</span></span>
@@ -40,6 +40,6 @@ document.head.appendChild(script);</script><title>Home | n.wtf</title><meta name
 <span class="line"><span style="color:#ADBAC7;">docker-compose pull</span></span>
 <span class="line"><span style="color:#ADBAC7;">docker-compose up -d</span></span>
 <span class="line"></span></code></pre></div><!--]--></div><!--]--></div><!--]--></div><!--[--><div class="footer">MIT Licensed | Copyright © 2019 - 2022 SB Blog</div><!--]--></main></div></div><!----><!--]--></div>
-    <script type="module" src="/assets/app.3f7ff62f.js" defer></script>
+    <script type="module" src="/assets/app.27eeb25f.js" defer></script>
   </body>
 </html>

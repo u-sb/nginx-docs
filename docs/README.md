@@ -34,7 +34,7 @@ apt install wget gnupg apt-transport-https lsb-release ca-certificates -y
 wget -O /usr/share/keyrings/n.wtf.asc https://n.wtf/public.key
 
 # Add repo
-echo "deb [signed-by=/usr/share/keyrings/n.wtf.asc] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.asc] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list
 
 # Update system
 apt update
