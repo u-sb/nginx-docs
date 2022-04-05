@@ -15,7 +15,7 @@ We support LTS and current releases of Debian and Ubuntu, as well as releases th
 ## Install via DEB
 
 ``` sh
-apt install -y lsb-release ca-certificates wget gnupg
+apt install -y lsb-release ca-certificates apt-transport-https wget gnupg dpkg
 wget -O /usr/share/keyrings/n.wtf.asc https://n.wtf/public.key
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.asc] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list
 apt update

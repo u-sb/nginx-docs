@@ -28,7 +28,7 @@ footer: MIT Licensed | Copyright © 2019 - 2022 SB Blog
 
 ```bash:no-line-numbers
 # Install required software
-apt install wget gnupg apt-transport-https lsb-release ca-certificates -y
+apt install -y lsb-release ca-certificates apt-transport-https wget gnupg dpkg
 
 # Download PGP Key
 wget -O /usr/share/keyrings/n.wtf.asc https://n.wtf/public.key
