@@ -31,10 +31,10 @@ footer: MIT Licensed | Copyright © 2019 - 2022 SB Blog
 apt install -y lsb-release ca-certificates apt-transport-https wget gnupg dpkg
 
 # Download PGP Key
-wget -O /usr/share/keyrings/n.wtf.asc https://n.wtf/public.key
+curl -sS https://n.wtf/public.key | gpg --dearmor > /usr/share/keyrings/n.wtf.gpg
 
 # Add repo
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.asc] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.gpg] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list
 
 # Update system
 apt update
