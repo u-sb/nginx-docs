@@ -4,6 +4,17 @@ sidebar: false
 
 # Changelog
 
+July 3, 2022
+
+- Upgrade Nginx to 1.23.0
+- Upgrade OpenSSL to 3.0.4
+- Removed cdnweb mirror in India
+- Add xTom mirror in Australia
+
+May 27, 2022
+
+- Domain `nginx.io` was [disputed](https://www.wipo.int/amc/en/domains/search/case.jsp?case_id=57148) and [transferred](https://u.sb/nginx-io/) to F5 who acquired Nginx in 2019. We [forked](https://github.com/u-sb/nginx-source) the project `nginx` and are now maintaining it under name `n.wtf`.
+
 Mar 14, 2022
 
 - Change domain and project name to `n.wtf`

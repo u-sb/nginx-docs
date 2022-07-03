@@ -40,9 +40,9 @@ ISRC-ISCAS [https://mirror.iscas.ac.cn/sb/nginx/](https://mirror.iscas.ac.cn/sb/
 
 xTom JP [https://mirrors.xtom.jp/sb/nginx/](https://mirrors.xtom.jp/sb/nginx/)
 
-## India
+## Australia
 
-cdnweb IN [http://nginx-io.mirror.cdnweb.network/nginx/](http://nginx-io.mirror.cdnweb.network/nginx/)
+xTom AU [https://mirrors.xtom.au/sb/nginx/](https://mirrors.xtom.ay/sb/nginx/)
 
 ## Testing Repo
 
