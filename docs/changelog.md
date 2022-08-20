@@ -4,7 +4,13 @@ sidebar: false
 
 # Changelog
 
-July 3, 2022
+Aug 19, 2022
+
+- Upgrade Nginx to 1.23.1
+- Upgrade OpenSSL to 1.1.1q / 3.0.5
+- Announce end of update for Jessie, Xenial, Hirsute and Impish
+
+Jul 3, 2022
 
 - Upgrade Nginx to 1.23.0
 - Upgrade OpenSSL to 3.0.4
