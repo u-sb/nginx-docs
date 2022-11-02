@@ -8,6 +8,7 @@
 * Ubuntu 18.04 Bionic (LTS) <br /><small style="color: gray;">Update through 2023-04 or later</small>
 * Ubuntu 20.04 Focal (LTS) <br /><small style="color: gray;">Update through 2025-04 or later</small>
 * Ubuntu 22.04 Jammy (LTS) <br /><small style="color: gray;">Update through 2027-04 or later</small>
+* Ubuntu 22.10 Kinetic <br /><small style="color: gray;">Update through 2023-12 or later</small>
 
 We support LTS and current releases of Debian and Ubuntu, as well as releases that are going to be GA soon. Running on an ARM64 platform is currently an experimental feature, but we plan to keep supporting it in the long term.
 
@@ -28,7 +29,7 @@ Check out [Docker image for nginx-docker](https://github.com/u-sb/nginx-docker).
 ## Unsupported OS
 
 * Debian 8 Jessie [amd64 only] <br /><small style="color: gray;">Last update 1.23.1-1nwtf+111q and no more updates</small>
-* Debian 9 Stretch [amd64 only] <br /><small style="color: gray;">Last update 1.23.1-1nwtf+305</small>
+* Debian 9 Stretch [amd64 only] <br /><small style="color: gray;">Last update 1.23.1-1nwtf+305 and no more updates</small>
 * Ubuntu 16.04 Xenial [amd64 only] <br /><small style="color: gray;">Last update 1.23.1-1nwtf+111q and no more updates</small>
 * Ubuntu 21.04 Hirsute <br /><small style="color: gray;">Last update 1.23.1-1nwtf+305 and no more updates</small>
 * Ubuntu 21.10 Impish <br /><small style="color: gray;">Last update 1.23.1-1nwtf+305 and no more updates</small>

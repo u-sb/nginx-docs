@@ -24,8 +24,8 @@ In case of an emergency security issue or a critical bug, we may include a patch
 
 ## Current Version
 
-- Nginx 1.23.1
-- OpenSSL 3.0.5
+- Nginx 1.23.2
+- OpenSSL 3.0.7
 
 ## Features
 
@@ -40,8 +40,8 @@ Statically built with OpenSSL 3.0.x, so you can use TLS 1.3 even on distribution
 Version info:
 
 ```bash:no-line-numbers{1,2}
-nginx version: nginx-n.wtf/1.23.1
-built with OpenSSL 3.0.5 5 Jul 2022
+nginx version: nginx-n.wtf/1.23.2
+built with OpenSSL 3.0.7 1 Nov 2022
 TLS SNI support enabled
 configure arguments: --with-cc-opt='-g -O2 -fdebug-prefix-map=/build/nginx=. -fstack-protector-stron
   g -Wformat -Werror=format-security -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' --with-ld-opt='-Wl,-z,re
