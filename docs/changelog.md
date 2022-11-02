@@ -6,6 +6,13 @@ sidebar: false
 
 Aug 19, 2022
 
+- Upgrade Nginx to 1.23.2
+- Upgrade OpenSSL to 3.0.7
+- Added Ubuntu 22.10 Kinetic
+- Removed Debian 9 Stretch
+
+Aug 19, 2022
+
 - Upgrade Nginx to 1.23.1
 - Upgrade OpenSSL to 1.1.1q / 3.0.5
 - Announce end of update for Jessie, Xenial, Hirsute and Impish
