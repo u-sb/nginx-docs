@@ -38,7 +38,7 @@ export default function HomePage() {
           <Link href="/intro/" className={clsx(styles.button, styles.button_primary)}>
             Getting Started
           </Link>
-          <Link href="/install/" className={styles.button}>
+          <Link href="/install/" className={clsx(styles.button, styles.button_secondary)}>
             Install
           </Link>
         </div>

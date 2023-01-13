@@ -26,12 +26,7 @@ apt install nginx-extras -y
   </Tab>
   <Tab>
 ```sh
-docker run                                            \
-  --name nginx                                        \
-  --net host                                          \
-  --restart always                                    \
-  -v $HOME/nginx-config:/usr/src/docker-nginx/conf:ro \
-  -d ghcr.io/u-sb/nginx
+docker run --name nginx --net host --restart always -v $HOME/nginx-config:/usr/src/docker-nginx/conf:ro -d ghcr.io/u-sb/nginx
 ```
   </Tab>
   <Tab>

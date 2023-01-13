@@ -52,15 +52,15 @@ configure arguments: --with-cc-opt='-g -O2 -ffile-prefix-map=/build/nginx=. -fst
 
 ## Installation
 
-[Install now or get docker image.](install.md)
+[Install now or get docker image.](/install/)
 
 ## Mirrors
 
-[View mirrors](mirrors.md)
+[View mirrors](/mirrors/)
 
 ## Changelog
 
-[View changelogs](changelog.md)
+[View changelogs](/changelog/)
 
 ## Contact
 

@@ -37,20 +37,13 @@
 .button {
   border-radius: 16px;
   font-size: 20px;
-  border-color: #ff55ff;
-  border-width: 4px;
-  border-style: solid;
+  color: #ff55ff;
   padding: 8px 22px;
   margin: 8px;
   font-weight: 500;
   transition-property: background-color, border-color;
   transition-duration: 300ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.button:hover {
-  background-color: #ff55ff;
-  color: white;
 }
 
 .button_primary {
@@ -60,7 +53,22 @@
 
 .button_primary:hover {
   background-color: #ee00ee;
-  border-color: #ee00ee;
+}
+
+.button_secondary {
+  background-color: #f1f1f1;
+}
+
+.button_secondary:hover {
+  background-color: #e5e5e5;
+}
+
+html[class~=dark] .button_secondary {
+  background-color: #2f2f2f;
+}
+
+html[class~=dark] .button_secondary:hover {
+  background-color: #3a3a3a;
 }
 
 .features {
