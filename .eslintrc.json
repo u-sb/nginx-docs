@@ -7,14 +7,6 @@
   "overrides": [
     {
       "files": [
-        "**/*.js"
-      ],
-      "extends": [
-        "sukka/node"
-      ]
-    },
-    {
-      "files": [
         "**/*.mdx"
       ],
       "extends": [

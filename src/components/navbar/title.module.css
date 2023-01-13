@@ -1,0 +1,16 @@
+.title {
+  font-weight: 800;
+}
+
+.second {
+  color: rgba(75, 85, 99);
+  font-weight: 400;
+  display: none;
+  margin-left: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .second {
+    display: inline;
+  }
+}

@@ -23,5 +23,10 @@
   },
   "changelog": {
     "title": "Changelog"
+  },
+  "docs_link": {
+    "title": "Documentation",
+    "type": "page",
+    "href": "/intro"
   }
 }

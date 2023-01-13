@@ -27,6 +27,7 @@ export default function HomePage() {
         <Image
           className={styles.logo}
           src={nwtfLogo}
+          priority
           alt="Logo"
         />
         <h1 className={styles.title}>N.WTF</h1>
@@ -37,7 +38,7 @@ export default function HomePage() {
           <Link href="/intro/" className={clsx(styles.button, styles.button_primary)}>
             Getting Started
           </Link>
-          <Link href="#" className={styles.button}>
+          <Link href="/install/" className={styles.button}>
             Install
           </Link>
         </div>

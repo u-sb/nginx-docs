@@ -1,0 +1,25 @@
+.link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-weight: 500;
+  color: rgba(75, 85, 99)
+}
+
+.link:hover {
+  color: rgba(31, 41, 55)
+}
+
+html[class~=dark] .link {
+  color: rgba(156, 163, 175);
+}
+
+html[class~=dark] .link:hover {
+  color: rgba(229, 231, 235);
+}
+
+.icon {
+  width: 12px;
+  height: 12px;
+  margin-left: 6px;
+}
