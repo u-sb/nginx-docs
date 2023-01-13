@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import nwtfLogo from '../../../public/android-chrome-512x512.png'
+import nwtfLogo from '../../../public/android-chrome-512x512.png';
 
 import styles from './index.module.css';
 import Link from 'next/link';
@@ -18,7 +18,7 @@ const features = [
     name: 'Modules',
     text: 'Brotli compression, GeoIP2 and more.'
   }
-]
+];
 
 export default function HomePage() {
   return (
@@ -45,12 +45,12 @@ export default function HomePage() {
       </header>
       <div className={styles.features}>
         {features.map(feature => (
-          <div className={styles.feature}>
+          <div key={feature.name} className={styles.feature}>
             <h2>{feature.name}</h2>
             <p>{feature.text}</p>
           </div>
         ))}
       </div>
     </>
-  )
-};
+  );
+}
