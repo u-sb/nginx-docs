@@ -18,7 +18,7 @@
   "install": {
     "title": "Installation"
   },
-  "mirror": {
+  "mirrors": {
     "title": "Mirrors"
   },
   "changelog": {
