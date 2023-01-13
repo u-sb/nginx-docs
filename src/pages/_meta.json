@@ -4,12 +4,24 @@
     "type": "page",
     "title": "Home",
     "theme": {
-      "layout": "full",
+      "layout": "default",
       "breadcrumb": false,
       "footer": true,
       "sidebar": false,
       "toc": false,
       "pagination": false
     }
+  },
+  "intro": {
+    "title": "Introduction"
+  },
+  "install": {
+    "title": "Installation"
+  },
+  "mirror": {
+    "title": "Mirrors"
+  },
+  "changelog": {
+    "title": "Changelog"
   }
 }

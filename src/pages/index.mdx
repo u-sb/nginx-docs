@@ -1,3 +1,50 @@
-# N.WTF
+import HomePage from '../components/home';
+import { Tab, Tabs } from 'nextra-theme-docs'
 
-Hello, world
+<HomePage />
+
+<Tabs items={['Debian / Ubuntu', 'Docker', 'Docker Compose']}>
+  <Tab>
+
+```sh
+# Install required software
+apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
+
+# Download PGP Key
+curl -sS https://n.wtf/public.key | gpg --dearmor > /usr/share/keyrings/n.wtf.gpg
+
+# Add repo
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.gpg] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list
+
+# Update system
+apt update
+
+# Install Latest Nginx
+apt install nginx-extras -y
+```
+
+  </Tab>
+  <Tab>
+```sh
+docker run                                            \
+  --name nginx                                        \
+  --net host                                          \
+  --restart always                                    \
+  -v $HOME/nginx-config:/usr/src/docker-nginx/conf:ro \
+  -d ghcr.io/u-sb/nginx
+```
+  </Tab>
+  <Tab>
+```sh
+# Clone our repo
+git clone https://github.com/u-sb/nginx-docker
+
+# Change directory to nginx-docker folder
+cd nginx-docker
+
+# Run docker-compose
+docker-compose pull
+docker-compose up -d
+```
+  </Tab>
+</Tabs>
