@@ -9,7 +9,7 @@ const config: DocsThemeConfig = {
   logo: (
     <NavbarTitle />
   ),
-  docsRepositoryBase: 'https://github.com/u-sb/nginx-docs/tree/main/src/pages',
+  docsRepositoryBase: 'https://github.com/u-sb/nginx-docs/tree/master/src/pages',
   i18n: [],
   project: {
     link: 'https://github.com/u-sb/nginx-docs'
