@@ -22,7 +22,7 @@ xTom EE [https://mirrors.xtom.ee/sb/nginx/](https://mirrors.xtom.ee/sb/nginx/)
 
 ## Hong Kong
 
-xTom HK [https://mirrors.xtom.com.hk/sb/nginx/](https://mirrors.xtom.com.hk/sb/nginx/)
+xTom HK [https://mirrors.xtom.hk/sb/nginx/](https://mirrors.xtom.hk/sb/nginx/)
 
 ## China Mainland
 
@@ -42,11 +42,7 @@ xTom JP [https://mirrors.xtom.jp/sb/nginx/](https://mirrors.xtom.jp/sb/nginx/)
 
 ## Australia
 
-xTom AU [https://mirrors.xtom.au/sb/nginx/](https://mirrors.xtom.ay/sb/nginx/)
-
-## Testing Repo
-
-[https://debian-repo.xxx.sb/nginx/](https://debian-repo.xxx.sb/nginx/)
+xTom AU [https://mirrors.xtom.au/sb/nginx/](https://mirrors.xtom.au/sb/nginx/)
 
 ## Mirror Our Repo
 
