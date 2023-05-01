@@ -12,11 +12,11 @@ const features = [
   },
   {
     name: 'TLS 1.3',
-    text: 'We packed OpenSSL 3.0.x into our nginx as standard.'
+    text: 'We packed OpenSSL 3.1.x into our nginx as standard.'
   },
   {
     name: 'Modules',
-    text: 'Brotli compression, GeoIP2 and more.'
+    text: 'Brotli compression, QUIC, HTTP/3, GeoIP2 and more.'
   }
 ];
 

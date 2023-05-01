@@ -4,6 +4,11 @@ title: Changelog
 
 # Changelog
 
+## May 1, 2023
+
+- Upgrade Nginx to 1.23.4
+- Add Nginx Quic
+
 ## Dec 19, 2022
 
 - Upgrade Nginx to 1.23.3
