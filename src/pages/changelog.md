@@ -4,6 +4,12 @@ title: Changelog
 
 # Changelog
 
+## June 5, 2023
+
+- Upgrade Nginx to 1.25.0
+- HTTP/3: removed `http3` parameter of `listen` directive, use `quic` instead.
+- The `ngx_http_quic_module` is merged to `ngx_http_v3_module`.
+
 ## May 1, 2023
 
 - Upgrade Nginx to 1.23.4

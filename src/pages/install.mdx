@@ -28,16 +28,6 @@ apt update
 apt install -y nginx-extras
 ```
 
-You can also try Nginx Quic beta
-
-```sh
-apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
-curl -sS https://n.wtf/public.key | gpg --dearmor > /usr/share/keyrings/n.wtf.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.gpg] https://mirror-cdn.xtom.com/sb/nginx-quic/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list
-apt update
-apt install -y nginx-extras
-```
-
 ## Install from Docker
 
 Check out [Docker image for nginx-docker](https://github.com/u-sb/nginx-docker).

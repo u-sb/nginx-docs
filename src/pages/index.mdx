@@ -3,7 +3,7 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 
 <HomePage />
 
-<Tabs items={['Debian / Ubuntu', 'Nginx Quic Beta', 'Docker', 'Docker Compose']}>
+<Tabs items={['Debian / Ubuntu', 'Docker', 'Docker Compose']}>
   <Tab>
 
 ```sh
@@ -15,26 +15,6 @@ curl -sS https://n.wtf/public.key | gpg --dearmor > /usr/share/keyrings/n.wtf.gp
 
 # Add repo
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.gpg] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list
-
-# Update system
-apt update
-
-# Install Latest Nginx
-apt install nginx-extras -y
-```
-
-  </Tab>
-  <Tab>
-
-```sh
-# Install required software
-apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
-
-# Download PGP Key
-curl -sS https://n.wtf/public.key | gpg --dearmor > /usr/share/keyrings/n.wtf.gpg
-
-# Add repo
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.gpg] https://mirror-cdn.xtom.com/sb/nginx-quic/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list
 
 # Update system
 apt update
