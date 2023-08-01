@@ -4,6 +4,10 @@ title: Changelog
 
 # Changelog
 
+## July 31, 2023
+
+- Upgrade Nginx to 1.25.1
+
 ## June 5, 2023
 
 - Upgrade Nginx to 1.25.0
