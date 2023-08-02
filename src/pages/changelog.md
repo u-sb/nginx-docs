@@ -7,6 +7,7 @@ title: Changelog
 ## July 31, 2023
 
 - Upgrade Nginx to 1.25.1
+- Feature: the `http2` directive, which enables HTTP/2 on a per-server basis; the `http2` parameter of the `listen` directive is now deprecated. If you previously used `listen ... http2`, you should now use `http2 on` instead, or you will see the following warning during configuration testing: `nginx: [warn] the "listen ... http2" directive is deprecated, use the "http2" directive instead`.
 
 ## June 5, 2023
 
