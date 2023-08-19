@@ -4,6 +4,10 @@ title: Changelog
 
 # Changelog
 
+## Aug 18, 2023
+
+- Upgrade Nginx to 1.25.2
+
 ## Aug 4, 2023
 
 - Upgrade OpenSSL to 3.1.2
