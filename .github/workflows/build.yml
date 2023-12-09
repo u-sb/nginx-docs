@@ -51,7 +51,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - host_id: REMOTE_HOST_BER
           - host_id: REMOTE_HOST_SJC
       fail-fast: false
     env:
