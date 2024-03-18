@@ -4,6 +4,10 @@ title: Changelog
 
 # Changelog
 
+## Mar 16, 2024
+
+- Upgrade Nginx to 1.25.4 and OpenSSL to 3.2.1
+
 ## Dec 10, 2023
 
 - Upgrade Nginx to 1.25.3 and OpenSSL to 3.2.0
