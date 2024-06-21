@@ -46,6 +46,10 @@ xTom JP [https://mirrors.xtom.jp/sb/nginx/](https://mirrors.xtom.jp/sb/nginx/)
 
 xTom AU [https://mirrors.xtom.au/sb/nginx/](https://mirrors.xtom.au/sb/nginx/)
 
+## Singapore
+
+xTom SG [https://mirrors.xtom.sg/sb/nginx/](https://mirrors.xtom.sg/sb/nginx/)
+
 ## Mirror Our Repo
 
 ```bash
