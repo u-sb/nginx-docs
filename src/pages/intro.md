@@ -28,7 +28,7 @@ In case of an emergency security issue or a critical bug, we may include a patch
 
 ## Current Version
 
-- Nginx 1.27.0
+- Nginx 1.27.1
 - OpenSSL 3.3.1
 
 ## Features

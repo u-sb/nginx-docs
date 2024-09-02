@@ -7,10 +7,10 @@ title: Changelog
 ## Sep 02, 2024
 
 - Upgrade Nginx to 1.27.1
-- Update ngx_http_subs_filter_module to support PCRE2
-- Update ngx_http_geoip2_module to support new Nginx API
-- Update ngx_http_ipdb_module to support new Nginx API
-- Update ngx_http_lua_module on Trixie to support PCRE2 - experimental
+- Update `ngx_http_subs_filter_module` to support PCRE2
+- Update `ngx_http_geoip2_module` to support new Nginx API
+- Update `ngx_http_ipdb_module` to support new Nginx API
+- Update `ngx_http_lua_module` on Trixie to support PCRE2 - experimental
 - Announce end of update for Lunar and Mantic
 
 ## Jun 13, 2024
