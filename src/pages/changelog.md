@@ -4,6 +4,11 @@ title: Changelog
 
 # Changelog
 
+## Sep 07, 2024
+
+- Upgrade OpenSSL to 3.3.2
+- Add Ubuntu 23.10 Oracular
+
 ## Sep 02, 2024
 
 - Upgrade Nginx to 1.27.1
