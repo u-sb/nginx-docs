@@ -32,7 +32,7 @@ NJU [https://mirror.nju.edu.cn/sb/nginx/](https://mirror.nju.edu.cn/sb/nginx/)
 
 TUNA [https://mirrors.tuna.tsinghua.edu.cn/u.sb/](https://mirrors.tuna.tsinghua.edu.cn/u.sb/)
 
-BFSU [https://mirrors.tuna.tsinghua.edu.cn/u.sb/](https://mirrors.bfsu.edu.cn/u.sb/)
+BFSU [https://mirrors.bfsu.edu.cn/u.sb/](https://mirrors.bfsu.edu.cn/u.sb/)
 
 ISRC-ISCAS [https://mirror.iscas.ac.cn/sb/nginx/](https://mirror.iscas.ac.cn/sb/nginx/)
 
