@@ -4,6 +4,10 @@ title: Changelog
 
 # Changelog
 
+## Jan 1, 2025
+
+- Upgrade Nginx to 1.27.3
+
 ## Nov 03, 2024
 
 - Upgrade Nginx to 1.27.2
