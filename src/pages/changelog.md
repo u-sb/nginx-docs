@@ -4,6 +4,11 @@ title: Changelog
 
 # Changelog
 
+## Feb 17, 2025
+
+- Upgrade Nginx to 1.27.4
+- Upgrade OpenSSL to 3.4.1
+
 ## Jan 1, 2025
 
 - Upgrade Nginx to 1.27.3
