@@ -65,9 +65,9 @@ configure arguments: --with-cc-opt='-g -O2 -ffile-prefix-map=/build/nginx=. -fst
 
 ## Contact
 
-```text
-https://u.sb/contact/
-```
+[Github Issues](https://github.com/u-sb/nginx-docs/issues) for bug reports and feature requests.
+
+For other inquiries, please contact [m.ac](https://m.ac/contact/)
 
 ## License and Trademark
 
