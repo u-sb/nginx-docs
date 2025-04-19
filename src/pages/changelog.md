@@ -4,6 +4,13 @@ title: Changelog
 
 # Changelog
 
+## Apr 19, 2025
+
+- Upgrade Nginx to 1.27.5
+- Upgrade OpenSSL to 3.5.0
+- Announce end of update for Buster and Bionic
+- Add Ubuntu 25.04 Plucky
+
 ## Feb 17, 2025
 
 - Upgrade Nginx to 1.27.4
@@ -21,7 +28,7 @@ title: Changelog
 ## Sep 07, 2024
 
 - Upgrade OpenSSL to 3.3.2
-- Add Ubuntu 23.10 Oracular
+- Add Ubuntu 24.10 Oracular
 
 ## Sep 02, 2024
 
