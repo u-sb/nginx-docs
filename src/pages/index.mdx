@@ -3,24 +3,40 @@ import { Tab, Tabs } from 'nextra-theme-docs'
 
 <HomePage />
 
-<Tabs items={['Debian / Ubuntu', 'Docker', 'Docker Compose']}>
+<Tabs items={['Debian', 'Ubuntu', 'Docker', 'Docker Compose']}>
+  <Tab>
+
+```sh
+# Install extrepo
+sudo apt update
+sudo apt install extrepo -y
+
+# Enable n.wtf repo
+sudo apt update
+sudo extrepo enable n.wtf
+
+# Install Latest Nginx
+sudo apt install nginx-extras -y
+```
+
+  </Tab>
   <Tab>
 
 ```sh
 # Install required software
-apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
+sudo apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
 
 # Download PGP Key
-curl -sS https://n.wtf/public.key | gpg --dearmor > /usr/share/keyrings/n.wtf.gpg
+curl -sSL https://n.wtf/public.key | sudo bash -c 'gpg --dearmor > /usr/share/keyrings/n.wtf.gpg'
 
 # Add repo
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.gpg] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list
+sudo bash -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.gpg] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list'
 
 # Update system
-apt update
+sudo apt update
 
 # Install Latest Nginx
-apt install nginx-extras -y
+sudo apt install nginx-extras -y
 ```
 
   </Tab>

@@ -14,7 +14,7 @@ Official Debian and Ubuntu releases are usually based on Nginx stable branch. Wh
 
 To enjoy the latest feature, you would normally have to compile and maintain the software by yourself. Now you don't have to do that any more, as we are providing and maintaining it for you. Simply include our repository in your source and enjoy the convenient rolling updates provided by our specialist.
 
-If you have heard about TLS 1.3, you would know that it comes with great improvement on performance and web security. Unfortunately most distributions are not ready for TLS 1.3, which means you may have to keep using the old protocol. We understand your concern, and that's why we packed OpenSSL 3.1.x into our nginx as standard. Now TLS 1.3 is available to all of you regardless of what your distribution supports. As a bonus, HTTP3 is also available in the packages we provide.
+If you have heard about TLS 1.3, you would know that it comes with great improvement on performance and web security. Unfortunately most distributions are not ready for TLS 1.3, which means you may have to keep using the old protocol. We understand your concern, and that's why we packed OpenSSL 3.x into our nginx as standard. Now TLS 1.3 is available to all of you regardless of what your distribution supports. As a bonus, HTTP3 is also available in the packages we provide.
 
 On top of all those, we also include some extra modules that we think are handy to use.
 
@@ -40,7 +40,7 @@ Everything from Debian / Ubuntu official builds are included, with the following
 * [ngx_http_ipdb_module](https://github.com/vislee/ngx_http_ipdb_module)
 * QUIC / HTTP3
 
-Statically built with OpenSSL 3.4.x, so you can use TLS 1.3 even on distributions that don't have OpenSSL.
+Statically built with OpenSSL 3.x, so you can use TLS 1.3 even on distributions that don't have OpenSSL.
 
 Version info:
 
@@ -65,16 +65,14 @@ configure arguments: --with-cc-opt='-g -O2 -ffile-prefix-map=/build/nginx=. -fst
 
 ## Contact
 
-[Github Issues](https://github.com/u-sb/nginx-docs/issues) for bug reports and feature requests.
-
-For other inquiries, please contact [m.ac](https://m.ac/contact/)
+[View contact methods](/contact/)
 
 ## License and Trademark
 
 We distribute this software under the MIT license.
 
-[nginx](http://nginx.org/en/) is an open-source HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server distributed under the 2-clause BSD-like license.
+[nginx](https://nginx.org/en/) is an open-source HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server distributed under the 2-clause BSD-like license.
 
-NGINX is a trademark of F5 NETWORKS, INC.
+NGINX is a trademark of [F5 NETWORKS, INC.](https://www.f5.com/)
 
 This project simply distributes Nginx binaries packages and is not sponsored by or affiliated with Nginx official or F5, Inc.

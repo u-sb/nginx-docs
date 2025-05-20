@@ -24,6 +24,9 @@
   "changelog": {
     "title": "Changelog"
   },
+  "contact": {
+    "title": "Contact"
+  },
   "docs_link": {
     "title": "Documentation",
     "type": "page",

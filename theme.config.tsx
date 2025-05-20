@@ -30,7 +30,7 @@ const config: DocsThemeConfig = {
         {' '}-{' '}
         <CurrentYear defaultYear={2023} />
         {' '}
-        <a href="https://u.sb" target="_blank" rel="noopenner external noreferrer">SB Blog</a>
+        <a href="https://m.ac/" target="_blank" rel="noopenner external">m.ac</a>
       </p>
     )
   },
