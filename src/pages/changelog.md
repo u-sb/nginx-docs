@@ -4,6 +4,14 @@ title: Changelog
 
 # Changelog
 
+## July 10, 2025
+
+- Upgrade Nginx to 1.29.0
+- Upgrade OpenSSL to 3.5.1
+- Add Ubuntu 25.10 Questing
+- Announce end of update for Focal
+- Add zstd-nginx-module
+
 ## Apr 19, 2025
 
 - Upgrade Nginx to 1.27.5

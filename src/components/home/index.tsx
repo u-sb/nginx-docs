@@ -16,7 +16,7 @@ const features = [
   },
   {
     name: 'Modules',
-    text: 'Brotli compression, QUIC, HTTP/3, GeoIP2 and more.'
+    text: 'Brotli & Zstandard compression, QUIC, HTTP/3, GeoIP2 and more.'
   }
 ];
 
