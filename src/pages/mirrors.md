@@ -38,6 +38,8 @@ ISRC-ISCAS [https://mirror.iscas.ac.cn/sb/nginx/](https://mirror.iscas.ac.cn/sb/
 
 NYIST [https://mirror.nyist.edu.cn/u.sb/](https://mirror.nyist.edu.cn/u.sb/)
 
+XJTU [https://mirrors.xjtu.edu.cn/sb/nginx/](https://mirrors.xjtu.edu.cn/sb/nginx/)
+
 ## Japan
 
 xTom JP [https://mirrors.xtom.jp/sb/nginx/](https://mirrors.xtom.jp/sb/nginx/)
