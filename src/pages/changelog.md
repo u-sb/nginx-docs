@@ -4,6 +4,12 @@ title: Changelog
 
 # Changelog
 
+## Aug 17, 2025
+
+- Upgrade Nginx to 1.29.1
+- Upgrade OpenSSL to 3.5.2
+- Add Debian 14 Forky
+
 ## July 10, 2025
 
 - Upgrade Nginx to 1.29.0
