@@ -4,6 +4,12 @@ title: Changelog
 
 # Changelog
 
+## Nov 29, 2025
+
+- Upgrade Nginx to 1.29.3
+- Upgrade OpenSSL to 3.6.0
+- Add [nginx-acme](https://github.com/nginx/nginx-acme)
+
 ## Aug 17, 2025
 
 - Upgrade Nginx to 1.29.1
