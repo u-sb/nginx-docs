@@ -24,9 +24,9 @@ main p a,
 main li a {
   position: relative;
   text-decoration: none;
-  padding: 0.1em 0.3em;
-  margin: -0.1em -0.3em;
-  border-radius: 0.25rem;
+  padding: 0 0.15em;
+  margin: 0 -0.15em;
+  border-radius: 0.2rem;
   background: linear-gradient(to right, #3b82f6 50%, transparent 50%);
   background-size: 200% 100%;
   background-position: right;
