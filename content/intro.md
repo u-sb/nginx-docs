@@ -40,7 +40,7 @@ Everything from Debian / Ubuntu official builds are included, with the following
 * [ngx_http_ipdb_module](https://github.com/vislee/ngx_http_ipdb_module)
 * [zstd-nginx-module](https://github.com/tokers/zstd-nginx-module)
 * [nginx-acme](https://github.com/nginx/nginx-acme)
-* QUIC / HTTP3
+* [QUIC / HTTP3](https://nginx.org/en/docs/quic.html)
 
 Statically built with OpenSSL 3.x, so you can use TLS 1.3 even on distributions that don't have OpenSSL.
 
