@@ -10,33 +10,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: node_modules CI Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: ${{ github.workspace }}/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/bun.lock') }}
 
       - name: Next.js CI Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: ${{ github.workspace }}/.next/cache
-          # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('src/**', 'contents/**') }}
-          # If source files changed but packages didn't, rebuild from a prior cache.
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lock') }}-${{ hashFiles('src/**', 'content/**') }}
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lock') }}-
+
       - name: Install Dependencies
-        run: npm clean-install
+        run: bun install --frozen-lockfile
 
       - name: Build Site
-        run: npm run build && npm run export
+        run: bun run build
 
       - name: Upload Build Output to Artifacts
         uses: actions/upload-artifact@v4

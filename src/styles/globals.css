@@ -1,0 +1,147 @@
+/* Global code block styles - matches homepage premium design */
+
+/* Code block container - always dark background for both themes (Dracula Soft) */
+pre:has(code),
+html:not(.dark) pre:has(code),
+html.light pre:has(code),
+:root pre:has(code) {
+  background: #0d1117 !important;
+  border: 1px solid rgba(68, 71, 90, 0.5) !important;
+  border-radius: 0.5rem !important;
+  padding: 1rem 1.25rem !important;
+  margin: 1rem 0 !important;
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+/* Inline code - light mode */
+:not(pre) > code {
+  background: rgba(236, 72, 153, 0.1) !important;
+  color: #db2777 !important;
+  padding: 0.2em 0.4em !important;
+  border-radius: 0.375rem !important;
+  font-size: 0.875em !important;
+  font-weight: 500 !important;
+}
+
+/* Inline code - dark mode */
+html.dark :not(pre) > code,
+.dark :not(pre) > code {
+  background: rgba(236, 72, 153, 0.15) !important;
+  color: #f9a8d4 !important;
+}
+
+/* Code block text - always light text on dark background */
+pre code,
+html:not(.dark) pre code,
+html.light pre code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 0.875rem !important;
+  line-height: 1.6 !important;
+  color: #e6edf3;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+/* Reset any nextra internal code padding */
+pre code > span {
+  padding: 0 !important;
+}
+
+/* Shiki/rehype-pretty-code specific overrides - preserve syntax highlighting */
+[data-rehype-pretty-code-figure] pre,
+figure pre {
+  background: #0d1117 !important;
+}
+
+[data-rehype-pretty-code-figure] code,
+figure pre code {
+  background: transparent !important;
+}
+
+/* Ensure code spans preserve their inline styles from Shiki */
+pre code span {
+  background: transparent !important;
+}
+
+/* Copy button styling */
+pre {
+  position: relative !important;
+}
+
+pre button,
+pre button[title="Copy code"],
+[data-rehype-pretty-code-figure] button,
+figure[data-rehype-pretty-code-figure] button {
+  position: absolute !important;
+  top: 0.5rem !important;
+  right: 0.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  padding: 0.25rem !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0.375rem !important;
+  color: #6b7280 !important;
+  cursor: pointer !important;
+  opacity: 0 !important;
+  transition: all 0.15s !important;
+  z-index: 10 !important;
+}
+
+pre:hover button,
+pre:hover button[title="Copy code"],
+[data-rehype-pretty-code-figure]:hover button,
+figure[data-rehype-pretty-code-figure]:hover button {
+  opacity: 1 !important;
+}
+
+pre button:hover,
+pre button[title="Copy code"]:hover,
+[data-rehype-pretty-code-figure] button:hover,
+figure[data-rehype-pretty-code-figure] button:hover {
+  background: rgba(236, 72, 153, 0.15) !important;
+  border-color: rgba(236, 72, 153, 0.3) !important;
+  color: #f472b6 !important;
+}
+
+/* Nextra code block filename tab */
+[data-rehype-pretty-code-title] {
+  background: rgba(236, 72, 153, 0.1) !important;
+  color: #f472b6 !important;
+  border-bottom: 1px solid rgba(236, 72, 153, 0.2) !important;
+  padding: 0.5rem 1.25rem !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+[data-rehype-pretty-code-title] + pre {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Line highlighting */
+pre code [data-highlighted-line] {
+  background: rgba(236, 72, 153, 0.1) !important;
+  border-left: 2px solid #ec4899 !important;
+  margin-left: -1.25rem !important;
+  padding-left: calc(1.25rem - 2px) !important;
+}
+
+/* Line numbers */
+pre code [data-line-numbers] > [data-line]::before {
+  color: #4b5563 !important;
+}
+
+/* Theme switch in navbar */
+.navbar-theme-switch {
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+}

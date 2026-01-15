@@ -1,83 +1,91 @@
 .hero {
   text-align: center;
-  padding-top: 32px;
-  padding-bottom: 32px;
+  padding-top: 4rem;
+  padding-bottom: 2rem;
 }
 
 .logo {
   max-width: 100%;
-  max-height: 100px;
+  height: 120px;
   width: auto;
   margin-left: auto;
   margin-right: auto;
 }
 
 .title {
-  font-size: 32px;
-  font-weight: 600;
-  margin-top: 16px;
-  margin-bottom: 16px;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  text-wrap: balance;
 }
 
 .description {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 400;
-  margin-top: 16px;
-  margin-bottom: 16px;
-  opacity: 50%;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: #6b7280;
+  text-wrap: pretty;
+}
+
+:global(.dark) .description {
+  color: #9ca3af;
 }
 
 .actions {
-  margin: 16px auto;
+  margin: 1.5rem auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 0.75rem;
 }
 
 .button {
-  border-radius: 16px;
-  font-size: 20px;
-  color: #ff55ff;
-  padding: 8px 22px;
-  margin: 8px;
+  border-radius: 1rem;
+  font-size: 1.125rem;
+  padding: 0.625rem 1.75rem;
   font-weight: 500;
-  transition-property: background-color, border-color;
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .button_primary {
-  background-color: #ff55ff;
+  background-color: #ec4899;
   color: white;
 }
 
 .button_primary:hover {
-  background-color: #ee00ee;
+  background-color: #db2777;
 }
 
 .button_secondary {
-  background-color: #f1f1f1;
+  background-color: #f3f4f6;
+  color: #374151;
 }
 
 .button_secondary:hover {
-  background-color: #e5e5e5;
+  background-color: #e5e7eb;
 }
 
-html[class~=dark] .button_secondary {
-  background-color: #2f2f2f;
+:global(.dark) .button_secondary {
+  background-color: #374151;
+  color: #f3f4f6;
 }
 
-html[class~=dark] .button_secondary:hover {
-  background-color: #3a3a3a;
+:global(.dark) .button_secondary:hover {
+  background-color: #4b5563;
 }
 
 .features {
-  border-top: 2px solid;
-  border-color: #eee;
-  padding-top: 32px;
-  padding-bottom: 32px;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 2rem;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
   display: grid;
-  gap: 16px;
+  gap: 3rem;
   grid-template-columns: repeat(1, 1fr);
 }
 
@@ -87,22 +95,32 @@ html[class~=dark] .button_secondary:hover {
   }
 }
 
+:global(.dark) .features {
+  border-color: #374151;
+}
+
 .feature {
-  padding-top: 16px;
-  padding-bottom: 16px;
+  text-align: center;
 }
 
 .feature h2 {
-  font-size: 24px;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 0.75rem;
+  color: #111827;
 }
 
-:global(.light) .features {
-  border-color: #eee;
+:global(.dark) .feature h2 {
+  color: #f9fafb;
 }
 
-:global(.dark) .features {
-  border-color: #333;
+.feature p {
+  font-size: 1rem;
+  color: #6b7280;
+  line-height: 1.6;
+  text-wrap: pretty;
 }
 
+:global(.dark) .feature p {
+  color: #9ca3af;
+}
