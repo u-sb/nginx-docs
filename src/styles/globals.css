@@ -16,6 +16,29 @@ code {
   font-family: var(--font-mono) !important;
 }
 
+/* ===== Link Hover Effect ===== */
+article a,
+.nextra-content a,
+main p a,
+main li a {
+  background: linear-gradient(90deg, #1a4c85, #1a4c85) 0 100% / 100% 40% no-repeat;
+  padding: 2px;
+  transition: background-size .2s;
+  position: relative;
+  overflow: hidden;
+}
+
+article a:active,
+article a:hover,
+.nextra-content a:active,
+.nextra-content a:hover,
+main p a:active,
+main p a:hover,
+main li a:active,
+main li a:hover {
+  background-size: 100% 100%;
+}
+
 
 /* Global code block styles - matches homepage premium design */
 
