@@ -12,7 +12,7 @@ sudo apt install extrepo -y
 # Enable n.wtf repo
 sudo extrepo enable n.wtf
 
-# Install Latest Nginx
+# Install the latest Nginx
 sudo apt update
 sudo apt install nginx-extras -y`,
 
