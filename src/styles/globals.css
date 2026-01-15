@@ -21,11 +21,22 @@ article a,
 .nextra-content a,
 main p a,
 main li a {
-  background: linear-gradient(90deg, #1a4c85, #1a4c85) 0 100% / 0% 100% no-repeat;
+  background: linear-gradient(90deg, #93c5fd, #93c5fd) 0 100% / 0% 100% no-repeat;
   padding: 2px;
   transition: background-size .2s;
   position: relative;
   overflow: hidden;
+}
+
+html.dark article a,
+html.dark .nextra-content a,
+html.dark main p a,
+html.dark main li a,
+.dark article a,
+.dark .nextra-content a,
+.dark main p a,
+.dark main li a {
+  background: linear-gradient(90deg, #1a4c85, #1a4c85) 0 100% / 0% 100% no-repeat;
 }
 
 article a:active,
