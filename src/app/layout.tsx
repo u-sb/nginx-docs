@@ -2,12 +2,32 @@ import { Footer, Layout, Navbar, ThemeSwitch } from 'nextra-theme-docs'
 import { Head } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import Script from 'next/script'
+import { Space_Grotesk, Space_Mono, Inter } from 'next/font/google'
 import 'nextra-theme-docs/style.css'
 import '../styles/globals.css'
 
 import NavbarTitle from '../components/navbar/title'
 import SBBlogLink from '../components/navbar/link'
 import { CurrentYear } from '../components/current-year'
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+  display: 'swap',
+})
+
+const spaceMono = Space_Mono({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  variable: '--font-space-mono',
+  display: 'swap',
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
 
 export const metadata = {
   metadataBase: new URL('https://n.wtf'),
@@ -46,7 +66,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning>
+    <html lang="en" dir="ltr" suppressHydrationWarning className={`${spaceGrotesk.variable} ${spaceMono.variable} ${inter.variable}`}>
       <Head />
       <body>
         <Layout

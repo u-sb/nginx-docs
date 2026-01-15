@@ -1,3 +1,21 @@
+/* ===== Font Configuration ===== */
+:root {
+  --font-sans: var(--font-space-grotesk), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-space-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  /* Override Nextra theme font variables */
+  --nextra-font-sans: var(--font-sans);
+  --nextra-font-mono: var(--font-mono);
+}
+
+html, body {
+  font-family: var(--font-sans) !important;
+}
+
+/* Inline code font */
+code {
+  font-family: var(--font-mono) !important;
+}
+
 /* Global code block styles - matches homepage premium design */
 
 /* Code block container - always dark background for both themes (Dracula Soft) */
@@ -36,7 +54,7 @@ html.dark :not(pre) > code,
 pre code,
 html:not(.dark) pre code,
 html.light pre code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-family: var(--font-mono) !important;
   font-size: 0.875rem !important;
   line-height: 1.6 !important;
   color: #e6edf3;
@@ -244,7 +262,7 @@ html:not(.dark) .install-card {
   font-size: 0.875rem;
   line-height: 1.6;
   color: #e6edf3;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-mono);
   margin: 0;
   background: transparent;
 }
