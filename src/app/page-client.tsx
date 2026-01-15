@@ -90,54 +90,6 @@ function CodeBlock({ code }: { code: string }) {
       <pre className="code-block">
         <code dangerouslySetInnerHTML={{ __html: highlightCode(code) }} />
       </pre>
-      <style jsx>{`
-        .code-block-wrapper {
-          position: relative;
-        }
-        .code-copy-btn {
-          position: absolute;
-          top: 1.5rem;
-          right: 1.5rem;
-          padding: 0.5rem;
-          border-radius: 0.5rem;
-          background: rgba(255, 255, 255, 0.05);
-          color: #6b7280;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          cursor: pointer;
-          opacity: 0;
-          transition: all 0.15s;
-          z-index: 10;
-        }
-        .code-block-wrapper:hover .code-copy-btn {
-          opacity: 1;
-        }
-        .code-copy-btn:hover {
-          background: rgba(236, 72, 153, 0.15);
-          border-color: rgba(236, 72, 153, 0.3);
-          color: #f472b6;
-        }
-        .code-block {
-          white-space: pre-wrap;
-          word-wrap: break-word;
-          overflow-wrap: break-word;
-          padding: 1.5rem 2rem;
-          font-size: 0.875rem;
-          line-height: 1.6;
-          color: #e6edf3;
-          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-          margin: 0;
-          background: transparent;
-        }
-        .code-block :global(.code-comment) {
-          color: #6b7280;
-        }
-        .code-block :global(.code-keyword) {
-          color: #f9a8d4;
-        }
-        .code-block :global(.code-flag) {
-          color: #93c5fd;
-        }
-      `}</style>
     </div>
   )
 }
@@ -164,58 +116,6 @@ export default function HomePageClient() {
             </Tabs.Tab>
           </Tabs>
         </div>
-        <style jsx>{`
-          .quick-install-section {
-            margin-top: 4rem;
-            margin-bottom: max(150px, 20vh);
-            text-align: center;
-          }
-          .quick-install-section h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            color: #111827;
-            letter-spacing: -0.025em;
-          }
-          :global(.dark) .quick-install-section h2 {
-            color: #f9fafb;
-          }
-          .install-card {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
-            background: #0d1117;
-            border-radius: 1rem;
-            overflow: hidden;
-            border: 1px solid rgba(236, 72, 153, 0.15);
-          }
-          :global(.light) .install-card {
-            background: #161b22;
-            border-color: rgba(236, 72, 153, 0.2);
-          }
-          .install-tabs :global([role="tablist"]) {
-            border-bottom: 1px solid rgba(236, 72, 153, 0.2);
-            padding: 0.75rem 1.5rem 0;
-            gap: 0;
-          }
-          .install-tabs :global([role="tab"]) {
-            color: #6b7280;
-            padding: 0.75rem 1.25rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.15s;
-            border-bottom: 2px solid transparent;
-            margin-bottom: -1px;
-          }
-          .install-tabs :global([role="tab"]:hover) {
-            color: #f472b6;
-          }
-          .install-tabs :global([role="tab"][data-selected="true"]),
-          .install-tabs :global([role="tab"][aria-selected="true"]) {
-            color: #ec4899;
-            border-bottom-color: #ec4899;
-          }
-        `}</style>
       </section>
     </main>
   )
