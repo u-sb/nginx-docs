@@ -4,6 +4,11 @@ title: Changelog
 
 # Changelog
 
+## Jan 16, 2026
+
+- Upgrade Nginx to 1.29.4
+- Debian 13 Trixie onwards are compiled with PCRE2 and a later version of `http_lua` module.
+
 ## Nov 29, 2025
 
 - Upgrade Nginx to 1.29.3
