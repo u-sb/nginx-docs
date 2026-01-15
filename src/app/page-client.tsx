@@ -16,10 +16,10 @@ sudo extrepo enable n.wtf
 sudo apt update
 sudo apt install nginx-extras -y`,
 
-  ubuntu: `# Install required software
+  oneline: `# Install required software
 sudo apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
 
-# Download PGP Key
+# Download and import GPG Key
 curl -sSL https://n.wtf/public.key | sudo bash -c 'gpg --dearmor > /usr/share/keyrings/n.wtf.gpg'
 
 # Add repo
@@ -28,7 +28,29 @@ sudo bash -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/
 # Update system
 sudo apt update
 
-# Install Latest Nginx
+# Install the latest Nginx
+sudo apt install nginx-extras -y`,
+
+  deb822: `# Install required software
+sudo apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
+
+# Download and import GPG Key
+curl -sSL https://n.wtf/public.key | sudo bash -c 'gpg --dearmor > /usr/share/keyrings/n.wtf.gpg'
+
+# Add repo
+sudo bash -c 'cat > /etc/apt/sources.list.d/n.wtf.sources << EOF
+Components: main
+Architectures: $(dpkg --print-architecture)
+Suites: $(lsb_release -cs)
+Types: deb
+URIs: https://mirror-cdn.xtom.com/sb/nginx/
+Signed-By: /usr/share/keyrings/n.wtf.gpg
+EOF'
+
+# Update system
+sudo apt update
+
+# Install the latest Nginx
 sudo apt install nginx-extras -y`,
 
   docker: `docker run --name nginx --net host --restart always \\
@@ -101,12 +123,15 @@ export default function HomePageClient() {
       <section className="quick-install-section">
         <h2>Quick Install</h2>
         <div className="install-card install-tabs">
-          <Tabs items={['Debian', 'Ubuntu', 'Docker', 'Docker Compose']}>
+          <Tabs items={['Debian', 'Debian / Ubuntu One-Line', 'Debian / Ubuntu DEB822', 'Docker', 'Docker Compose']}>
             <Tabs.Tab>
               <CodeBlock code={codeBlocks.debian} />
             </Tabs.Tab>
             <Tabs.Tab>
-              <CodeBlock code={codeBlocks.ubuntu} />
+              <CodeBlock code={codeBlocks.oneline} />
+            </Tabs.Tab>
+            <Tabs.Tab>
+              <CodeBlock code={codeBlocks.deb822} />
             </Tabs.Tab>
             <Tabs.Tab>
               <CodeBlock code={codeBlocks.docker} />

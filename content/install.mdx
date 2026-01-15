@@ -25,12 +25,35 @@ Debian 13 Trixie onwards are compiled with PCRE2 and a later version of http_lua
 
 ## Install via DEB
 
+One-Line Style:
+
 ```bash
 sudo apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
 
 curl -sSL https://n.wtf/public.key | sudo bash -c 'gpg --dearmor > /usr/share/keyrings/n.wtf.gpg'
 
 sudo bash -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.gpg] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list'
+
+sudo apt update
+
+sudo apt install nginx-extras -y
+```
+
+DEB822:
+
+```bash
+sudo apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
+
+curl -sSL https://n.wtf/public.key | sudo bash -c 'gpg --dearmor > /usr/share/keyrings/n.wtf.gpg'
+
+sudo bash -c 'cat > /etc/apt/sources.list.d/docker-ce.sources << EOF
+Components: main
+Architectures: $(dpkg --print-architecture)
+Suites: $(lsb_release -cs)
+Types: deb
+Uris: https://mirror-cdn.xtom.com/sb/nginx/
+Signed-By: /usr/share/keyrings/n.wtf.gpg
+EOF'
 
 sudo apt update
 
@@ -54,10 +77,15 @@ Release that is tagged as <SecondaryText>this is the final update</SecondaryText
 
 ``` sh
 apt install -y apt-transport-https lsb-release ca-certificates curl gnupg
+
 curl https://n.wtf/public-rsa.key | apt-key add -
+
 curl https://n.wtf/public.key | apt-key add -
+
 echo "deb https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list
+
 apt update
+
 apt install -y nginx-extras
 ```
 
