@@ -36,7 +36,7 @@ html.dark main li a,
 .dark .nextra-content a,
 .dark main p a,
 .dark main li a {
-  background: linear-gradient(90deg, #9d174d, #9d174d) 0 100% / 0% 100% no-repeat;
+  background: linear-gradient(90deg, #ec4899, #ec4899) 0 100% / 0% 100% no-repeat;
 }
 
 article a:active,
