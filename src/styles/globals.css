@@ -16,30 +16,6 @@ code {
   font-family: var(--font-mono) !important;
 }
 
-/* ===== Link Hover Effect ===== */
-/* Apply to content links only */
-article a,
-.nextra-content a,
-main p a,
-main li a {
-  position: relative;
-  text-decoration: none;
-  padding: 0 0.15em;
-  margin: 0 -0.15em;
-  border-radius: 0.2rem;
-  background: linear-gradient(to right, #3b82f6 50%, transparent 50%);
-  background-size: 200% 100%;
-  background-position: right;
-  transition: background-position 0.3s ease, color 0.3s ease;
-}
-
-article a:hover,
-.nextra-content a:hover,
-main p a:hover,
-main li a:hover {
-  background-position: left;
-  color: #fff !important;
-}
 
 /* Global code block styles - matches homepage premium design */
 
