@@ -408,3 +408,94 @@ html:not(.dark) .install-card {
     justify-content: flex-start;
   }
 }
+
+/* ===== Terminal Style Code Blocks (Documentation Pages) ===== */
+.terminal-wrapper {
+  margin: 1rem 0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #0d1117;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: #0d1117;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 0.5rem;
+  margin-right: 1rem;
+}
+
+.terminal-dots .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminal-dots .dot-red {
+  background: #ff5f56;
+}
+
+.terminal-dots .dot-yellow {
+  background: #ffbd2e;
+}
+
+.terminal-dots .dot-green {
+  background: #27c93f;
+}
+
+.terminal-filename {
+  flex: 1;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #8b949e;
+  font-family: var(--font-sans);
+}
+
+.terminal-copy-btn {
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  background: transparent;
+  color: #8b949e;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-family: var(--font-sans);
+}
+
+.terminal-copy-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f0f6fc;
+}
+
+/* Override Nextra pre styles inside terminal wrapper */
+.terminal-wrapper pre,
+.terminal-wrapper pre:has(code),
+.terminal-wrapper figure pre,
+.terminal-wrapper [data-rehype-pretty-code-figure] pre {
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: #0d1117 !important;
+  padding: 1.25rem 1.5rem !important;
+  box-shadow: none !important;
+}
+
+.terminal-wrapper pre code,
+.terminal-wrapper figure pre code {
+  background: transparent !important;
+}
+
+/* Hide Nextra default buttons inside terminal wrapper */
+.terminal-wrapper pre button,
+.terminal-wrapper [data-rehype-pretty-code-figure] button,
+.terminal-wrapper figure button {
+  display: none !important;
+}
