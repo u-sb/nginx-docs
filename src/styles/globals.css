@@ -192,12 +192,12 @@ pre code [data-line-numbers] > [data-line]::before {
   background: #0d1117;
   border-radius: 1rem;
   overflow: hidden;
-  border: 1px solid rgba(236, 72, 153, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
 html:not(.dark) .install-card {
   background: #0d1117;
-  border-color: rgba(236, 72, 153, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
 .install-tabs [role="tablist"] {
@@ -229,44 +229,82 @@ html:not(.dark) .install-card {
 /* Homepage code block wrapper */
 .code-block-wrapper {
   position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+/* Code block header bar */
+.code-block-header {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: #161b22;
+  border-bottom: 1px solid rgba(68, 71, 90, 0.5);
+}
+
+.code-block-dots {
+  display: flex;
+  gap: 0.5rem;
+  margin-right: 1rem;
+}
+
+.code-block-dots .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.code-block-dots .dot-red {
+  background: #ff5f56;
+}
+
+.code-block-dots .dot-yellow {
+  background: #ffbd2e;
+}
+
+.code-block-dots .dot-green {
+  background: #27c93f;
+}
+
+.code-block-filename {
+  flex: 1;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #8b949e;
+  font-family: var(--font-sans);
 }
 
 .code-block-wrapper .code-copy-btn {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  color: #6b7280;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  background: transparent;
+  color: #8b949e;
+  border: none;
   cursor: pointer;
-  opacity: 0;
   transition: all 0.15s;
-  z-index: 10;
-}
-
-.code-block-wrapper:hover .code-copy-btn {
-  opacity: 1;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-family: var(--font-sans);
 }
 
 .code-block-wrapper .code-copy-btn:hover {
-  background: rgba(236, 72, 153, 0.15);
-  border-color: rgba(236, 72, 153, 0.3);
-  color: #f472b6;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f0f6fc;
 }
 
 .code-block-wrapper .code-block {
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  padding: 1.5rem 2rem;
+  padding: 1.25rem 1.5rem;
   font-size: 0.875rem;
-  line-height: 1.6;
+  line-height: 1.7;
   color: #e6edf3;
   font-family: var(--font-mono);
   margin: 0;
   background: transparent;
+  border: none !important;
+  border-radius: 0 !important;
 }
 
 .code-block-wrapper .code-comment {
@@ -279,4 +317,94 @@ html:not(.dark) .install-card {
 
 .code-block-wrapper .code-flag {
   color: #93c5fd;
+}
+
+/* Install methods card grid */
+.install-methods-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.install-method-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1.25rem 0.625rem 0.625rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-sans);
+}
+
+.dark .install-method-card {
+  background: #1f2937;
+  border-color: #374151;
+}
+
+.install-method-card:hover {
+  border-color: #ec4899;
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.1);
+}
+
+.install-method-card.active {
+  border-color: #ec4899;
+  background: rgba(236, 72, 153, 0.05);
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.15);
+}
+
+.dark .install-method-card.active {
+  background: rgba(236, 72, 153, 0.1);
+}
+
+.install-method-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #f3f4f6;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+
+.dark .install-method-icon {
+  background: #374151;
+}
+
+.install-method-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.install-method-label {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #111827;
+  white-space: nowrap;
+}
+
+.dark .install-method-label {
+  color: #f9fafb;
+}
+
+/* Responsive: stack cards on small screens */
+@media (max-width: 640px) {
+  .install-methods-grid {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .install-method-card {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }

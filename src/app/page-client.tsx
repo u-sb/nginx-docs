@@ -1,10 +1,20 @@
 'use client'
 
 import HomePage from '../components/home'
-import { Tabs } from 'nextra/components'
 import { useState } from 'react'
+import Image from 'next/image'
 
-const codeBlocks = {
+type InstallMethod = 'debian' | 'oneline' | 'deb822' | 'docker' | 'compose'
+
+const installMethods = [
+  { id: 'debian' as const, label: 'Debian', icon: '/debian.svg' },
+  { id: 'oneline' as const, label: 'One-Line', icon: '/ubuntu.svg' },
+  { id: 'deb822' as const, label: 'DEB822', icon: '/ubuntu.svg' },
+  { id: 'docker' as const, label: 'Docker', icon: '/docker.svg' },
+  { id: 'compose' as const, label: 'Compose', icon: '/docker.svg' },
+]
+
+const codeBlocks: Record<InstallMethod, string> = {
   debian: `# Install extrepo
 sudo apt update
 sudo apt install extrepo -y
@@ -82,7 +92,7 @@ function highlightCode(code: string) {
     .join('\n')
 }
 
-function CodeBlock({ code }: { code: string }) {
+function CodeBlock({ code, filename }: { code: string; filename?: string }) {
   const [copied, setCopied] = useState(false)
 
   const handleCopy = async () => {
@@ -93,22 +103,21 @@ function CodeBlock({ code }: { code: string }) {
 
   return (
     <div className="code-block-wrapper">
-      <button
-        onClick={handleCopy}
-        className="code-copy-btn"
-        aria-label="Copy code"
-      >
-        {copied ? (
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-        ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-          </svg>
-        )}
-      </button>
+      <div className="code-block-header">
+        <div className="code-block-dots">
+          <span className="dot dot-red"></span>
+          <span className="dot dot-yellow"></span>
+          <span className="dot dot-green"></span>
+        </div>
+        <span className="code-block-filename">{filename || 'terminal'}</span>
+        <button
+          onClick={handleCopy}
+          className="code-copy-btn"
+          aria-label="Copy code"
+        >
+          {copied ? 'Copied!' : 'Copy'}
+        </button>
+      </div>
       <pre className="code-block">
         <code dangerouslySetInnerHTML={{ __html: highlightCode(code) }} />
       </pre>
@@ -117,29 +126,34 @@ function CodeBlock({ code }: { code: string }) {
 }
 
 export default function HomePageClient() {
+  const [selected, setSelected] = useState<InstallMethod>('debian')
+
   return (
     <main className="x:mx-auto x:max-w-(--nextra-content-width) x:px-6">
       <HomePage />
       <section className="quick-install-section">
         <h2>Quick Install</h2>
-        <div className="install-card install-tabs">
-          <Tabs items={['Debian', 'Debian / Ubuntu One-Line', 'Debian / Ubuntu DEB822', 'Docker', 'Docker Compose']}>
-            <Tabs.Tab>
-              <CodeBlock code={codeBlocks.debian} />
-            </Tabs.Tab>
-            <Tabs.Tab>
-              <CodeBlock code={codeBlocks.oneline} />
-            </Tabs.Tab>
-            <Tabs.Tab>
-              <CodeBlock code={codeBlocks.deb822} />
-            </Tabs.Tab>
-            <Tabs.Tab>
-              <CodeBlock code={codeBlocks.docker} />
-            </Tabs.Tab>
-            <Tabs.Tab>
-              <CodeBlock code={codeBlocks.compose} />
-            </Tabs.Tab>
-          </Tabs>
+        <div className="install-methods-grid">
+          {installMethods.map((method) => (
+            <button
+              key={method.id}
+              onClick={() => setSelected(method.id)}
+              className={`install-method-card ${selected === method.id ? 'active' : ''}`}
+            >
+              <span className="install-method-icon">
+                <Image
+                  src={method.icon}
+                  alt={method.label}
+                  width={24}
+                  height={24}
+                />
+              </span>
+              <span className="install-method-label">{method.label}</span>
+            </button>
+          ))}
+        </div>
+        <div className="install-card">
+          <CodeBlock code={codeBlocks[selected]} />
         </div>
       </section>
     </main>
