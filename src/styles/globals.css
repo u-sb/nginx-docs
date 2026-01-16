@@ -479,18 +479,42 @@ html:not(.dark) .install-card {
 .terminal-wrapper pre,
 .terminal-wrapper pre:has(code),
 .terminal-wrapper figure pre,
-.terminal-wrapper [data-rehype-pretty-code-figure] pre {
+.terminal-wrapper [data-rehype-pretty-code-figure] pre,
+html:not(.dark) .terminal-wrapper pre,
+html:not(.dark) .terminal-wrapper pre:has(code),
+html.light .terminal-wrapper pre {
   margin: 0 !important;
   border: none !important;
   border-radius: 0 !important;
   background: #0d1117 !important;
   padding: 1.25rem 1.5rem !important;
   box-shadow: none !important;
+  outline: none !important;
 }
 
 .terminal-wrapper pre code,
 .terminal-wrapper figure pre code {
   background: transparent !important;
+}
+
+/* Ensure terminal wrapper itself has no extra borders in light mode */
+html:not(.dark) .terminal-wrapper,
+html.light .terminal-wrapper {
+  border: none !important;
+  outline: none !important;
+}
+
+/* Remove any figure/wrapper borders */
+.terminal-wrapper figure,
+.terminal-wrapper [data-rehype-pretty-code-figure] {
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.terminal-wrapper > div {
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* Hide Nextra default buttons inside terminal wrapper */
