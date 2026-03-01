@@ -35,7 +35,7 @@ DEB822:
 ```bash
 sudo apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
 curl -sSL https://n.wtf/public.key | sudo bash -c 'gpg --dearmor > /usr/share/keyrings/n.wtf.gpg'
-sudo bash -c 'cat > /etc/apt/sources.list.d/docker-ce.sources << EOF
+sudo bash -c 'cat > /etc/apt/sources.list.d/n.wtf.sources << EOF
 Components: main
 Architectures: $(dpkg --print-architecture)
 Suites: $(lsb_release -cs)
