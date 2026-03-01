@@ -4,6 +4,11 @@ title: Changelog
 
 # Changelog
 
+## Mar 1, 2026
+
+- Upgrade Nginx to 1.29.5
+- Upgrade OpenSSL to 3.6.1
+
 ## Jan 16, 2026
 
 - Upgrade Nginx to 1.29.4
