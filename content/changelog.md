@@ -4,6 +4,10 @@ title: Changelog
 
 # Changelog
 
+## Mar 20, 2026
+
+- Upgrade Nginx to 1.29.6
+
 ## Mar 1, 2026
 
 - Upgrade Nginx to 1.29.5
