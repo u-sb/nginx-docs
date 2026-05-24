@@ -28,7 +28,7 @@ In case of an emergency security issue or a critical bug, we may include a patch
 
 ## Current Version
 
-- Nginx `1.29.8`
+- Nginx `1.31.1`
 - OpenSSL `3.6.2`
 
 ## Features
@@ -47,7 +47,7 @@ Statically built with OpenSSL 3.x, so you can use TLS 1.3 even on distributions 
 Version info:
 
 ```bash
-nginx version: nginx-n.wtf/1.29.8
+nginx version: nginx-n.wtf/1.31.1
 built by gcc 14.2.0 (Debian 14.2.0-19) 
 built with OpenSSL 3.6.2 7 Apr 2026
 TLS SNI support enabled
