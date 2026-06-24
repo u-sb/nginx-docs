@@ -62,7 +62,7 @@ See [nginx-docker](https://github.com/u-sb/nginx-docker) for Docker Compose setu
 | Distribution | Versions |
 |--------------|----------|
 | Debian | 11 (Bullseye), 12 (Bookworm), 13 (Trixie), 14 (Forky) |
-| Ubuntu | 22.04 (Jammy), 24.04 (Noble), 25.04 (Plucky), 25.10 (Questing) |
+| Ubuntu | 22.04 (Jammy), 24.04 (Noble), 26.04 (Resolute) |
 
 ## Included Modules
 
