@@ -4,6 +4,11 @@ title: Changelog
 
 # Changelog
 
+## Jun 20
+
+- Upgrade Nginx to 1.31.2
+- Upgrade OpenSSL to 4.0.1
+
 ## May 24, 2026
 
 - Upgrade Nginx to 1.31.1
