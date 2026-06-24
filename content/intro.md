@@ -14,7 +14,7 @@ Official Debian and Ubuntu releases are usually based on Nginx stable branch. Wh
 
 To enjoy the latest feature, you would normally have to compile and maintain the software by yourself. Now you don't have to do that any more, as we are providing and maintaining it for you. Simply include our repository in your source and enjoy the convenient rolling updates provided by our specialist.
 
-If you have heard about TLS 1.3, you would know that it comes with great improvement on performance and web security. Unfortunately most distributions are not ready for TLS 1.3, which means you may have to keep using the old protocol. We understand your concern, and that's why we packed OpenSSL 3.x into our nginx as standard. Now TLS 1.3 is available to all of you regardless of what your distribution supports. As a bonus, HTTP3 is also available in the packages we provide.
+If you have heard about TLS 1.3, you would know that it comes with great improvement on performance and web security. Unfortunately most distributions are not ready for TLS 1.3, which means you may have to keep using the old protocol. We understand your concern, and that's why we packed OpenSSL 4 into our nginx as standard. Now TLS 1.3 is available to all of you regardless of what your distribution supports. As a bonus, HTTP3 is also available in the packages we provide.
 
 On top of all those, we also include some extra modules that we think are handy to use.
 
@@ -22,7 +22,7 @@ On top of all those, we also include some extra modules that we think are handy 
 
 We utilize the [official debian packaging scripts](https://salsa.debian.org/nginx-team/nginx) while pulling the latest mainline branch from [Nginx official](http://nginx.org/en/download.html). You get the same experience as Debian / Ubuntu official nginx packages, except that you'll get the latest release.
 
-We use docker script to create packages in a controlled Linux environment. We compile and maintain packages for each distribution we support to ensure ABI and API compatibility. We always pull the latest OpenSSL 3.x releases before packaging to ensure known bug fixes are properly included.
+We use docker script to create packages in a controlled Linux environment. We compile and maintain packages for each distribution we support to ensure ABI and API compatibility. We always pull the latest OpenSSL 4 releases before packaging to ensure known bug fixes are properly included.
 
 In case of an emergency security issue or a critical bug, we may include a patch from an unreleased version into current version and release beforehand.
 
@@ -42,7 +42,7 @@ Everything from Debian / Ubuntu official builds are included, with the following
 * [nginx-acme](https://github.com/nginx/nginx-acme)
 * [QUIC / HTTP3](https://nginx.org/en/docs/quic.html)
 
-Statically built with OpenSSL 3.x, so you can use TLS 1.3 even on distributions that don't have OpenSSL.
+Statically built with OpenSSL 4, so you can use TLS 1.3 even on distributions that don't have OpenSSL.
 
 Version info:
 
