@@ -15,7 +15,7 @@ Three vulnerabilities are fixed, all in the worker process:
 - [CVE-2026-60005](https://nvd.nist.gov/vuln/detail/CVE-2026-60005): uninitialized memory access with unnamed regex captures combined with the `slice` directive or background cache updates. Upstream says it can disclose worker memory or crash the worker.
 - [CVE-2026-56434](https://nvd.nist.gov/vuln/detail/CVE-2026-56434): a use-after-free in the SSI filter when processing a crafted proxied backend response.
 
-If your config uses `map` with regex captures, `slice`, proxy caching, or SSI, treat the upgrade as urgent. Everyone else should still not wait; the full details are public in the [upstream release notes](https://github.com/nginx/nginx/releases/tag/release-1.31.3).
+If your config uses `map` with regex captures, `slice`, proxy caching, or SSI, treat the upgrade as urgent. Everyone else should not wait either; the full details are public in the [upstream release notes](https://github.com/nginx/nginx/releases/tag/release-1.31.3).
 
 ## Also in this release
 
