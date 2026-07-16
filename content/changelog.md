@@ -4,7 +4,12 @@ title: Changelog
 
 # Changelog
 
-## Jun 20
+## Jul 17, 2026
+
+- Upgrade Nginx to 1.31.3
+- Upgrade nginx-acme to 0.4.1
+
+## Jun 20, 2026
 
 - Upgrade Nginx to 1.31.2
 - Upgrade OpenSSL to 4.0.1
@@ -47,7 +52,7 @@ title: Changelog
 - Upgrade OpenSSL to 3.5.2
 - Add Debian 14 Forky
 
-## July 10, 2025
+## Jul 10, 2025
 
 - Upgrade Nginx to 1.29.0
 - Upgrade OpenSSL to 3.5.1
@@ -180,17 +185,17 @@ title: Changelog
 
 - Upgrade Nginx to 1.21.4
 
-## September 15, 2021
+## Sep 15, 2021
 
 - Upgrade Nginx to 1.21.3
 - Upgrade OpenSSL to 3.0.0
 
-## August 31, 2021
+## Aug 31, 2021
 
 - Upgrade Nginx to 1.21.2
 - Upgrade OpenSSL to 1.1.1l
 
-## July 17, 2021
+## Jul 17, 2021
 
 - Upgrade Nginx to 1.21.1
 
@@ -199,7 +204,7 @@ title: Changelog
 - Upgrade Nginx to 1.21.0
 - Add mirrors in Germany and Estonia
 
-## April 20, 2021
+## Apr 20, 2021
 
 - Upgrade Nginx to 1.19.10
 
@@ -245,15 +250,15 @@ title: Changelog
 
 - Upgrade Nginx to 1.19.2
 
-## June 30, 2020
+## Jun 30, 2020
 
 - Upgrade Nginx to 1.19.1
 
-## June 1, 2020
+## Jun 1, 2020
 
 - Upgrade Nginx to 1.19.0
 
-## April 23, 2020
+## Apr 23, 2020
 
 - Upgrade Nginx to 1.17.10
 - Upgrade OpenSSL to 1.1.1g
