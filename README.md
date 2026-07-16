@@ -4,8 +4,8 @@ Open-source nginx Debian / Ubuntu repository with latest mainline builds.
 
 ## Features
 
-- **Up-to-date**: Latest nginx mainline branch (currently `1.29.4`)
-- **TLS 1.3 & HTTP/3**: Statically built with OpenSSL `3.6.0`
+- **Up-to-date**: Latest nginx mainline branch
+- **TLS 1.3 & HTTP/3**: Statically built with the latest OpenSSL
 - **Extra Modules**: Brotli, Zstd, GeoIP2, IPDB, ACME, and more
 
 ## Quick Install
@@ -61,7 +61,7 @@ See [nginx-docker](https://github.com/u-sb/nginx-docker) for Docker Compose setu
 
 | Distribution | Versions |
 |--------------|----------|
-| Debian | 11 (Bullseye), 12 (Bookworm), 13 (Trixie), 14 (Forky) |
+| Debian | 12 (Bookworm), 13 (Trixie), 14 (Forky) |
 | Ubuntu | 22.04 (Jammy), 24.04 (Noble), 26.04 (Resolute) |
 
 ## Included Modules
