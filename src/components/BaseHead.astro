@@ -31,7 +31,7 @@ const ogImage = `${website_config.baseUrl}/images/${ogSlug}.webp`;
 <meta name="description" content={pageDescription}/>
 {keywords && <meta name="keywords" content={keywords}/>}
 {noindex && <meta name="robots" content="noindex, follow"/>}
-<link rel="canonical" href={`${website_config.baseUrl}${canonicalPath}`}/>
+{!noindex && <link rel="canonical" href={`${website_config.baseUrl}${canonicalPath}`}/>}
 <meta property="og:title" content={fullTitle}/>
 <meta property="og:type" content={pageType === 'website' ? 'website' : 'article'}/>
 <meta property="og:description" content={pageDescription}/>
