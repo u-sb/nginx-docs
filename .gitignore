@@ -14,3 +14,6 @@ public/images/
 
 # Astro generated
 .astro/
+
+# Local Claude Code config and skills (not committed)
+.claude/
