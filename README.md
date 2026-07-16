@@ -81,6 +81,6 @@ Visit [n.wtf](https://n.wtf/) for full documentation.
 
 ## License
 
-MIT License
+© 2019 - 2026 [m.ac](https://m.ac/). All rights reserved. Bundled third-party nginx modules keep their own upstream licenses; nginx itself is distributed under its 2-clause BSD-like license.
 
 NGINX is a trademark of [F5, Inc.](https://www.f5.com/) This project is not affiliated with NGINX Inc. or F5.

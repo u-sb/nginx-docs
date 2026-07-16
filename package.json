@@ -6,7 +6,7 @@
   "description": "A nginx Debian / Ubuntu repository",
   "repository": "https://github.com/u-sb/nginx-docs",
   "author": "U.SB",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && cp dist/sitemap-index.xml dist/sitemap.xml && pagefind --site dist --output-path dist/_pagefind",
