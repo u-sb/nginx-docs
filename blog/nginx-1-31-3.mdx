@@ -1,0 +1,39 @@
+---
+title: nginx 1.31.3
+excerpt: Upstream fixes three security issues, including a heap buffer overflow in map with regex. Packages are live for all supported releases, upgrade now.
+date: 2026-07-17
+tags: [nginx, Release, Security]
+---
+
+Upstream released [nginx 1.31.3](https://nginx.org/en/CHANGES) on July 15, 2026, and the n.wtf packages are now published for all [supported Debian and Ubuntu releases](/install/). This is a security release. If you run 1.31.2 or older from this repository, upgrade now.
+
+## Security fixes
+
+Three vulnerabilities are fixed, all in the worker process:
+
+- [CVE-2026-42533](https://nvd.nist.gov/vuln/detail/CVE-2026-42533): a heap buffer overflow when a `map` directive with regex matching feeds a string expression, and a similar case with non-cacheable variables. This is the one to take seriously; `map` with regex is everywhere.
+- [CVE-2026-60005](https://nvd.nist.gov/vuln/detail/CVE-2026-60005): uninitialized memory access with unnamed regex captures combined with the `slice` directive or background cache updates. Upstream says it can disclose worker memory or crash the worker.
+- [CVE-2026-56434](https://nvd.nist.gov/vuln/detail/CVE-2026-56434): a use-after-free in the SSI filter when processing a crafted proxied backend response.
+
+If your config uses `map` with regex captures, `slice`, proxy caching, or SSI, treat the upgrade as urgent. Everyone else should still not wait; the full details are public in the [upstream release notes](https://github.com/nginx/nginx/releases/tag/release-1.31.3).
+
+## Also in this release
+
+Beyond the security fixes, 1.31.3 rejects HTTP/2 requests with out-of-order pseudo-headers, disables external entity loading in the XSLT filter by default (with a new `xml_external_entities` directive to turn it back on), and adds `*_socket_sndbuf` / `*_socket_rcvbuf` directives for tuning upstream socket buffers across the proxy, FastCGI, gRPC, SCGI, and uWSGI modules.
+
+## Changes
+
+- Upgrade nginx to 1.31.3
+- Upgrade [nginx-acme](/modules/acme/) to 0.4.1
+
+## How to upgrade
+
+```bash
+sudo apt update
+sudo apt upgrade
+
+nginx -v
+# nginx version: nginx-n.wtf/1.31.3
+```
+
+Not on the repository yet? The [install page](/install/) has extrepo, one-line, DEB822, and Docker instructions.
