@@ -13,11 +13,11 @@ Both pages are official. They just name different things. The lowercase spelling
 
 Igor Sysoev released nginx in 2004, and the project has written the name in lowercase ever since. [nginx.org](https://nginx.org/en/) uses it throughout, including at sentence starts, and the [CHANGES](https://nginx.org/en/CHANGES) file for every release does the same. Netcraft looked at this exact question in a 2018 piece, ["nginx, Nginx, NGiИX, or NGINX?!"](https://www.netcraft.com/blog/nginx-nginx-nginx-or-nginx), and noted that the lowercase form also appeared in the HTTP Server headers of the 447 million sites running it at the time.
 
-A stock installation still answers the same way. A server on this repository's current package reports:
+A stock installation still answers the same way. nginx.org itself, for example:
 
 ```bash
-curl -sI https://your-server.example/ | grep -i '^server'
-# Server: nginx/1.31.3
+curl -sI https://nginx.org/ | grep -i '^server'
+# Server: nginx/1.29.8
 ```
 
 The ecosystem inherited the casing. The binary is `/usr/sbin/nginx`, the Debian and Ubuntu package is `nginx`, the config test command is `nginx -t`, and the packages from this repository identify themselves as `nginx-n.wtf` in `nginx -V` output. Nothing in the software itself ever prints NGINX. This site's own header says `Server: n.wtf` instead, set with the [headers-more](/modules/headers-more/) module, but that is us overriding the default, not the default.
