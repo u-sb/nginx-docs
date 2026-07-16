@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -18,13 +18,13 @@ jobs:
         uses: oven-sh/setup-bun@v2
 
       - name: node_modules CI Cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ${{ github.workspace }}/node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('**/bun.lock') }}
 
       - name: Astro CI Cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ${{ github.workspace }}/.astro
           key: ${{ runner.os }}-astro-${{ hashFiles('**/bun.lock') }}-${{ hashFiles('src/**', 'blog/**') }}
@@ -38,7 +38,7 @@ jobs:
         run: bun run build
 
       - name: Upload Build Output to Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: dist
           path: ${{ github.workspace }}/dist/
@@ -55,12 +55,12 @@ jobs:
     env:
       REMOTE_HOST: ${{ secrets[matrix.host_id] }}
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: dist
           path: ${{ github.workspace }}/dist/
       - run: ls -R ${{ github.workspace }}/dist/
-      - uses: easingthemes/ssh-deploy@v4.0.5
+      - uses: easingthemes/ssh-deploy@v6.0.1
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: '-avz --delete'
