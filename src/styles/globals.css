@@ -89,6 +89,18 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* macOS-style window dots; the two extra dots ride on box-shadow. */
+.code-window-bar::before {
+    content: '';
+    flex-shrink: 0;
+    width: 11px;
+    height: 11px;
+    margin-right: 46px;
+    border-radius: 50%;
+    background: #ff5f57;
+    box-shadow: 18px 0 0 #febc2e, 36px 0 0 #28c840;
+}
+
 .code-lang {
     font-family: var(--font-mono);
     font-size: 12px;
