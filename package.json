@@ -27,6 +27,7 @@
     "@takumi-rs/helpers": "^2.2.2",
     "astro": "^7.1.0",
     "feed": "^6.0.0",
+    "flag-icons": "^7.5.0",
     "highlight.js": "^11.11.1",
     "marked": "^18.0.6",
     "react": "^19.2.7",

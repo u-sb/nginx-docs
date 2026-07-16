@@ -2,6 +2,17 @@
 import DocsLayout from '@/layouts/DocsLayout.astro';
 import TerminalCard from '@/components/TerminalCard.astro';
 
+// Inlined flag SVGs from the flag-icons package (viewBox 4x3, scale to container).
+import flagUS from 'flag-icons/flags/4x3/us.svg?raw';
+import flagNL from 'flag-icons/flags/4x3/nl.svg?raw';
+import flagDE from 'flag-icons/flags/4x3/de.svg?raw';
+import flagEE from 'flag-icons/flags/4x3/ee.svg?raw';
+import flagHK from 'flag-icons/flags/4x3/hk.svg?raw';
+import flagJP from 'flag-icons/flags/4x3/jp.svg?raw';
+import flagSG from 'flag-icons/flags/4x3/sg.svg?raw';
+import flagAU from 'flag-icons/flags/4x3/au.svg?raw';
+import flagCN from 'flag-icons/flags/4x3/cn.svg?raw';
+
 const headings = [
     {depth: 2, slug: 'mirror-list', text: 'Mirror list'},
     {depth: 2, slug: 'mirror-our-repo', text: 'Mirror Our Repo'},
@@ -11,38 +22,47 @@ const headings = [
 const regions = [
     {
         name: 'United States',
+        flag: flagUS,
         mirrors: [{name: 'xTom US', url: 'https://mirrors.xtom.com/sb/nginx/'}],
     },
     {
         name: 'Netherlands',
+        flag: flagNL,
         mirrors: [{name: 'xTom NL', url: 'https://mirrors.xtom.nl/sb/nginx/'}],
     },
     {
         name: 'Germany',
+        flag: flagDE,
         mirrors: [{name: 'xTom DE', url: 'https://mirrors.xtom.de/sb/nginx/'}],
     },
     {
         name: 'Estonia',
+        flag: flagEE,
         mirrors: [{name: 'xTom EE', url: 'https://mirrors.xtom.ee/sb/nginx/'}],
     },
     {
         name: 'Hong Kong',
+        flag: flagHK,
         mirrors: [{name: 'xTom HK', url: 'https://mirrors.xtom.hk/sb/nginx/'}],
     },
     {
         name: 'Japan',
+        flag: flagJP,
         mirrors: [{name: 'xTom JP', url: 'https://mirrors.xtom.jp/sb/nginx/'}],
     },
     {
         name: 'Singapore',
+        flag: flagSG,
         mirrors: [{name: 'xTom SG', url: 'https://mirrors.xtom.sg/sb/nginx/'}],
     },
     {
         name: 'Australia',
+        flag: flagAU,
         mirrors: [{name: 'xTom AU', url: 'https://mirrors.xtom.au/sb/nginx/'}],
     },
     {
         name: 'China Mainland',
+        flag: flagCN,
         mirrors: [
             {name: 'USTC', url: 'https://mirrors.ustc.edu.cn/sb/nginx/'},
             {name: 'NJU', url: 'https://mirror.nju.edu.cn/sb/nginx/'},
@@ -71,7 +91,12 @@ const displayUrl = (url: string) => url.replace(/^https:\/\//, '').replace(/\/$/
             <div class="grid grid-cols-1 gap-px bg-white/8 sm:grid-cols-2">
                 {regions.map((region) => (
                         <div class:list={['bg-cell px-[18px] py-4', region.mirrors.length > 1 && 'sm:col-span-2']}>
-                            <div class="font-display text-[15px] font-semibold text-ink">{region.name}</div>
+                            <div class="flex items-center gap-2.5">
+                                <span class="h-[15px] w-5 shrink-0 overflow-hidden rounded-[2px] ring-1 ring-white/15 [&>svg]:block [&>svg]:h-full [&>svg]:w-full"
+                                      aria-hidden="true"
+                                      set:html={region.flag}/>
+                                <span class="font-display text-[15px] font-semibold text-ink">{region.name}</span>
+                            </div>
                             <div class="mt-2.5 flex flex-col gap-1.5">
                                 {region.mirrors.map((mirror) => (
                                         <div class="flex flex-col gap-x-4 gap-y-0.5 sm:flex-row sm:items-baseline">
