@@ -30,10 +30,12 @@ Beyond the security fixes, 1.31.3 rejects HTTP/2 requests with out-of-order pseu
 
 ```bash
 sudo apt update
-sudo apt upgrade
+sudo apt full-upgrade
 
 nginx -v
 # nginx version: nginx-n.wtf/1.31.3
 ```
+
+`full-upgrade` lets `apt` add or remove dependencies when the package set changes between releases; plain `apt upgrade` can hold nginx back in that case.
 
 Not on the repository yet? The [install page](/install/) has extrepo, one-line, DEB822, and Docker instructions.
