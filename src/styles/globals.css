@@ -367,8 +367,13 @@
 
     code {
         font-family: var(--font-mono);
-        font-size: 0.9em;
+        font-size: 0.85em;
         color: #e3e5e8;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 4px;
+        padding: 0.1em 0.35em;
+        overflow-wrap: break-word;
     }
 
     kbd {
