@@ -25,20 +25,7 @@ const pillars = [
     },
 ];
 
-const modules = [
-    {name: 'ngx_brotli', desc: 'Brotli compression', url: 'https://github.com/google/ngx_brotli'},
-    {name: 'zstd-nginx', desc: 'Zstandard compression', url: 'https://github.com/tokers/zstd-nginx-module'},
-    {name: 'QUIC & HTTP/3', desc: 'Next-gen transport', url: 'https://nginx.org/en/docs/quic.html'},
-    {name: 'http_geoip2', desc: 'MaxMind GeoIP2', url: 'https://github.com/leev/ngx_http_geoip2_module'},
-    {name: 'http_ipdb', desc: 'IPDB geolocation', url: 'https://github.com/vislee/ngx_http_ipdb_module'},
-    {name: 'nginx-acme', desc: 'Automatic TLS certs', url: 'https://github.com/nginx/nginx-acme'},
-    {name: 'headers-more', desc: 'Fine header control', url: 'https://github.com/openresty/headers-more-nginx-module'},
-    {name: 'http-lua', desc: 'Lua scripting', url: 'https://github.com/openresty/lua-nginx-module'},
-    {name: 'rtmp', desc: 'Media streaming', url: 'https://github.com/arut/nginx-rtmp-module'},
-    {name: 'fancyindex', desc: 'Pretty dir listings', url: 'https://github.com/aperezdc/ngx-fancyindex'},
-    {name: 'cache-purge', desc: 'Purge cached content', url: null},
-    {name: 'dav-ext', desc: 'Extended WebDAV', url: 'https://github.com/arut/nginx-dav-ext-module'},
-];
+import {modules} from '@/data/modules';
 
 // Real support data from the Installation page.
 const fullySupported = [
@@ -101,25 +88,20 @@ const p = 'm-0 text-[16px] leading-[1.75] text-body';
         <p class:list={[p, 'mb-5']}>Everything from the Debian &amp; Ubuntu official builds, plus these.</p>
         <div class="overflow-hidden rounded-lg border border-white/10">
             <div class="grid grid-cols-1 gap-px bg-white/8 sm:grid-cols-2 md:grid-cols-3">
-                {modules.map((m) =>
-                    m.url ? (
-                            <a href={m.url} class="block bg-cell px-[18px] py-4 text-[#e9eaec] transition-colors hover:bg-[#13151a] hover:text-[#e9eaec]">
-                                <div class="flex items-baseline gap-2.5">
-                                    <span class="flex-1 font-mono text-[13px]">{m.name}</span>
-                                    <span class="font-mono text-[12px] text-comment">↗</span>
-                                </div>
-                                <div class="mt-[5px] text-[12.5px] text-mute">{m.desc}</div>
-                            </a>
-                    ) : (
-                            <div class="bg-cell px-[18px] py-4">
-                                <div class="font-mono text-[13px] text-[#e9eaec]">{m.name}</div>
-                                <div class="mt-[5px] text-[12.5px] text-mute">{m.desc}</div>
+                {modules.map((m) => (
+                        <a href={m.url} target="_blank" rel="noopener"
+                           class="block bg-cell px-[18px] py-4 text-[#e9eaec] transition-colors hover:bg-[#13151a] hover:text-[#e9eaec]">
+                            <div class="flex items-baseline gap-2.5">
+                                <span class="min-w-0 flex-1 truncate font-mono text-[13px]">{m.name}</span>
+                                <span class="font-mono text-[12px] text-comment">↗</span>
                             </div>
-                    ),
-                )}
+                            <div class="mt-[5px] text-[12.5px] text-mute">{m.desc}</div>
+                        </a>
+                ))}
             </div>
         </div>
-        <p class:list={[p, 'mt-4']}>Statically built with OpenSSL 4, so you can use TLS 1.3 even on distributions that don't ship it.</p>
+        <p class:list={[p, 'mt-4 mb-3.5']}>Statically built with OpenSSL 4, so you can use TLS 1.3 even on distributions that don't ship it.</p>
+        <p class={p}>Build scripts and packaging live at <a href="https://github.com/u-sb/nginx-source" target="_blank" rel="noopener">u-sb/nginx-source</a>.</p>
     </section>
 
     <section id="supported-os" class="mt-12 scroll-mt-[90px]">

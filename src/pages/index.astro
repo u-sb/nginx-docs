@@ -101,20 +101,7 @@ const features = [
     },
 ];
 
-const modules = [
-    {name: 'ngx_brotli', desc: 'Brotli compression'},
-    {name: 'zstd-nginx', desc: 'Zstandard compression'},
-    {name: 'QUIC & HTTP/3', desc: 'Next-gen transport'},
-    {name: 'http_geoip2', desc: 'MaxMind GeoIP2'},
-    {name: 'http_ipdb', desc: 'IPDB geolocation'},
-    {name: 'nginx-acme', desc: 'Automatic TLS certs'},
-    {name: 'headers-more', desc: 'Fine header control'},
-    {name: 'http-lua', desc: 'Lua scripting'},
-    {name: 'rtmp', desc: 'Media streaming'},
-    {name: 'fancyindex', desc: 'Pretty dir listings'},
-    {name: 'cache-purge', desc: 'Purge cached content'},
-    {name: 'dav-ext', desc: 'Extended WebDAV'},
-];
+import {modules} from '@/data/modules';
 
 const tabBtnBase = '-mb-px cursor-pointer whitespace-nowrap border-b-2 bg-transparent px-0.5 pb-3 pt-2.5 font-mono text-[13px] font-medium tracking-[0.2px]';
 ---
@@ -229,12 +216,16 @@ const tabBtnBase = '-mb-px cursor-pointer whitespace-nowrap border-b-2 bg-transp
                 <p class="max-w-[400px] text-[14.5px] text-soft">Everything from the Debian &amp; Ubuntu official builds, plus these.</p>
             </div>
             <div class="overflow-hidden rounded-lg border border-white/10">
-                <div class="grid grid-cols-1 gap-px bg-white/8 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="grid grid-cols-1 gap-px bg-white/8 sm:grid-cols-2 lg:grid-cols-3">
                     {modules.map((m) => (
-                        <div class="bg-cell px-[18px] py-4">
-                            <div class="font-mono text-[13px] text-[#e9eaec]">{m.name}</div>
+                        <a href={m.url} target="_blank" rel="noopener"
+                           class="block bg-cell px-[18px] py-4 transition-colors hover:bg-[#13151a]">
+                            <div class="flex items-baseline gap-2.5">
+                                <span class="min-w-0 flex-1 truncate font-mono text-[13px] text-[#e9eaec]">{m.name}</span>
+                                <span class="font-mono text-[12px] text-comment">&#8599;</span>
+                            </div>
                             <div class="mt-[5px] text-[12.5px] text-mute">{m.desc}</div>
-                        </div>
+                        </a>
                     ))}
                 </div>
             </div>
