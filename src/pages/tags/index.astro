@@ -26,8 +26,6 @@ const tags = [...counts.entries()].map(([name, count]) => ({name, count}));
     </div>
 
     <div class="mx-auto w-full max-w-[1120px] px-8 pt-11 pb-16">
-        <div class="max-w-[960px]">
-            <TagList tags={tags}/>
-        </div>
+        <TagList tags={tags}/>
     </div>
 </BaseLayout>
