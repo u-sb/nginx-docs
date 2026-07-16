@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '@/layouts/DocsLayout.astro';
 import SecondaryText from '@/components/SecondaryText.astro';
+import ArrowRight from '@/components/icons/ArrowRight.astro';
 
 const headings = [
     {depth: 2, slug: 'included-modules', text: 'Included modules'},
@@ -91,9 +92,9 @@ const p = 'm-0 text-[16px] leading-[1.75] text-body';
                 {modules.map((m) => (
                         <a href={`/modules/${m.slug}/`}
                            class="block bg-cell px-[18px] py-4 text-[#e9eaec] transition-colors hover:bg-[#13151a] hover:text-[#e9eaec]">
-                            <div class="flex items-baseline gap-2.5">
+                            <div class="flex items-center gap-2.5">
                                 <span class="min-w-0 flex-1 truncate font-mono text-[13px]">{m.name}</span>
-                                <span class="font-mono text-[12px] text-comment">&rarr;</span>
+                                <ArrowRight size={13} class="shrink-0 text-comment"/>
                             </div>
                             <div class="mt-[5px] text-[12.5px] text-mute">{m.desc}</div>
                         </a>

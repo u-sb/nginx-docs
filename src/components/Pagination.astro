@@ -1,4 +1,7 @@
 ---
+import ArrowLeft from '@/components/icons/ArrowLeft.astro';
+import ArrowRight from '@/components/icons/ArrowRight.astro';
+
 interface Props {
     currentPage: number;
     totalPages: number;
@@ -15,7 +18,7 @@ const pages = Array.from({length: totalPages}, (_, i) => i + 1);
             {currentPage > 1 && (
                     <a href={pageUrl(currentPage - 1)} rel="prev" title="Previous page"
                        class="inline-flex h-8 items-center rounded-[6px] border border-white/14 px-3.5 text-soft transition-colors hover:border-white/25 hover:text-ink">
-                        ← prev
+                        <span class="inline-flex items-center gap-1.5"><ArrowLeft size={13}/> prev</span>
                     </a>
             )}
             {pages.map((page) => (
@@ -32,7 +35,7 @@ const pages = Array.from({length: totalPages}, (_, i) => i + 1);
             {currentPage < totalPages && (
                     <a href={pageUrl(currentPage + 1)} rel="next" title="Next page"
                        class="inline-flex h-8 items-center rounded-[6px] border border-white/14 px-3.5 text-soft transition-colors hover:border-white/25 hover:text-ink">
-                        next →
+                        <span class="inline-flex items-center gap-1.5">next <ArrowRight size={13}/></span>
                     </a>
             )}
         </nav>

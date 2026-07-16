@@ -1,6 +1,9 @@
 ---
 import DocsLayout from '@/layouts/DocsLayout.astro';
 import TerminalCard from '@/components/TerminalCard.astro';
+import ArrowLeft from '@/components/icons/ArrowLeft.astro';
+import ArrowRight from '@/components/icons/ArrowRight.astro';
+import ArrowUpRight from '@/components/icons/ArrowUpRight.astro';
 import {moduleDetails} from '@/data/module-details';
 
 export async function getStaticPaths() {
@@ -37,8 +40,8 @@ const p = 'm-0 text-[16px] leading-[1.75] text-body';
     <div class="-mt-5 mb-11 flex flex-wrap items-baseline gap-x-6 gap-y-2 font-mono text-[12.5px]">
         <span class="text-faint">{mod.kind === 'static' ? 'compiled in' : 'dynamic module'}</span>
         <span class="text-faint">{mod.license}</span>
-        <a href={mod.repo} target="_blank" rel="noopener" class="text-mute transition-colors hover:text-acc2">source &#8599;</a>
-        {mod.docs && <a href={mod.docs} target="_blank" rel="noopener" class="text-mute transition-colors hover:text-acc2">docs &#8599;</a>}
+        <a href={mod.repo} target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-mute transition-colors hover:text-acc2">source <ArrowUpRight size={12}/></a>
+        {mod.docs && <a href={mod.docs} target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-mute transition-colors hover:text-acc2">docs <ArrowUpRight size={12}/></a>}
     </div>
 
     <section id="overview" class="scroll-mt-[90px]">
@@ -77,10 +80,10 @@ const p = 'm-0 text-[16px] leading-[1.75] text-body';
     {/* Prev / next module (alphabetical) */}
     <nav class="mt-14 flex items-baseline justify-between gap-6 border-t border-white/9 pt-6 font-mono text-[13px]" aria-label="Module navigation">
         <span class="min-w-0">
-            {prev && <a href={`/modules/${prev.slug}/`} class="text-mute transition-colors hover:text-acc2">&larr; {prev.name}</a>}
+            {prev && <a href={`/modules/${prev.slug}/`} class="inline-flex items-center gap-1.5 text-mute transition-colors hover:text-acc2"><ArrowLeft size={13}/> {prev.name}</a>}
         </span>
         <span class="min-w-0 text-right">
-            {next && <a href={`/modules/${next.slug}/`} class="text-mute transition-colors hover:text-acc2">{next.name} &rarr;</a>}
+            {next && <a href={`/modules/${next.slug}/`} class="inline-flex items-center gap-1.5 text-mute transition-colors hover:text-acc2">{next.name} <ArrowRight size={13}/></a>}
         </span>
     </nav>
 </DocsLayout>

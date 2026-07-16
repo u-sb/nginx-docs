@@ -1,5 +1,7 @@
 ---
 import DocsLayout from '@/layouts/DocsLayout.astro';
+import ArrowRight from '@/components/icons/ArrowRight.astro';
+import ArrowUpRight from '@/components/icons/ArrowUpRight.astro';
 import {versions} from '@/lib/website_config';
 import {highlightShell} from '@/lib/highlight-shell';
 
@@ -96,7 +98,7 @@ const strong = 'font-semibold text-[#e3e5e8]';
             {features.map((f) => (
                     <a href={f.url} class="flex items-center gap-2.5 border-b border-white/7 py-[11px] text-[#d7dade] transition-colors hover:text-acc2">
                         <span class="flex-1 font-mono text-[13px]">{f.name}</span>
-                        <span class="font-mono text-[12px] text-comment">↗</span>
+                        <ArrowUpRight size={13} class="shrink-0 text-comment"/>
                     </a>
             ))}
         </div>
@@ -117,9 +119,9 @@ const strong = 'font-semibold text-[#e3e5e8]';
             <div class="grid grid-cols-1 gap-px bg-white/8 sm:grid-cols-2">
                 {resources.map((r) => (
                         <a href={r.href} class="block bg-cell px-5 py-[18px] text-ink transition-colors hover:bg-[#13151a] hover:text-ink">
-                            <div class="flex items-baseline">
+                            <div class="flex items-center">
                                 <span class="flex-1 font-display text-[16px] font-semibold">{r.title}</span>
-                                <span class="font-mono text-[12px] text-comment">↗</span>
+                                <ArrowRight size={13} class="shrink-0 text-comment"/>
                             </div>
                             <p class="mt-1.5 text-[13.5px] leading-[1.5] text-mute">{r.desc}</p>
                         </a>

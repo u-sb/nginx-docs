@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import ArrowRight from '@/components/icons/ArrowRight.astro';
 ---
 <BaseLayout title="404 Not Found" description="This page does not exist." noindex>
     <main class="mx-auto flex w-full max-w-[1120px] flex-1 flex-col justify-center px-8 py-16">
@@ -28,7 +29,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
         <div class="mt-8 flex flex-wrap gap-4 font-mono text-[13px]">
             <a href="/" class="rounded-md border border-white/11 px-4 py-2 text-soft transition-colors hover:border-white/20 hover:text-ink">cd ~/</a>
-            <a href="/intro/" class="rounded-md border border-white/11 px-4 py-2 text-soft transition-colors hover:border-white/20 hover:text-ink">Introduction →</a>
+            <a href="/intro/" class="inline-flex items-center gap-1.5 rounded-md border border-white/11 px-4 py-2 text-soft transition-colors hover:border-white/20 hover:text-ink">Introduction <ArrowRight size={13}/></a>
         </div>
     </main>
 </BaseLayout>
