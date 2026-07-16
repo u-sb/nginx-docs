@@ -1,7 +1,7 @@
 ---
 import {render} from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import BlogToc from '@/components/BlogToc.astro';
+import Toc from '@/components/Toc.astro';
 import ShareButtons from '@/components/ShareButtons.astro';
 import {getBlogPosts, tagSlug, formatDate} from '@/lib/posts';
 import website_config from '@/lib/website_config';
@@ -108,10 +108,6 @@ const jsonLd = {
             <ShareButtons title={title} url={canonicalUrl}/>
         </article>
 
-        {tocHeadings.length > 0 && (
-                <aside class="sticky top-[90px] hidden self-start lg:block">
-                    <BlogToc headings={tocHeadings}/>
-                </aside>
-        )}
+        {tocHeadings.length > 0 && <Toc headings={tocHeadings}/>}
     </div>
 </BaseLayout>
