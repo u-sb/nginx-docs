@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '@/layouts/DocsLayout.astro';
 import {versions} from '@/lib/website_config';
+import {highlightShell} from '@/lib/highlight-shell';
 
 const headings = [
     {depth: 2, slug: 'what-is-it', text: 'What is it?'},
@@ -100,12 +101,13 @@ const strong = 'font-semibold text-[#e3e5e8]';
             ))}
         </div>
         <p class:list={[p, 'mb-4']}>Statically built with OpenSSL 4, so you can use TLS 1.3 even on distributions that don't ship it.</p>
-        <div class="code-block" data-code-block>
-            <div class="code-window-bar" data-code-header>
+        <div class="min-w-0 rounded-lg border border-white/11 bg-panel" data-terminal-card data-cmd={versionInfo}>
+            <div class="code-window-bar">
                 <span class="code-lang">nginx -V</span>
-                <button class="code-copy-btn" data-copy-btn type="button">copy</button>
+                <button class="code-copy-btn" data-terminal-copy type="button" aria-label="Copy nginx -V output">copy</button>
             </div>
-            <pre style="padding:18px; font-size:12.5px; line-height:1.8; max-height:210px; color:#a8acb4;">{versionInfo}</pre>
+            <div class="max-h-[210px] overflow-auto px-[18px] py-[18px] font-mono text-[12.5px] leading-[1.8] whitespace-pre text-[#a8acb4]"
+                 set:html={highlightShell(versionInfo)}/>
         </div>
     </section>
 

@@ -59,6 +59,16 @@ const headProps = Astro.props;
             }, 1600);
         });
     });
+
+    // Copy button on TerminalCard-style blocks (raw command in data-cmd).
+    document.querySelectorAll<HTMLButtonElement>('[data-terminal-card] [data-terminal-copy]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const cmd = btn.closest<HTMLElement>('[data-terminal-card]')?.dataset.cmd ?? '';
+            navigator.clipboard?.writeText(cmd);
+            btn.textContent = 'copied';
+            setTimeout(() => (btn.textContent = 'copy'), 1600);
+        });
+    });
 </script>
 </body>
 </html>
