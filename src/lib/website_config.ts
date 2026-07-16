@@ -6,7 +6,8 @@ const website_config = {
         name: 'm.ac',
         link: 'https://m.ac/',
     },
-    github: 'https://github.com/u-sb/nginx-docs',
+    // Source repo for the nginx packaging; this website lives at u-sb/nginx-docs.
+    github: 'https://github.com/u-sb/nginx-source',
     navbar: [
         {title: 'Home', path: '/'},
         {title: 'Introduction', path: '/intro/'},

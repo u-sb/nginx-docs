@@ -2,6 +2,8 @@
 
 Open-source nginx Debian / Ubuntu repository with latest mainline builds.
 
+This repository contains the [n.wtf](https://n.wtf/) website and documentation. The nginx packaging sources live at [u-sb/nginx-source](https://github.com/u-sb/nginx-source).
+
 ## Features
 
 - **Up-to-date**: Latest nginx mainline branch
@@ -81,4 +83,4 @@ Visit [n.wtf](https://n.wtf/) for full documentation.
 
 MIT License
 
-NGINX is a trademark of [F5 NETWORKS, INC.](https://www.f5.com/) This project is not affiliated with NGINX Inc. or F5.
+NGINX is a trademark of [F5, Inc.](https://www.f5.com/) This project is not affiliated with NGINX Inc. or F5.
