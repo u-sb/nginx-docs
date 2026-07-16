@@ -7,8 +7,10 @@ const isActive = (path: string) =>
 ---
 <header class="sticky top-0 z-50 border-b border-white/9 bg-[rgba(11,12,14,0.85)] backdrop-blur-[12px]">
     <nav class="mx-auto flex h-[58px] max-w-[1120px] items-center gap-8 px-8">
-        <a href="/" class="font-mono text-[16px] font-bold tracking-[-0.3px] text-ink hover:text-ink">n<span
-                class="text-acc">.</span>wtf</a>
+        <a href="/" class="flex items-center gap-2 font-mono text-[16px] font-bold tracking-[-0.3px] text-ink hover:text-ink">
+            <img src="/logo.svg" alt="" width="22" height="22" class="block"/>
+            <span>n<span class="text-acc">.</span>wtf</span>
+        </a>
         <div class="flex-1"></div>
         <div class="hidden items-center gap-[26px] text-[13.5px] md:flex">
             {website_config.navbar.map((item) => (

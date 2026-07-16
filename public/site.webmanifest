@@ -1,0 +1,20 @@
+{
+    "name": "N.WTF - nginx Debian / Ubuntu repository",
+    "short_name": "n.wtf",
+    "description": "Open-source nginx Debian / Ubuntu repository with latest mainline builds.",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#0b0c0e",
+    "background_color": "#0b0c0e",
+    "display": "standalone"
+}
