@@ -31,11 +31,15 @@ Always use **bun** (not npm/pnpm). When adding dependencies, install the latest 
 
 ## Release Checklist (new nginx/OpenSSL version)
 
-1. Bump `versions` in `src/lib/website_config.ts` (nginx, openssl, opensslDate — the date printed by `nginx -V`).
-2. If the `nginx -V` output changed structurally (new modules/flags), update the `configure arguments` block in `src/pages/intro.astro`.
-3. Add a changelog entry at the TOP of the array in `src/data/changelog.ts` (date format `Jul 17, 2026`).
-4. Optionally add a release post in `blog/` (body = the changelog bullets verbatim, tags like `[nginx, Release]`).
+Files to EDIT (this is the complete list — nothing else needs touching):
+
+1. `src/lib/website_config.ts` — bump `versions` (nginx, openssl, opensslDate — the date printed by `nginx -V`).
+2. `src/pages/intro.astro` — ONLY if the `nginx -V` output changed structurally (new modules/flags): update the `configure arguments` block. The version/OpenSSL header lines interpolate from `versions` automatically.
+3. `src/data/changelog.ts` — add an entry at the TOP of the array (date format `Jul 17, 2026`).
+4. `blog/` — optionally add a release post (bullets verbatim from the changelog entry, tags like `[nginx, Release]`; for security releases link CVEs to NVD). Use the `blog-post-writer` skill.
 5. `bun run build` to verify, then commit.
+
+Everything else that shows a version number updates AUTOMATICALLY from `versions` — do NOT hand-edit these: homepage hero meta row + hero terminal output, header nav `v…` badge, intro "Current version" card + `nginx -V` header lines, and `llms.txt` (versions line; its install commands, module list, and release list also derive from config/data files). Version numbers inside published `blog/*.mdx` posts are historical records — leave them alone.
 
 ## Architecture
 
