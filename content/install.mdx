@@ -73,20 +73,6 @@ We do not provide full and long term support for legacy OS, but you can use it a
 
 Release that is tagged as <SecondaryText>this is the final update</SecondaryText> will no longer receive updates.
 
-``` sh
-apt install -y apt-transport-https lsb-release ca-certificates curl gnupg
-
-curl https://n.wtf/public-rsa.key | apt-key add -
-
-curl https://n.wtf/public.key | apt-key add -
-
-echo "deb https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list
-
-apt update
-
-apt install -y nginx-extras
-```
-
 ## Removed OS
 
 We no longer provide packages for those OS:
