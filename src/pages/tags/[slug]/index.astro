@@ -37,7 +37,7 @@ const tagName = originTagName(allPosts, slug!);
     </div>
 
     <div class="mx-auto w-full max-w-[1120px] px-8 pt-11 pb-16">
-        <div class="max-w-[960px]">
+        <div>
             <BlogPostList posts={posts} activeTag={slug}/>
             <Pagination currentPage={1} totalPages={totalPages} baseUrl={`/tags/${slug}`}/>
         </div>
