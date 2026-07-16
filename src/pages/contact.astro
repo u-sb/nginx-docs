@@ -1,7 +1,21 @@
 ---
 import DocsLayout from '@/layouts/DocsLayout.astro';
 
-const p = 'm-0 text-[16px] leading-[1.75] text-body';
+// Card-style contact entries, after m.ac's TileLink pattern.
+const channels = [
+    {
+        href: 'https://github.com/u-sb/nginx-docs/issues',
+        label: 'GitHub Issues',
+        value: 'u-sb/nginx-docs',
+        desc: 'Bug reports and feature requests',
+    },
+    {
+        href: 'https://m.ac/contact/',
+        label: 'Other inquiries',
+        value: 'm.ac/contact',
+        desc: 'Everything else goes to the maintainer directly',
+    },
+];
 ---
 <DocsLayout title="Contact"
             description="How to reach the maintainers for bug reports, feature requests and other inquiries."
@@ -9,6 +23,16 @@ const p = 'm-0 text-[16px] leading-[1.75] text-body';
             headings={[]}>
     <span slot="lede">How to reach the maintainers.</span>
 
-    <p class:list={[p, 'mb-3.5']}>You can use <a href="https://github.com/u-sb/nginx-docs/issues">GitHub Issues</a> for bug reports and feature requests.</p>
-    <p class={p}>For other inquiries, please contact <a href="https://m.ac/contact/">m.ac</a>.</p>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {channels.map((channel) => (
+                <a href={channel.href}
+                   target="_blank"
+                   rel="noopener"
+                   class="block rounded-lg border border-white/10 bg-cell p-6 transition-[border-color,transform,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-white/20 hover:bg-[#13151a]">
+                    <div class="text-[13.5px] text-mute">{channel.label}</div>
+                    <div class="mt-2 font-mono text-[17px] text-ink">{channel.value}</div>
+                    <div class="mt-1.5 text-[13.5px] leading-[1.6] text-mute">{channel.desc}</div>
+                </a>
+        ))}
+    </div>
 </DocsLayout>
