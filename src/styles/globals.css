@@ -367,8 +367,12 @@
 
     code {
         font-family: var(--font-mono);
-        font-size: 0.85em;
         color: #e3e5e8;
+    }
+
+    /* Inline code chips; code inside pre blocks keeps the terminal-card styling. */
+    code:not(pre code) {
+        font-size: 0.85em;
         background: rgba(255, 255, 255, 0.06);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 4px;
