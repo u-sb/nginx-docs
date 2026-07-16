@@ -35,7 +35,10 @@ const hasLede = Astro.slots.has('lede');
                 </p>
         )}
         {/* Body: content column + sticky TOC (hidden below lg) */}
-        <div class="mt-11 grid grid-cols-1 items-start gap-16 lg:grid-cols-[minmax(0,1fr)_210px]">
+        <div class:list={[
+            'mt-11 grid grid-cols-1 items-start gap-16',
+            tocItems.length > 0 && 'lg:grid-cols-[minmax(0,1fr)_210px]',
+        ]}>
             <div class:list={['min-w-0', wide ? 'max-w-none' : 'max-w-[720px]']}>
                 <slot/>
             </div>

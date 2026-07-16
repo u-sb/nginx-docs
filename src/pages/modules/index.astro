@@ -15,12 +15,16 @@ const dynamicCount = moduleDetails.length - staticCount;
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {moduleDetails.map((m) => (
                 <a href={`/modules/${m.slug}/`}
-                   class="block rounded-lg border border-white/10 bg-cell p-5 transition-[border-color,transform,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-white/20 hover:bg-[#13151a]">
+                   class="flex flex-col rounded-lg border border-white/10 bg-cell p-5 transition-[border-color,transform,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-white/20 hover:bg-[#13151a]">
                     <div class="flex items-baseline gap-2.5">
                         <span class="min-w-0 flex-1 truncate font-mono text-[14.5px] text-ink">{m.name}</span>
-                        <span class="font-mono text-[10.5px] text-comment">{m.kind}</span>
+                        <span class:list={['font-mono text-[10.5px]', m.kind === 'static' ? 'text-acc/70' : 'text-comment']}>{m.kind}</span>
                     </div>
-                    <div class="mt-2 text-[13px] leading-[1.6] text-mute">{m.desc}</div>
+                    <div class="mt-2 mb-4 text-[13.5px] leading-[1.6] text-soft">{m.desc}</div>
+                    <div class="mt-auto flex items-baseline justify-between gap-4 border-t border-white/6 pt-3 font-mono text-[11px] text-faint">
+                        <span>{m.license}</span>
+                        <span class="text-comment">&rarr;</span>
+                    </div>
                 </a>
         ))}
     </div>
