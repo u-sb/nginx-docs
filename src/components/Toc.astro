@@ -10,6 +10,10 @@ interface Props {
 }
 
 const {headings} = Astro.props;
+
+// Heading text extracted from MDX includes the anchor's "#" prefix with no
+// separator ("#Changes"); put a space after the hashes for display.
+const label = (text: string) => text.replace(/^(#+)(?=\S)/, '$1 ');
 ---
 <aside class="sticky top-[90px] hidden self-start lg:block" data-toc>
     <div class="mb-3 font-mono text-[11px] tracking-[0.8px] text-faint uppercase">On this page</div>
@@ -20,7 +24,7 @@ const {headings} = Astro.props;
                    class:list={[
                        'toc-link -ml-px block border-l border-transparent py-[5px] text-[13px] text-mute',
                        h.depth >= 3 ? 'pl-[27px]' : 'pl-[15px]',
-                   ]}>{h.text}</a>
+                   ]}>{label(h.text)}</a>
         ))}
     </nav>
 </aside>
