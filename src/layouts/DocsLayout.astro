@@ -14,9 +14,10 @@ interface Props {
     slug: string;
     parent?: {title: string; href: string};
     headings?: Heading[];
+    wide?: boolean;
 }
 
-const {title, description, slug, parent, headings = []} = Astro.props;
+const {title, description, slug, parent, headings = [], wide = false} = Astro.props;
 const tocItems = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 const hasLede = Astro.slots.has('lede');
 ---
@@ -35,7 +36,7 @@ const hasLede = Astro.slots.has('lede');
         )}
         {/* Body: content column + sticky TOC (hidden below lg) */}
         <div class="mt-11 grid grid-cols-1 items-start gap-16 lg:grid-cols-[minmax(0,1fr)_210px]">
-            <div class="min-w-0 max-w-[720px]">
+            <div class:list={['min-w-0', wide ? 'max-w-none' : 'max-w-[720px]']}>
                 <slot/>
             </div>
             {tocItems.length > 0 && <Toc headings={tocItems}/>}
