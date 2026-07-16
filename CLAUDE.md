@@ -34,7 +34,7 @@ Always use **bun** (not npm/pnpm). When adding dependencies, install the latest 
 Files to EDIT (this is the complete list — nothing else needs touching):
 
 1. `src/lib/website_config.ts` — bump `versions` (nginx, openssl, opensslDate — the date printed by `nginx -V`).
-2. `src/pages/intro.astro` — ONLY if the `nginx -V` output changed structurally (new modules/flags): update the `configure arguments` block. The version/OpenSSL header lines interpolate from `versions` automatically.
+2. `src/pages/about.astro` — ONLY if the `nginx -V` output changed structurally (new modules/flags): update the `configure arguments` block. The version/OpenSSL header lines interpolate from `versions` automatically.
 3. `src/data/changelog.ts` — add an entry at the TOP of the array (date format `Jul 17, 2026`).
 4. `blog/` — optionally add a release post (bullets verbatim from the changelog entry, tags like `[nginx, Release]`; for security releases link CVEs to NVD). Use the `blog-post-writer` skill.
 5. `bun run build` to verify, then commit.

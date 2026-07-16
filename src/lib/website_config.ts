@@ -11,7 +11,7 @@ const website_config = {
     github: 'https://github.com/u-sb/nginx-source',
     navbar: [
         {title: 'Home', path: '/'},
-        {title: 'Introduction', path: '/intro/'},
+        {title: 'About', path: '/about/'},
         {title: 'Install', path: '/install/'},
         {title: 'Features', path: '/features/'},
         {title: 'Modules', path: '/modules/'},

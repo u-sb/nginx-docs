@@ -1,9 +1,9 @@
 ---
 import DocsLayout from '@/layouts/DocsLayout.astro';
 import ArrowRight from '@/components/icons/ArrowRight.astro';
-import ArrowUpRight from '@/components/icons/ArrowUpRight.astro';
 import {versions} from '@/lib/website_config';
 import {highlightShell} from '@/lib/highlight-shell';
+import {moduleDetails} from '@/data/module-details';
 
 const headings = [
     {depth: 2, slug: 'what-is-it', text: 'What is it?'},
@@ -21,14 +21,8 @@ const buildSteps = [
     'The latest OpenSSL 4 release is pulled before every packaging run, so known fixes are always included.',
 ];
 
-const features = [
-    {name: 'ngx_brotli', url: 'https://github.com/google/ngx_brotli'},
-    {name: 'ngx_http_geoip2_module', url: 'https://github.com/leev/ngx_http_geoip2_module'},
-    {name: 'ngx_http_ipdb_module', url: 'https://github.com/vislee/ngx_http_ipdb_module'},
-    {name: 'zstd-nginx-module', url: 'https://github.com/tokers/zstd-nginx-module'},
-    {name: 'nginx-acme', url: 'https://github.com/nginx/nginx-acme'},
-    {name: 'QUIC & HTTP/3', url: 'https://nginx.org/en/docs/quic.html'},
-];
+// All bundled modules, linked to their local pages.
+const features = moduleDetails.map((m) => ({name: m.name, url: `/modules/${m.slug}/`}));
 
 const resources = [
     {title: 'Installation', href: '/install/', desc: 'Install now, or grab the Docker image.'},
@@ -48,7 +42,7 @@ const h2 = 'm-0 mb-3.5 font-display text-[25px] font-semibold tracking-[-0.6px] 
 const p = 'm-0 text-[16px] leading-[1.75] text-body';
 const strong = 'font-semibold text-[#e3e5e8]';
 ---
-<DocsLayout title="Introduction" description="What n.wtf is, why it exists, and how we build and maintain it." slug="intro" headings={headings}>
+<DocsLayout title="About" description="What n.wtf is, why it exists, and how we build and maintain it." slug="about" headings={headings}>
     <span slot="lede">What <span class="font-mono text-[15px] text-[#e3e5e8]">n.wtf</span> is, why it exists, and how we build and maintain it.</span>
 
     <section id="what-is-it" class="scroll-mt-[90px]">
@@ -93,12 +87,12 @@ const strong = 'font-semibold text-[#e3e5e8]';
 
     <section id="features" class="mt-12 scroll-mt-[90px]">
         <h2 class:list={[h2, 'mb-3']}>Features</h2>
-        <p class:list={[p, 'mb-2']}>Everything from the Debian / Ubuntu official builds is included, with these modules added to the <strong class={strong}>full</strong> and <strong class={strong}>extras</strong> flavors:</p>
+        <p class:list={[p, 'mb-2']}>Everything from the Debian / Ubuntu official builds is included, with these <a href="/modules/">modules</a> added to the <strong class={strong}>full</strong> and <strong class={strong}>extras</strong> flavors:</p>
         <div class="mb-5 grid grid-cols-1 gap-x-10 sm:grid-cols-2">
             {features.map((f) => (
                     <a href={f.url} class="flex items-center gap-2.5 border-b border-white/7 py-[11px] text-[#d7dade] transition-colors hover:text-acc2">
-                        <span class="flex-1 font-mono text-[13px]">{f.name}</span>
-                        <ArrowUpRight size={13} class="shrink-0 text-comment"/>
+                        <span class="min-w-0 flex-1 truncate font-mono text-[13px]">{f.name}</span>
+                        <ArrowRight size={13} class="shrink-0 text-comment"/>
                     </a>
             ))}
         </div>
