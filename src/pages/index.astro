@@ -63,14 +63,26 @@ sudo apt install nginx-extras -y`,
         cmd: `# run it
 docker run --name nginx --net host --restart always \\
   -v $HOME/nginx-config:/usr/src/docker-nginx/conf:ro \\
-  -d ghcr.io/u-sb/nginx
+  -d ghcr.io/u-sb/nginx`,
+    },
+    {
+        id: 'compose',
+        label: 'Compose',
+        file: 'compose.sh',
+        cmd: `# Clone our repo
+git clone https://github.com/u-sb/nginx-docker
 
-# compose setup: github.com/u-sb/nginx-docker`,
+# Change directory to nginx-docker folder
+cd nginx-docker
+
+# Run docker-compose
+docker compose pull
+docker compose up -d`,
     },
 ];
 
 // Build-time shell "highlighter" — same simple scheme as the design mockup.
-const CMD_WORDS = new Set(['sudo', 'apt', 'apt-get', 'curl', 'echo', 'tee', 'docker', 'cd', 'mkdir', 'systemctl']);
+const CMD_WORDS = new Set(['sudo', 'apt', 'apt-get', 'curl', 'echo', 'tee', 'docker', 'git', 'cd', 'mkdir', 'systemctl']);
 const TOKEN_RE = /(\s+)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(https?:\/\/[^\s"']+)|(--?[A-Za-z][\w-]*)|([A-Za-z][\w.-]*:)|([^\s]+)/g;
 
 function esc(s: string): string {
