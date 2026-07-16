@@ -162,7 +162,7 @@ const tabBtnBase = '-mb-px cursor-pointer whitespace-nowrap border-b-2 bg-transp
                 </div>
 
                 <!-- TERMINAL -->
-                <div class="rounded-lg border border-white/11 bg-panel">
+                <div class="min-w-0 rounded-lg border border-white/11 bg-panel">
                     <div class="code-window-bar">
                         <span class="code-lang">install.sh</span>
                         <button id="hero-copy" type="button" class="code-copy-btn" data-copy-text={heroCopyCmd} aria-label="Copy install command">copy</button>
@@ -203,8 +203,8 @@ const tabBtnBase = '-mb-px cursor-pointer whitespace-nowrap border-b-2 bg-transp
                     <p class="mt-4 max-w-[340px] text-[15px] leading-[1.65] text-soft">Pick your platform. Every method pulls signed packages and gives you rolling nginx updates through <span class="font-mono text-[13.5px] text-[#e3e5e8]">apt</span>.</p>
                     <a href="/install/" class="mt-[18px] inline-block text-[14.5px] font-medium">Read the full guide &rarr;</a>
                 </div>
-                <div>
-                    <div id="install-tabs" class="flex gap-[22px] border-b border-white/10" role="tablist">
+                <div class="min-w-0">
+                    <div id="install-tabs" class="flex gap-[22px] overflow-x-auto border-b border-white/10" role="tablist">
                         {tabs.map((t, i) => (
                             <button
                                 type="button"
