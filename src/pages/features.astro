@@ -89,11 +89,11 @@ const p = 'm-0 text-[16px] leading-[1.75] text-body';
         <div class="overflow-hidden rounded-lg border border-white/10">
             <div class="grid grid-cols-1 gap-px bg-white/8 sm:grid-cols-2 md:grid-cols-3">
                 {modules.map((m) => (
-                        <a href={m.url} target="_blank" rel="noopener"
+                        <a href={`/modules/${m.slug}/`}
                            class="block bg-cell px-[18px] py-4 text-[#e9eaec] transition-colors hover:bg-[#13151a] hover:text-[#e9eaec]">
                             <div class="flex items-baseline gap-2.5">
                                 <span class="min-w-0 flex-1 truncate font-mono text-[13px]">{m.name}</span>
-                                <span class="font-mono text-[12px] text-comment">↗</span>
+                                <span class="font-mono text-[12px] text-comment">&rarr;</span>
                             </div>
                             <div class="mt-[5px] text-[12.5px] text-mute">{m.desc}</div>
                         </a>

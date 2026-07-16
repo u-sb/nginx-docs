@@ -26,7 +26,6 @@ export const GET: APIRoute = async () => {
     for (const item of website_config.navbar) {
         lines.push(`- [${item.title}](${baseUrl}${item.path})`);
     }
-    lines.push(`- [Features](${baseUrl}/features/)`);
     lines.push('');
 
     lines.push('## Blog Posts');

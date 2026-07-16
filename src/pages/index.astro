@@ -218,11 +218,11 @@ const tabBtnBase = '-mb-px cursor-pointer whitespace-nowrap border-b-2 bg-transp
             <div class="overflow-hidden rounded-lg border border-white/10">
                 <div class="grid grid-cols-1 gap-px bg-white/8 sm:grid-cols-2 lg:grid-cols-3">
                     {modules.map((m) => (
-                        <a href={m.url} target="_blank" rel="noopener"
+                        <a href={`/modules/${m.slug}/`}
                            class="block bg-cell px-[18px] py-4 transition-colors hover:bg-[#13151a]">
                             <div class="flex items-baseline gap-2.5">
                                 <span class="min-w-0 flex-1 truncate font-mono text-[13px] text-[#e9eaec]">{m.name}</span>
-                                <span class="font-mono text-[12px] text-comment">&#8599;</span>
+                                <span class="font-mono text-[12px] text-comment">&rarr;</span>
                             </div>
                             <div class="mt-[5px] text-[12.5px] text-mute">{m.desc}</div>
                         </a>

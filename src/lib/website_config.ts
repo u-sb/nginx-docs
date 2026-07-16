@@ -13,6 +13,7 @@ const website_config = {
         {title: 'Introduction', path: '/intro/'},
         {title: 'Install', path: '/install/'},
         {title: 'Features', path: '/features/'},
+        {title: 'Modules', path: '/modules/'},
         {title: 'Mirrors', path: '/mirrors/'},
         {title: 'Changelog', path: '/changelog/'},
         {title: 'Blog', path: '/blog/'},

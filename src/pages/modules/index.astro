@@ -1,0 +1,30 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import {moduleDetails} from '@/data/module-details';
+
+const staticCount = moduleDetails.filter((m) => m.kind === 'static').length;
+const dynamicCount = moduleDetails.length - staticCount;
+---
+<DocsLayout title="Modules"
+            description={`The ${moduleDetails.length} third-party modules built into every n.wtf nginx package.`}
+            slug="modules"
+            headings={[]}>
+    <span slot="lede">The {moduleDetails.length} third-party modules built into every <span class="font-mono text-[15px] text-[#e3e5e8]">n.wtf</span> nginx package: {staticCount} compiled in, {dynamicCount} loadable.</span>
+
+    <div class="overflow-hidden rounded-lg border border-white/10">
+        <div class="grid grid-cols-1 gap-px bg-white/8 sm:grid-cols-2">
+            {moduleDetails.map((m) => (
+                    <a href={`/modules/${m.slug}/`}
+                       class="block bg-cell px-[18px] py-4 transition-colors hover:bg-[#13151a]">
+                        <div class="flex items-baseline gap-2.5">
+                            <span class="min-w-0 flex-1 truncate font-mono text-[13px] text-[#e9eaec]">{m.name}</span>
+                            <span class="font-mono text-[10.5px] text-comment">{m.kind}</span>
+                        </div>
+                        <div class="mt-[5px] text-[12.5px] text-mute">{m.desc}</div>
+                    </a>
+            ))}
+        </div>
+    </div>
+
+    <p class="m-0 mt-5 text-[16px] leading-[1.75] text-body">Everything from the Debian and Ubuntu official builds is included too. Build scripts and packaging live at <a href="https://github.com/u-sb/nginx-source" target="_blank" rel="noopener">u-sb/nginx-source</a>.</p>
+</DocsLayout>

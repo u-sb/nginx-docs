@@ -12,10 +12,11 @@ interface Props {
     title: string;
     description?: string;
     slug: string;
+    parent?: {title: string; href: string};
     headings?: Heading[];
 }
 
-const {title, description, slug, headings = []} = Astro.props;
+const {title, description, slug, parent, headings = []} = Astro.props;
 const tocItems = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 const hasLede = Astro.slots.has('lede');
 ---
@@ -23,7 +24,8 @@ const hasLede = Astro.slots.has('lede');
     <main class="mx-auto w-full max-w-[1120px] flex-1 px-8 pt-[52px] pb-16" data-pagefind-body>
         {/* Page header: breadcrumb + title + lede */}
         <nav class="font-mono text-[12.5px] text-faint" aria-label="Breadcrumb">
-            <a href="/" class="text-faint transition-colors hover:text-ink">~</a> / {slug}
+            <a href="/" class="text-faint transition-colors hover:text-ink">~</a> /
+            {parent && <><a href={parent.href} class="text-faint transition-colors hover:text-ink">{parent.title}</a> / </>}{slug}
         </nav>
         <h1 class="mt-4 font-display text-[clamp(34px,4.4vw,52px)] leading-[1.05] font-bold tracking-[-1.6px] text-ink">{title}</h1>
         {(hasLede || description) && (

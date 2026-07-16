@@ -1,0 +1,86 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import TerminalCard from '@/components/TerminalCard.astro';
+import {moduleDetails} from '@/data/module-details';
+
+export async function getStaticPaths() {
+    return moduleDetails.map((mod, i) => ({
+        params: {slug: mod.slug},
+        props: {
+            mod,
+            prev: moduleDetails[i - 1] ?? null,
+            next: moduleDetails[i + 1] ?? null,
+        },
+    }));
+}
+
+const {mod, prev, next} = Astro.props;
+
+const headings = [
+    {depth: 2, slug: 'overview', text: 'Overview'},
+    {depth: 2, slug: 'directives', text: 'Key directives'},
+    {depth: 2, slug: 'example', text: 'Example'},
+    {depth: 2, slug: 'availability', text: 'Availability'},
+];
+
+const h2 = 'm-0 mb-3.5 font-display text-[25px] font-semibold tracking-[-0.6px] text-ink';
+const p = 'm-0 text-[16px] leading-[1.75] text-body';
+---
+<DocsLayout title={mod.name}
+            description={mod.desc}
+            slug={mod.slug}
+            parent={{title: 'modules', href: '/modules/'}}
+            headings={headings}>
+    <span slot="lede">{mod.desc}</span>
+
+    {/* Meta strip: build kind, license, upstream links */}
+    <div class="-mt-5 mb-11 flex flex-wrap items-baseline gap-x-6 gap-y-2 font-mono text-[12.5px]">
+        <span class="text-faint">{mod.kind === 'static' ? 'compiled in' : 'dynamic module'}</span>
+        <span class="text-faint">{mod.license}</span>
+        <a href={mod.repo} target="_blank" rel="noopener" class="text-mute transition-colors hover:text-acc2">source &#8599;</a>
+        {mod.docs && <a href={mod.docs} target="_blank" rel="noopener" class="text-mute transition-colors hover:text-acc2">docs &#8599;</a>}
+    </div>
+
+    <section id="overview" class="scroll-mt-[90px]">
+        <h2 class={h2}>Overview</h2>
+        {mod.overview.map((paragraph) => (
+                <p class:list={[p, 'mb-3.5 last:mb-0']}>{paragraph}</p>
+        ))}
+    </section>
+
+    <section id="directives" class="mt-12 scroll-mt-[90px]">
+        <h2 class={h2}>Key directives</h2>
+        <div class="divide-y divide-white/9 border-y border-white/9">
+            {mod.highlights.map((item) => (
+                    <div class="grid grid-cols-1 gap-x-8 gap-y-1 py-[13px] sm:grid-cols-[220px_minmax(0,1fr)]">
+                        <code class="font-mono text-[13px] leading-[1.7] break-words text-acc2">{item.name}</code>
+                        <span class="text-[14.5px] leading-[1.7] text-body">{item.desc}</span>
+                    </div>
+            ))}
+        </div>
+    </section>
+
+    <section id="example" class="mt-12 scroll-mt-[90px]">
+        <h2 class={h2}>Example</h2>
+        <TerminalCard file="nginx.conf" cmd={mod.example} lang="nginx"/>
+    </section>
+
+    <section id="availability" class="mt-12 scroll-mt-[90px]">
+        <h2 class={h2}>Availability</h2>
+        {mod.kind === 'static' ? (
+                <p class={p}>Compiled into every n.wtf nginx binary. Install <code class="font-mono text-[14px] text-[#e3e5e8]">nginx-extras</code> and the directives above work out of the box, no <code class="font-mono text-[14px] text-[#e3e5e8]">load_module</code> line needed.</p>
+        ) : (
+                <p class={p}>Ships as a dynamic module{mod.package && <> in <code class="font-mono text-[14px] text-[#e3e5e8]">{mod.package}</code></>}, installed automatically with <code class="font-mono text-[14px] text-[#e3e5e8]">nginx-extras</code>. The package drops a <code class="font-mono text-[14px] text-[#e3e5e8]">load_module</code> config into <code class="font-mono text-[14px] text-[#e3e5e8]">/etc/nginx/modules-enabled/</code>, so it loads on start.</p>
+        )}
+    </section>
+
+    {/* Prev / next module (alphabetical) */}
+    <nav class="mt-14 flex items-baseline justify-between gap-6 border-t border-white/9 pt-6 font-mono text-[13px]" aria-label="Module navigation">
+        <span class="min-w-0">
+            {prev && <a href={`/modules/${prev.slug}/`} class="text-mute transition-colors hover:text-acc2">&larr; {prev.name}</a>}
+        </span>
+        <span class="min-w-0 text-right">
+            {next && <a href={`/modules/${next.slug}/`} class="text-mute transition-colors hover:text-acc2">{next.name} &rarr;</a>}
+        </span>
+    </nav>
+</DocsLayout>

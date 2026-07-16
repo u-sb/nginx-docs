@@ -41,7 +41,7 @@ Always use **bun** (not npm/pnpm). When adding dependencies, install the latest 
 
 **Framework**: Astro 7, fully static (`trailingSlash: 'always'`, output to `dist/`)
 
-**Content**: Markdown is used ONLY for blog posts (`blog/*.mdx`, collection in `src/content.config.ts`; frontmatter: title, excerpt, date, tags, optional updated). All doc pages (intro, install, mirrors, changelog, contact, features) are structured Astro templates in `src/pages/*.astro` wrapping `DocsLayout`. Changelog entries live as data in `src/data/changelog.ts` (items support inline markdown, rendered with marked.parseInline).
+**Content**: Markdown is used ONLY for blog posts (`blog/*.mdx`, collection in `src/content.config.ts`; frontmatter: title, excerpt, date, tags, optional updated). All doc pages (intro, install, mirrors, changelog, contact, features) are structured Astro templates in `src/pages/*.astro` wrapping `DocsLayout`. Changelog entries live as data in `src/data/changelog.ts` (items support inline markdown, rendered with marked.parseInline). Per-module pages (`/modules/<slug>/`) render from `src/data/module-details/group-{a..d}.ts` (aggregated + alphabetized in `src/data/module-details/index.ts`); the homepage/features grids derive their cards from the same data via `src/data/modules.ts`, so adding a module = adding one entry to a group file.
 
 **Key Files**:
 - `astro.config.ts` - Site config, MDX/rehype pipeline (highlight.js with nginx language, heading anchors, terminal-card code blocks)

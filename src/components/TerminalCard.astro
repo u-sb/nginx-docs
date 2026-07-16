@@ -1,13 +1,21 @@
 ---
+import hljs from 'highlight.js/lib/core';
+import nginxLang from 'highlight.js/lib/languages/nginx';
 import {highlightShell} from '@/lib/highlight-shell';
+
+hljs.registerLanguage('nginx', nginxLang);
 
 interface Props {
     file: string;
     cmd: string;
+    lang?: 'shell' | 'nginx';
     class?: string;
 }
 
-const {file, cmd, class: className} = Astro.props;
+const {file, cmd, lang = 'shell', class: className} = Astro.props;
+const html = lang === 'nginx'
+    ? `<span class="hljs">${hljs.highlight(cmd, {language: 'nginx'}).value}</span>`
+    : highlightShell(cmd);
 ---
 <div class:list={['min-w-0 rounded-lg border border-white/11 bg-panel', className]} data-terminal-card data-cmd={cmd}>
     <div class="code-window-bar">
@@ -15,6 +23,6 @@ const {file, cmd, class: className} = Astro.props;
         <button type="button" class="code-copy-btn" data-terminal-copy aria-label={`Copy ${file}`}>copy</button>
     </div>
     <div class="overflow-x-auto px-[18px] py-5 font-mono text-[13.5px] leading-[1.85] whitespace-pre text-[#d7dade]"
-         set:html={highlightShell(cmd)}/>
+         set:html={html}/>
 </div>
 {/* Copy wiring lives in BaseLayout's terminal-card script. */}
