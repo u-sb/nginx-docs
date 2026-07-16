@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && pagefind --site dist --output-path dist/_pagefind",
+    "build": "astro build && cp dist/sitemap-index.xml dist/sitemap.xml && pagefind --site dist --output-path dist/_pagefind",
     "preview": "astro preview",
     "check": "astro check"
   },
