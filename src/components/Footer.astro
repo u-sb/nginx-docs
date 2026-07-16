@@ -1,6 +1,7 @@
 ---
 import website_config from '@/lib/website_config';
 
+// Build-time year as fallback; a small script below keeps it current at runtime.
 const year = new Date().getFullYear();
 
 const columns = [
@@ -11,6 +12,11 @@ const columns = [
             {title: 'Installation', href: '/install/'},
             {title: 'Features', href: '/features/'},
             {title: 'Modules', href: '/modules/'},
+        ],
+    },
+    {
+        title: 'Repository',
+        links: [
             {title: 'Mirrors', href: '/mirrors/'},
             {title: 'Changelog', href: '/changelog/'},
             {title: 'Blog', href: '/blog/'},
@@ -20,15 +26,15 @@ const columns = [
         title: 'Project',
         links: [
             {title: 'GitHub', href: website_config.github},
-            {title: 'Contact', href: '/contact/'},
             {title: 'Issues', href: `${website_config.github}/issues`},
+            {title: 'Contact', href: '/contact/'},
             {title: 'm.ac', href: 'https://m.ac/'},
         ],
     },
 ];
 ---
 <footer class="border-t border-white/9">
-    <div class="mx-auto grid max-w-[1120px] grid-cols-1 gap-10 px-8 pb-9 pt-12 sm:grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr]">
+    <div class="mx-auto grid max-w-[1120px] grid-cols-1 gap-10 px-8 pb-9 pt-12 sm:grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
         <div>
             <div class="flex items-center gap-2 font-mono text-[15px] font-bold text-ink">
                 <img src="/logo.svg" alt="" width="20" height="20" class="block"/>
@@ -50,9 +56,15 @@ const columns = [
     </div>
     <div class="border-t border-white/6">
         <div class="mx-auto flex max-w-[1120px] flex-wrap justify-between gap-3 px-8 py-[18px] font-mono text-[12px] text-faint">
-            <span>MIT Licensed · © 2019–{year} <a href="https://m.ac/"
+            <span>MIT Licensed · © 2019 - <span data-footer-year>{year}</span> <a href="https://m.ac/"
                                                   class="text-mute transition-colors hover:text-ink">m.ac</a></span>
             <span>NGINX is a trademark of F5, Inc. — not affiliated</span>
         </div>
     </div>
 </footer>
+
+<script>
+    // Keep the copyright year current on a statically built page.
+    const el = document.querySelector('[data-footer-year]');
+    if (el) el.textContent = String(new Date().getFullYear());
+</script>
