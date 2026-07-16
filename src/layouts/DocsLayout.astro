@@ -1,0 +1,42 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Toc from '@/components/Toc.astro';
+
+interface Heading {
+    depth: number;
+    slug: string;
+    text: string;
+}
+
+interface Props {
+    title: string;
+    description?: string;
+    slug: string;
+    headings?: Heading[];
+}
+
+const {title, description, slug, headings = []} = Astro.props;
+const tocItems = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+const hasLede = Astro.slots.has('lede');
+---
+<BaseLayout title={title} description={description}>
+    <main class="mx-auto w-full max-w-[1120px] flex-1 px-8 pt-[52px] pb-16" data-pagefind-body>
+        {/* Page header: breadcrumb + title + lede */}
+        <nav class="font-mono text-[12.5px] text-faint" aria-label="Breadcrumb">
+            <a href="/" class="text-faint transition-colors hover:text-ink">~</a> / {slug}
+        </nav>
+        <h1 class="mt-4 font-display text-[clamp(34px,4.4vw,52px)] leading-[1.05] font-bold tracking-[-1.6px] text-ink">{title}</h1>
+        {(hasLede || description) && (
+                <p class="mt-3.5 max-w-[600px] text-[17px] leading-[1.6] text-soft">
+                    {hasLede ? <slot name="lede"/> : description}
+                </p>
+        )}
+        {/* Body: content column + sticky TOC (hidden below lg) */}
+        <div class="mt-11 grid grid-cols-1 items-start gap-16 lg:grid-cols-[minmax(0,1fr)_210px]">
+            <div class="min-w-0 max-w-[720px]">
+                <slot/>
+            </div>
+            {tocItems.length > 0 && <Toc headings={tocItems}/>}
+        </div>
+    </main>
+</BaseLayout>

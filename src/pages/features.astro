@@ -1,0 +1,167 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import SecondaryText from '@/components/SecondaryText.astro';
+
+const headings = [
+    {depth: 2, slug: 'included-modules', text: 'Included modules'},
+    {depth: 2, slug: 'supported-os', text: 'Supported OS'},
+    {depth: 3, slug: 'fully-supported-os', text: 'Fully Supported OS'},
+    {depth: 3, slug: 'unsupported-os', text: 'Unsupported OS'},
+    {depth: 3, slug: 'removed-os', text: 'Removed OS'},
+];
+
+const pillars = [
+    {
+        title: 'Always mainline',
+        desc: 'We track the newest nginx mainline release and publish it the moment it drops. No compiling, no waiting on your distro.',
+    },
+    {
+        title: 'TLS 1.3, everywhere',
+        desc: "OpenSSL 4 is statically linked, so TLS 1.3 and HTTP/3 work even on distributions whose system OpenSSL can't keep up.",
+    },
+    {
+        title: 'Batteries included',
+        desc: 'Brotli, Zstandard, QUIC/HTTP3, GeoIP2, ACME and a dozen more modules, prebuilt into the full and extras flavors.',
+    },
+];
+
+const modules = [
+    {name: 'ngx_brotli', desc: 'Brotli compression', url: 'https://github.com/google/ngx_brotli'},
+    {name: 'zstd-nginx', desc: 'Zstandard compression', url: 'https://github.com/tokers/zstd-nginx-module'},
+    {name: 'QUIC / HTTP3', desc: 'Next-gen transport', url: 'https://nginx.org/en/docs/quic.html'},
+    {name: 'http_geoip2', desc: 'MaxMind GeoIP2', url: 'https://github.com/leev/ngx_http_geoip2_module'},
+    {name: 'http_ipdb', desc: 'IPDB geolocation', url: 'https://github.com/vislee/ngx_http_ipdb_module'},
+    {name: 'nginx-acme', desc: 'Automatic TLS certs', url: 'https://github.com/nginx/nginx-acme'},
+    {name: 'headers-more', desc: 'Fine header control', url: 'https://github.com/openresty/headers-more-nginx-module'},
+    {name: 'http-lua', desc: 'Lua scripting', url: 'https://github.com/openresty/lua-nginx-module'},
+    {name: 'rtmp', desc: 'Media streaming', url: 'https://github.com/arut/nginx-rtmp-module'},
+    {name: 'fancyindex', desc: 'Pretty dir listings', url: 'https://github.com/aperezdc/ngx-fancyindex'},
+    {name: 'cache-purge', desc: 'Purge cached content', url: null},
+    {name: 'dav-ext', desc: 'Extended WebDAV', url: 'https://github.com/arut/nginx-dav-ext-module'},
+];
+
+// Real support data from the Installation page.
+const fullySupported = [
+    {name: 'Debian 12 Bookworm (OldStable)', note: 'Update through 2028-07 or later'},
+    {name: 'Debian 13 Trixie (Stable)', note: 'Update through 2030-07 or later'},
+    {name: 'Debian 14 Forky (Testing) - experimental', note: 'Update through 2032-07 or later'},
+    {name: 'Ubuntu 22.04 Jammy (LTS)', note: 'Update through 2027-04 or later'},
+    {name: 'Ubuntu 24.04 Noble (LTS)', note: 'Update through 2029-04 or later'},
+    {name: 'Ubuntu 25.10 Questing', note: 'Update through 2026-12 or later'},
+    {name: 'Ubuntu 26.04 Resolute (LTS)', note: 'Update through 2031-04 or later'},
+];
+
+const unsupported = [
+    {name: 'Ubuntu 20.04 Focal (LTS)', note: 'Last update 1.31.0-1nwtf+362 - this is the final update'},
+    {name: 'Ubuntu 25.04 Plucky', note: 'Last update 1.31.0-1nwtf+362'},
+    {name: 'Debian 11 Bullseye', note: 'Last update 1.31.0-1nwtf+362'},
+];
+
+const removed = [
+    'Debian 8 Jessie',
+    'Debian 9 Stretch',
+    'Debian 10 Buster',
+    'Ubuntu 14.04 Trusty',
+    'Ubuntu 16.04 Xenial',
+    'Ubuntu 18.04 Bionic',
+    'Ubuntu 18.10 Cosmic',
+    'Ubuntu 19.04 Disco',
+    'Ubuntu 19.10 Eoan',
+    'Ubuntu 20.10 Groovy',
+    'Ubuntu 21.04 Hirsute',
+    'Ubuntu 21.10 Impish',
+    'Ubuntu 22.10 Kinetic',
+    'Ubuntu 23.04 Lunar',
+    'Ubuntu 23.10 Mantic',
+    'Ubuntu 24.10 Oracular',
+];
+
+const h2 = 'm-0 mb-3.5 font-display text-[25px] font-semibold tracking-[-0.6px] text-ink';
+const h3 = 'm-0 mb-3 scroll-mt-[90px] font-display text-[19px] font-semibold tracking-[-0.3px] text-ink';
+const p = 'm-0 text-[16px] leading-[1.75] text-body';
+---
+<DocsLayout title="Features"
+            description="A drop-in repository that ships nginx mainline the day it lands — TLS 1.3, HTTP/3, Brotli & Zstd, GeoIP2 and ACME, prebuilt and maintained so you never compile again."
+            slug="features"
+            headings={headings}>
+
+    {/* The three pillars */}
+    <section class="grid grid-cols-1 gap-10 md:grid-cols-3">
+        {pillars.map((pillar, i) => (
+                <div class="border-t border-white/14 pt-5">
+                    <div class="font-mono text-[12px] text-acc">{String(i + 1).padStart(2, '0')}</div>
+                    <h2 class="mt-3 mb-2 font-display text-[19px] font-semibold tracking-[-0.3px] text-ink">{pillar.title}</h2>
+                    <p class="m-0 text-[14.5px] leading-[1.6] text-soft">{pillar.desc}</p>
+                </div>
+        ))}
+    </section>
+
+    <section id="included-modules" class="mt-12 scroll-mt-[90px]">
+        <h2 class={h2}>Included modules</h2>
+        <p class:list={[p, 'mb-5']}>Everything from the Debian &amp; Ubuntu official builds, plus these.</p>
+        <div class="overflow-hidden rounded-lg border border-white/10">
+            <div class="grid grid-cols-1 gap-px bg-white/8 sm:grid-cols-2 md:grid-cols-3">
+                {modules.map((m) =>
+                    m.url ? (
+                            <a href={m.url} class="block bg-cell px-[18px] py-4 text-[#e9eaec] transition-colors hover:bg-[#13151a] hover:text-[#e9eaec]">
+                                <div class="flex items-baseline gap-2.5">
+                                    <span class="flex-1 font-mono text-[13px]">{m.name}</span>
+                                    <span class="font-mono text-[12px] text-comment">↗</span>
+                                </div>
+                                <div class="mt-[5px] text-[12.5px] text-mute">{m.desc}</div>
+                            </a>
+                    ) : (
+                            <div class="bg-cell px-[18px] py-4">
+                                <div class="font-mono text-[13px] text-[#e9eaec]">{m.name}</div>
+                                <div class="mt-[5px] text-[12.5px] text-mute">{m.desc}</div>
+                            </div>
+                    ),
+                )}
+            </div>
+        </div>
+        <p class:list={[p, 'mt-4']}>Statically built with OpenSSL 4, so you can use TLS 1.3 even on distributions that don't ship it.</p>
+    </section>
+
+    <section id="supported-os" class="mt-12 scroll-mt-[90px]">
+        <h2 class={h2}>Supported OS</h2>
+
+        <div id="fully-supported-os" class="scroll-mt-[90px]">
+            <h3 class={h3}>Fully Supported OS</h3>
+            <div class="divide-y divide-white/9 border-y border-white/9">
+                {fullySupported.map((os) => (
+                        <div class="flex flex-col gap-0.5 py-[13px] sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                            <span class="text-[14.5px] leading-[1.6] text-body">{os.name}</span>
+                            <SecondaryText>{os.note}</SecondaryText>
+                        </div>
+                ))}
+            </div>
+            <p class:list={[p, 'mt-4 mb-3.5']}>We support LTS and current releases of Debian and Ubuntu, as well as releases that are going to be GA soon.</p>
+            <p class:list={[p, 'mb-3.5']}>ARM64 platform has less audience. Please report if you hit issues.</p>
+            <p class={p}>Debian 13 Trixie onwards are compiled with PCRE2 and a later version of <code class="font-mono text-[14px] text-[#e3e5e8]">http_lua</code> module, please report issues.</p>
+        </div>
+
+        <div id="unsupported-os" class="mt-10 scroll-mt-[90px]">
+            <h3 class={h3}>Unsupported OS</h3>
+            <div class="divide-y divide-white/9 border-y border-white/9">
+                {unsupported.map((os) => (
+                        <div class="flex flex-col gap-0.5 py-[13px] sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                            <span class="text-[14.5px] leading-[1.6] text-body">{os.name}</span>
+                            <SecondaryText>{os.note}</SecondaryText>
+                        </div>
+                ))}
+            </div>
+            <p class:list={[p, 'mt-4 mb-3.5']}>We do not provide full and long term support for legacy OS, but you can use it at your own risk. Unsupported OS will not always get the latest update and is on a resonable efforts basis - we may stop updating them at any time.</p>
+            <p class={p}>Release that is tagged as <SecondaryText>this is the final update</SecondaryText> will no longer receive updates.</p>
+        </div>
+
+        <div id="removed-os" class="mt-10 scroll-mt-[90px]">
+            <h3 class={h3}>Removed OS</h3>
+            <p class:list={[p, 'mb-2']}>We no longer provide packages for those OS:</p>
+            <div class="grid grid-cols-1 gap-x-10 sm:grid-cols-2">
+                {removed.map((os) => (
+                        <div class="border-b border-white/7 py-[11px] text-[14.5px] text-body">{os}</div>
+                ))}
+            </div>
+        </div>
+    </section>
+</DocsLayout>

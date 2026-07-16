@@ -1,0 +1,60 @@
+---
+import {tagSlug} from '@/lib/posts';
+
+interface TagItem {
+    name: string;
+    count: number;
+}
+
+interface Props {
+    tags: TagItem[];
+}
+
+const {tags} = Astro.props;
+
+const letterOf = (name: string) => {
+    const c = name.charAt(0).toUpperCase();
+    return c >= 'A' && c <= 'Z' ? c : '#';
+};
+
+const groups = new Map<string, TagItem[]>();
+for (const tag of [...tags].sort((a, b) => a.name.localeCompare(b.name, 'en', {sensitivity: 'base'}))) {
+    const key = letterOf(tag.name);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(tag);
+}
+
+const sortedKeys = [...groups.keys()].sort((a, b) => {
+    if (a === '#') return 1;
+    if (b === '#') return -1;
+    return a.localeCompare(b);
+});
+---
+{sortedKeys.length > 1 && (
+        <nav class="mb-10 flex flex-wrap gap-2 font-mono text-[12.5px]" aria-label="Jump to letter">
+            {sortedKeys.map((key) => (
+                    <a href={`#letter-${key}`} title={`Jump to ${key}`}
+                       class="inline-flex h-7 min-w-7 items-center justify-center rounded-[6px] border border-white/10 px-2 text-mute transition-colors hover:border-white/20 hover:text-ink">
+                        {key}
+                    </a>
+            ))}
+        </nav>
+)}
+
+<div class="space-y-9">
+    {sortedKeys.map((key) => (
+            <section id={`letter-${key}`} class="scroll-mt-[90px] border-t border-white/9 pt-5">
+                <h2 class="mb-4 font-mono text-[13px] font-medium tracking-[0.8px] text-faint uppercase">{key}</h2>
+                <div class="flex flex-wrap gap-x-6 gap-y-3">
+                    {groups.get(key)!.map((tag) => (
+                            <a href={`/tags/${tagSlug(tag.name)}/`}
+                               title={`Posts tagged #${tag.name} (${tag.count})`}
+                               class="inline-flex items-baseline gap-1.5 font-mono text-[13.5px] text-mute transition-colors hover:text-acc2">
+                                #{tag.name}
+                                <span class="text-[12px] text-comment">{tag.count}</span>
+                            </a>
+                    ))}
+                </div>
+            </section>
+    ))}
+</div>

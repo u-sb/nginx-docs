@@ -1,0 +1,94 @@
+---
+title: Installation
+description: Supported operating systems and how to install nginx from the n.wtf repository via DEB or Docker.
+---
+
+import SecondaryText from '../src/components/SecondaryText.astro';
+
+## Fully Supported OS
+
+* Debian 12 Bookworm (OldStable) <br /><SecondaryText>Update through 2028-07 or later</SecondaryText>
+* Debian 13 Trixie (Stable) <br /><SecondaryText>Update through 2030-07 or later</SecondaryText>
+* Debian 14 Forky (Testing) - experimental <br /><SecondaryText>Update through 2032-07 or later</SecondaryText>
+* Ubuntu 22.04 Jammy (LTS) <br /><SecondaryText>Update through 2027-04 or later</SecondaryText>
+* Ubuntu 24.04 Noble (LTS) <br /><SecondaryText>Update through 2029-04 or later</SecondaryText>
+* Ubuntu 25.10 Questing <br /><SecondaryText>Update through 2026-12 or later</SecondaryText>
+* Ubuntu 26.04 Resolute (LTS) <br /><SecondaryText>Update through 2031-04 or later</SecondaryText>
+
+We support LTS and current releases of Debian and Ubuntu, as well as releases that are going to be GA soon.
+
+ARM64 platform has less audience. Please report if you hit issues.
+
+Debian 13 Trixie onwards are compiled with PCRE2 and a later version of `http_lua` module, please report issues.
+
+## Install via DEB
+
+One-Line Style:
+
+```bash
+sudo apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
+
+curl -sSL https://n.wtf/public.key | sudo bash -c 'gpg --dearmor > /usr/share/keyrings/n.wtf.gpg'
+
+sudo bash -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.gpg] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list'
+
+sudo apt update
+
+sudo apt install nginx-extras -y
+```
+
+DEB822:
+
+```bash
+sudo apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
+
+curl -sSL https://n.wtf/public.key | sudo bash -c 'gpg --dearmor > /usr/share/keyrings/n.wtf.gpg'
+
+sudo bash -c 'cat > /etc/apt/sources.list.d/n.wtf.sources << EOF
+Components: main
+Architectures: $(dpkg --print-architecture)
+Suites: $(lsb_release -cs)
+Types: deb
+Uris: https://mirror-cdn.xtom.com/sb/nginx/
+Signed-By: /usr/share/keyrings/n.wtf.gpg
+EOF'
+
+sudo apt update
+
+sudo apt install nginx-extras -y
+```
+
+## Install from Docker
+
+Check out [Docker image for nginx-docker](https://github.com/u-sb/nginx-docker).
+
+## Unsupported OS
+
+* Ubuntu 20.04 Focal (LTS) <br /><SecondaryText>Last update 1.31.0-1nwtf+362 - this is the final update</SecondaryText>
+* Ubuntu 25.04 Plucky <br /><SecondaryText>Last update 1.31.0-1nwtf+362</SecondaryText>
+* Debian 11 Bullseye <br /><SecondaryText>Last update 1.31.0-1nwtf+362</SecondaryText>
+
+We do not provide full and long term support for legacy OS, but you can use it at your own risk. Unsupported OS will not always get the latest update and is on a resonable efforts basis - we may stop updating them at any time.
+
+Release that is tagged as <SecondaryText>this is the final update</SecondaryText> will no longer receive updates.
+
+## Removed OS
+
+We no longer provide packages for those OS:
+
+* Debian 8 Jessie
+* Debian 9 Stretch
+* Debian 10 Buster
+* Ubuntu 14.04 Trusty
+* Ubuntu 16.04 Xenial
+* Ubuntu 18.04 Bionic
+* Ubuntu 18.10 Cosmic
+* Ubuntu 19.04 Disco
+* Ubuntu 19.10 Eoan
+* Ubuntu 20.10 Groovy
+* Ubuntu 21.04 Hirsute
+* Ubuntu 21.10 Impish
+* Ubuntu 22.10 Kinetic
+* Ubuntu 23.04 Lunar
+* Ubuntu 23.10 Mantic
+* Ubuntu 24.10 Oracular

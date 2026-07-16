@@ -1,0 +1,64 @@
+---
+import '@/styles/globals.css';
+import '@/styles/highlight.css';
+import '@fontsource/space-grotesk/400.css';
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/600.css';
+import '@fontsource/space-grotesk/700.css';
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '@fontsource/jetbrains-mono/600.css';
+import '@fontsource/jetbrains-mono/700.css';
+import BaseHead from '@/components/BaseHead.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import SearchModal from '@/components/SearchModal.astro';
+
+interface Props {
+    title?: string;
+    description?: string;
+    keywords?: string;
+    pageType?: 'website' | 'article';
+    canonical?: string;
+    noindex?: boolean;
+    publishedTime?: string;
+    modifiedTime?: string;
+    articleTags?: string[];
+}
+
+const headProps = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+    <BaseHead {...headProps}/>
+</head>
+<body class="flex min-h-[100dvh] flex-col font-sans antialiased">
+<Header/>
+<div class="flex flex-1 flex-col">
+    <slot/>
+</div>
+<Footer/>
+<SearchModal/>
+<script>
+    // Copy button on terminal-card code blocks (rehype-code-block markup).
+    document.querySelectorAll<HTMLButtonElement>('[data-code-block] [data-copy-btn]').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+            const code = btn.closest('[data-code-block]')?.querySelector('pre')?.textContent ?? '';
+            try {
+                await navigator.clipboard.writeText(code.replace(/\n$/, ''));
+            } catch {
+                return;
+            }
+            btn.textContent = 'copied';
+            setTimeout(() => {
+                btn.textContent = 'copy';
+            }, 1600);
+        });
+    });
+</script>
+</body>
+</html>

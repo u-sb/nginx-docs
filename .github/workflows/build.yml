@@ -23,13 +23,13 @@ jobs:
           path: ${{ github.workspace }}/node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('**/bun.lock') }}
 
-      - name: Next.js CI Cache
+      - name: Astro CI Cache
         uses: actions/cache@v5
         with:
-          path: ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lock') }}-${{ hashFiles('src/**', 'content/**') }}
+          path: ${{ github.workspace }}/.astro
+          key: ${{ runner.os }}-astro-${{ hashFiles('**/bun.lock') }}-${{ hashFiles('src/**', 'docs/**', 'blog/**') }}
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lock') }}-
+            ${{ runner.os }}-astro-${{ hashFiles('**/bun.lock') }}-
 
       - name: Install Dependencies
         run: bun install --frozen-lockfile
@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: ${{ github.workspace }}/out/
+          path: ${{ github.workspace }}/dist/
           if-no-files-found: error
 
   deploy:
@@ -58,14 +58,14 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: dist
-          path: ${{ github.workspace }}/out/
-      - run: ls -R ${{ github.workspace }}/out/
+          path: ${{ github.workspace }}/dist/
+      - run: ls -R ${{ github.workspace }}/dist/
       - uses: easingthemes/ssh-deploy@v4.0.5
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: '-avz --delete'
           REMOTE_HOST: ${{ env.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          SOURCE: out/*
+          SOURCE: dist/*
           TARGET: /home/github/n.wtf/
           EXCLUDE: .git,.github,.gitlab-ci.yml,.nojekyll

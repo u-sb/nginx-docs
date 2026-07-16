@@ -1,0 +1,135 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import {versions} from '@/lib/website_config';
+
+const headings = [
+    {depth: 2, slug: 'what-is-it', text: 'What is it?'},
+    {depth: 2, slug: 'why-do-we-make-it', text: 'Why do we make it?'},
+    {depth: 2, slug: 'how-do-we-make-it', text: 'How do we make it?'},
+    {depth: 2, slug: 'current-version', text: 'Current version'},
+    {depth: 2, slug: 'features', text: 'Features'},
+    {depth: 2, slug: 'resources', text: 'Where to next'},
+    {depth: 2, slug: 'license', text: 'License & trademark'},
+];
+
+const buildSteps = [
+    'Packages are built with Docker in a controlled Linux environment.',
+    'Each supported distribution gets its own compile, to guarantee ABI and API compatibility.',
+    'The latest OpenSSL 4 release is pulled before every packaging run, so known fixes are always included.',
+];
+
+const features = [
+    {name: 'ngx_brotli', url: 'https://github.com/google/ngx_brotli'},
+    {name: 'ngx_http_geoip2_module', url: 'https://github.com/leev/ngx_http_geoip2_module'},
+    {name: 'ngx_http_ipdb_module', url: 'https://github.com/vislee/ngx_http_ipdb_module'},
+    {name: 'zstd-nginx-module', url: 'https://github.com/tokers/zstd-nginx-module'},
+    {name: 'nginx-acme', url: 'https://github.com/nginx/nginx-acme'},
+    {name: 'QUIC / HTTP3', url: 'https://nginx.org/en/docs/quic.html'},
+];
+
+const resources = [
+    {title: 'Installation', href: '/install/', desc: 'Install now, or grab the Docker image.'},
+    {title: 'Mirrors', href: '/mirrors/', desc: 'Find the fastest mirror near you.'},
+    {title: 'Changelog', href: '/changelog/', desc: 'See what changed in every release.'},
+    {title: 'Contact', href: '/contact/', desc: 'Reach the maintainers.'},
+];
+
+// Real `nginx -V` output from the shipped packages (content/intro.md).
+const versionInfo = `nginx version: nginx-n.wtf/1.31.3
+built by gcc 14.2.0 (Debian 14.2.0-19)
+built with OpenSSL 4.0.1 9 Jun 2026
+TLS SNI support enabled
+configure arguments: --with-cc-opt='-g -O2 -Werror=implicit-function-declaration -ffile-prefix-map=/build/nginx=. -fstack-protector-strong -fstack-clash-protection -Wformat -Werror=format-security -fcf-protection -fPIC -Wdate-time -D_FORTIFY_SOURCE=2' --with-ld-opt='-Wl,-z,relro -Wl,-z,now -fPIC' --with-openssl=/build/nginx/../openssl --with-openssl-opt=enable-ktls --prefix=/usr/share/nginx --conf-path=/etc/nginx/nginx.conf --http-log-path=/var/log/nginx/access.log --error-log-path=/var/log/nginx/error.log --lock-path=/var/lock/nginx.lock --pid-path=/run/nginx.pid --modules-path=/usr/lib/nginx/modules --http-client-body-temp-path=/var/lib/nginx/body --http-fastcgi-temp-path=/var/lib/nginx/fastcgi --http-proxy-temp-path=/var/lib/nginx/proxy --http-scgi-temp-path=/var/lib/nginx/scgi --http-uwsgi-temp-path=/var/lib/nginx/uwsgi --with-compat --with-debug --with-pcre-jit --with-http_ssl_module --with-http_stub_status_module --with-http_realip_module --with-http_auth_request_module --with-http_v2_module --with-http_v3_module --with-http_dav_module --with-http_slice_module --with-threads --with-http_addition_module --with-http_flv_module --with-http_geoip_module=dynamic --with-http_gunzip_module --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_mp4_module --with-http_perl_module=dynamic --with-http_random_index_module --with-http_secure_link_module --with-http_sub_module --with-http_xslt_module=dynamic --with-mail=dynamic --with-mail_ssl_module --with-stream=dynamic --with-stream_geoip_module=dynamic --with-stream_ssl_module --with-stream_ssl_preread_module --add-module=/build/nginx/sb-modules/ngx_brotli --add-module=/build/nginx/sb-modules/zstd-nginx-module --add-module=/build/nginx/sb-modules/nginx-acme --add-dynamic-module=/build/nginx/debian/modules/http-headers-more-filter --add-dynamic-module=/build/nginx/debian/modules/http-auth-pam --add-dynamic-module=/build/nginx/debian/modules/http-cache-purge --add-dynamic-module=/build/nginx/debian/modules/http-dav-ext --add-dynamic-module=/build/nginx/debian/modules/http-ndk --add-dynamic-module=/build/nginx/debian/modules/http-echo --add-dynamic-module=/build/nginx/debian/modules/http-fancyindex --add-dynamic-module=/build/nginx/debian/modules/http-geoip2 --add-dynamic-module=/build/nginx/sb-modules/ngx_http_ipdb_module --add-dynamic-module=/build/nginx/debian/modules/nchan --add-dynamic-module=/build/nginx/debian/modules/http-lua --add-dynamic-module=/build/nginx/debian/modules/rtmp --add-dynamic-module=/build/nginx/debian/modules/http-uploadprogress --add-dynamic-module=/build/nginx/debian/modules/http-upstream-fair --add-dynamic-module=/build/nginx/debian/modules/http-subs-filter`;
+
+const h2 = 'm-0 mb-3.5 font-display text-[25px] font-semibold tracking-[-0.6px] text-ink';
+const p = 'm-0 text-[16px] leading-[1.75] text-body';
+const strong = 'font-semibold text-[#e3e5e8]';
+---
+<DocsLayout title="Introduction" description="What n.wtf is, why it exists, and how we build and maintain it." slug="intro" headings={headings}>
+    <span slot="lede">What <span class="font-mono text-[15px] text-[#e3e5e8]">n.wtf</span> is, why it exists, and how we build and maintain it.</span>
+
+    <section id="what-is-it" class="scroll-mt-[90px]">
+        <h2 class={h2}>What is it?</h2>
+        <p class={p}><span class="font-mono text-[14.5px] text-[#e3e5e8]">n.wtf</span> is a customized, prebuilt distribution of the famous <a href="https://nginx.org/">nginx</a> web server, delivered as a drop-in Debian &amp; Ubuntu repository — so you always run the latest mainline release without compiling anything.</p>
+    </section>
+
+    <section id="why-do-we-make-it" class="mt-12 scroll-mt-[90px]">
+        <h2 class={h2}>Why do we make it?</h2>
+        <p class:list={[p, 'mb-3.5']}>Official Debian and Ubuntu releases track the nginx <strong class={strong}>stable</strong> branch. Stable gives you a predictable API and behavior — but it also leaves you without the features that land in mainline.</p>
+        <p class:list={[p, 'mb-3.5']}>Normally, getting those features means compiling and maintaining nginx yourself. With our repository in your sources, you get rolling mainline updates through <span class="font-mono text-[14px] text-[#e3e5e8]">apt</span> instead.</p>
+        <p class={p}>TLS 1.3 brings real gains in performance and security, yet many distributions still aren't ready for it. We statically pack <strong class={strong}>OpenSSL 4</strong> into our nginx as standard, so TLS 1.3 works regardless of what your distro ships — and HTTP/3 comes along as a bonus. On top of that, we bundle a set of extra modules we find genuinely useful.</p>
+    </section>
+
+    <section id="how-do-we-make-it" class="mt-12 scroll-mt-[90px]">
+        <h2 class={h2}>How do we make it?</h2>
+        <p class:list={[p, 'mb-3.5']}>We use the <a href="https://salsa.debian.org/nginx-team/nginx">official Debian packaging scripts</a> while pulling the latest mainline branch from <a href="https://nginx.org/en/download.html">nginx official</a>. You get the exact experience of the Debian / Ubuntu nginx packages — just always on the newest release.</p>
+        <div class="my-5 divide-y divide-white/9 border-y border-white/9">
+            {buildSteps.map((step, i) => (
+                    <div class="flex gap-4 py-[13px]">
+                        <span class="shrink-0 font-mono text-[13px] text-acc">{String(i + 1).padStart(2, '0')}</span>
+                        <span class="text-[14.5px] leading-[1.6] text-body">{step}</span>
+                    </div>
+            ))}
+        </div>
+        <p class={p}>In case of an emergency security issue or a critical bug, we may backport a patch from an unreleased version and ship it ahead of schedule.</p>
+    </section>
+
+    <section id="current-version" class="mt-12 scroll-mt-[90px]">
+        <h2 class={h2}>Current version</h2>
+        <div class="max-w-[420px] overflow-hidden rounded-lg border border-white/10">
+            <div class="flex items-center border-b border-white/8 bg-cell px-[18px] py-[13px]">
+                <span class="flex-1 font-mono text-[13px] text-mute">nginx</span>
+                <span class="font-mono text-[13.5px] text-acc2">{versions.nginx}</span>
+            </div>
+            <div class="flex items-center bg-cell px-[18px] py-[13px]">
+                <span class="flex-1 font-mono text-[13px] text-mute">OpenSSL</span>
+                <span class="font-mono text-[13.5px] text-acc2">{versions.openssl}</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="mt-12 scroll-mt-[90px]">
+        <h2 class:list={[h2, 'mb-3']}>Features</h2>
+        <p class:list={[p, 'mb-2']}>Everything from the Debian / Ubuntu official builds is included, with these modules added to the <strong class={strong}>full</strong> and <strong class={strong}>extras</strong> flavors:</p>
+        <div class="mb-5 grid grid-cols-1 gap-x-10 sm:grid-cols-2">
+            {features.map((f) => (
+                    <a href={f.url} class="flex items-center gap-2.5 border-b border-white/7 py-[11px] text-[#d7dade] transition-colors hover:text-acc2">
+                        <span class="flex-1 font-mono text-[13px]">{f.name}</span>
+                        <span class="font-mono text-[12px] text-comment">↗</span>
+                    </a>
+            ))}
+        </div>
+        <p class:list={[p, 'mb-4']}>Statically built with OpenSSL 4, so you can use TLS 1.3 even on distributions that don't ship it.</p>
+        <div class="code-block" data-code-block>
+            <div class="code-window-bar" data-code-header>
+                <span class="code-lang">nginx -V</span>
+                <button class="code-copy-btn" data-copy-btn type="button">copy</button>
+            </div>
+            <pre style="padding:18px; font-size:12.5px; line-height:1.8; max-height:210px; color:#a8acb4;">{versionInfo}</pre>
+        </div>
+    </section>
+
+    <section id="resources" class="mt-12 scroll-mt-[90px]">
+        <h2 class:list={[h2, 'mb-4']}>Where to next</h2>
+        <div class="overflow-hidden rounded-lg border border-white/10">
+            <div class="grid grid-cols-1 gap-px bg-white/8 sm:grid-cols-2">
+                {resources.map((r) => (
+                        <a href={r.href} class="block bg-cell px-5 py-[18px] text-ink transition-colors hover:bg-[#13151a] hover:text-ink">
+                            <div class="flex items-baseline">
+                                <span class="flex-1 font-display text-[16px] font-semibold">{r.title}</span>
+                                <span class="font-mono text-[12px] text-comment">↗</span>
+                            </div>
+                            <p class="mt-1.5 text-[13.5px] leading-[1.5] text-mute">{r.desc}</p>
+                        </a>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section id="license" class="mt-12 scroll-mt-[90px]">
+        <h2 class={h2}>License &amp; trademark</h2>
+        <p class:list={[p, 'mb-3']}>We distribute this software under the <strong class={strong}>MIT license</strong>.</p>
+        <p class:list={[p, 'mb-3']}><a href="https://nginx.org/en/">nginx</a> is an open-source HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server, distributed under the 2-clause BSD-like license.</p>
+        <p class="m-0 text-[13.5px] leading-[1.7] text-faint">NGINX is a trademark of <a href="https://www.f5.com/" class="text-mute hover:text-ink">F5 Networks, Inc.</a> This project simply distributes nginx binary packages and is not sponsored by or affiliated with nginx official or F5, Inc.</p>
+    </section>
+</DocsLayout>

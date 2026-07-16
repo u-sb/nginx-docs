@@ -1,525 +1,400 @@
-/* ===== Font Configuration ===== */
-:root {
-  --font-sans: var(--font-space-grotesk), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-space-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  /* Override Nextra theme font variables */
-  --nextra-font-sans: var(--font-sans);
-  --nextra-font-mono: var(--font-mono);
-}
-
-html, body {
-  font-family: var(--font-sans) !important;
-}
-
-/* Inline code font */
-code {
-  font-family: var(--font-mono) !important;
-}
-
-
-
-/* Global code block styles - matches homepage premium design */
-
-/* Code block container - always dark background for both themes (Dracula Soft) */
-pre:has(code),
-html:not(.dark) pre:has(code),
-html.light pre:has(code),
-:root pre:has(code) {
-  background: #0d1117 !important;
-  border: 1px solid rgba(68, 71, 90, 0.5) !important;
-  border-radius: 0.5rem !important;
-  padding: 1rem 1.25rem !important;
-  margin: 1rem 0 !important;
-  white-space: pre-wrap !important;
-  word-wrap: break-word !important;
-  overflow-wrap: break-word !important;
-}
-
-/* Inline code - light mode */
-:not(pre) > code {
-  background: rgba(236, 72, 153, 0.1) !important;
-  color: #db2777 !important;
-  padding: 0.2em 0.4em !important;
-  border-radius: 0.375rem !important;
-  font-size: 0.875em !important;
-  font-weight: 500 !important;
-}
-
-/* Inline code - dark mode */
-html.dark :not(pre) > code,
-.dark :not(pre) > code {
-  background: rgba(236, 72, 153, 0.15) !important;
-  color: #f9a8d4 !important;
-}
-
-/* Code block text - always light text on dark background */
-pre code,
-html:not(.dark) pre code,
-html.light pre code {
-  font-family: var(--font-mono) !important;
-  font-size: 0.875rem !important;
-  line-height: 1.6 !important;
-  color: #e6edf3;
-  padding: 0 !important;
-  background: transparent !important;
-}
-
-/* Reset any nextra internal code padding */
-pre code > span {
-  padding: 0 !important;
-}
-
-/* Shiki/rehype-pretty-code specific overrides - preserve syntax highlighting */
-[data-rehype-pretty-code-figure] pre,
-figure pre {
-  background: #0d1117 !important;
-}
-
-[data-rehype-pretty-code-figure] code,
-figure pre code {
-  background: transparent !important;
-}
-
-/* Ensure code spans preserve their inline styles from Shiki */
-pre code span {
-  background: transparent !important;
-}
-
-/* Copy button styling */
-pre {
-  position: relative !important;
-}
-
-pre button,
-pre button[title="Copy code"],
-[data-rehype-pretty-code-figure] button,
-figure[data-rehype-pretty-code-figure] button {
-  position: absolute !important;
-  top: 0.5rem !important;
-  right: 0.5rem !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 2rem !important;
-  height: 2rem !important;
-  padding: 0.25rem !important;
-  background: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 0.375rem !important;
-  color: #6b7280 !important;
-  cursor: pointer !important;
-  opacity: 0 !important;
-  transition: all 0.15s !important;
-  z-index: 10 !important;
-}
-
-pre:hover button,
-pre:hover button[title="Copy code"],
-[data-rehype-pretty-code-figure]:hover button,
-figure[data-rehype-pretty-code-figure]:hover button {
-  opacity: 1 !important;
-}
-
-pre button:hover,
-pre button[title="Copy code"]:hover,
-[data-rehype-pretty-code-figure] button:hover,
-figure[data-rehype-pretty-code-figure] button:hover {
-  background: rgba(236, 72, 153, 0.15) !important;
-  border-color: rgba(236, 72, 153, 0.3) !important;
-  color: #f472b6 !important;
-}
-
-/* Nextra code block filename tab */
-[data-rehype-pretty-code-title] {
-  background: rgba(236, 72, 153, 0.1) !important;
-  color: #f472b6 !important;
-  border-bottom: 1px solid rgba(236, 72, 153, 0.2) !important;
-  padding: 0.5rem 1.25rem !important;
-  font-size: 0.75rem !important;
-  font-weight: 500 !important;
-  border-radius: 0.5rem 0.5rem 0 0 !important;
-}
-
-[data-rehype-pretty-code-title] + pre {
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
-  margin-top: 0 !important;
-}
-
-/* Line highlighting */
-pre code [data-highlighted-line] {
-  background: rgba(236, 72, 153, 0.1) !important;
-  border-left: 2px solid #ec4899 !important;
-  margin-left: -1.25rem !important;
-  padding-left: calc(1.25rem - 2px) !important;
-}
-
-/* Line numbers */
-pre code [data-line-numbers] > [data-line]::before {
-  color: #4b5563 !important;
-}
-
-/* Theme switch in navbar */
-.navbar-theme-switch {
-  display: flex;
-  align-items: center;
-  margin-left: 0.5rem;
-}
-
-/* ===== Homepage Quick Install Section ===== */
-.quick-install-section {
-  margin-top: 4rem;
-  margin-bottom: max(150px, 20vh);
-  text-align: center;
-}
-
-.quick-install-section h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  color: #111827;
-  letter-spacing: -0.025em;
-}
-
-.dark .quick-install-section h2 {
-  color: #f9fafb;
-}
-
-.install-card {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: left;
-  background: #0d1117;
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-}
-
-html:not(.dark) .install-card {
-  background: #0d1117;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-}
-
-.install-tabs [role="tablist"] {
-  border-bottom: 1px solid rgba(236, 72, 153, 0.2);
-  padding: 0.75rem 1.5rem 0;
-  gap: 0;
-}
-
-.install-tabs [role="tab"] {
-  color: #6b7280;
-  padding: 0.75rem 1.25rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: color 0.15s;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-}
-
-.install-tabs [role="tab"]:hover {
-  color: #f472b6;
-}
-
-.install-tabs [role="tab"][data-selected="true"],
-.install-tabs [role="tab"][aria-selected="true"] {
-  color: #ec4899;
-  border-bottom-color: #ec4899;
-}
-
-/* Homepage code block wrapper */
-.code-block-wrapper {
-  position: relative;
-  border-radius: 1rem;
-  overflow: hidden;
-}
-
-/* Code block header bar */
-.code-block-header {
-  display: flex;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  background: #161b22;
-  border-bottom: 1px solid rgba(68, 71, 90, 0.5);
-}
-
-.code-block-dots {
-  display: flex;
-  gap: 0.5rem;
-  margin-right: 1rem;
-}
-
-.code-block-dots .dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.code-block-dots .dot-red {
-  background: #ff5f56;
-}
-
-.code-block-dots .dot-yellow {
-  background: #ffbd2e;
-}
-
-.code-block-dots .dot-green {
-  background: #27c93f;
-}
-
-.code-block-filename {
-  flex: 1;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: #8b949e;
-  font-family: var(--font-sans);
-}
-
-.code-block-wrapper .code-copy-btn {
-  padding: 0.375rem 0.75rem;
-  border-radius: 0.375rem;
-  background: transparent;
-  color: #8b949e;
-  border: none;
-  cursor: pointer;
-  transition: all 0.15s;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  font-family: var(--font-sans);
-}
-
-.code-block-wrapper .code-copy-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #f0f6fc;
-}
-
-.code-block-wrapper .code-block {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  padding: 1.25rem 1.5rem;
-  font-size: 0.875rem;
-  line-height: 1.7;
-  color: #e6edf3;
-  font-family: var(--font-mono);
-  margin: 0;
-  background: transparent;
-  border: none !important;
-  border-radius: 0 !important;
-}
-
-.code-block-wrapper .code-comment {
-  color: #6b7280;
-}
-
-.code-block-wrapper .code-keyword {
-  color: #f9a8d4;
-}
-
-.code-block-wrapper .code-flag {
-  color: #93c5fd;
-}
-
-/* Install methods card grid */
-.install-methods-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.install-method-card {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.625rem 1.25rem 0.625rem 0.625rem;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.75rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: var(--font-sans);
-}
-
-.dark .install-method-card {
-  background: #1f2937;
-  border-color: #374151;
-}
-
-.install-method-card:hover {
-  border-color: #ec4899;
-  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.1);
-}
-
-.install-method-card.active {
-  border-color: #ec4899;
-  background: rgba(236, 72, 153, 0.05);
-  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.15);
-}
-
-.dark .install-method-card.active {
-  background: rgba(236, 72, 153, 0.1);
-}
-
-.install-method-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: #f3f4f6;
-  border-radius: 0.5rem;
-  flex-shrink: 0;
-}
-
-.dark .install-method-icon {
-  background: #374151;
-}
-
-.install-method-icon img {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-}
-
-.install-method-label {
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: #111827;
-  white-space: nowrap;
-}
-
-.dark .install-method-label {
-  color: #f9fafb;
-}
-
-/* Responsive: stack cards on small screens */
-@media (max-width: 640px) {
-  .install-methods-grid {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .install-method-card {
-    width: 100%;
-    justify-content: flex-start;
-  }
-}
-
-/* ===== Terminal Style Code Blocks (Documentation Pages) ===== */
-.terminal-wrapper {
-  margin: 1rem 0;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  background: #0d1117;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-}
-
-.terminal-header {
-  display: flex;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  background: #0d1117;
-}
-
-.terminal-dots {
-  display: flex;
-  gap: 0.5rem;
-  margin-right: 1rem;
-}
-
-.terminal-dots .dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.terminal-dots .dot-red {
-  background: #ff5f56;
-}
-
-.terminal-dots .dot-yellow {
-  background: #ffbd2e;
-}
-
-.terminal-dots .dot-green {
-  background: #27c93f;
-}
-
-.terminal-filename {
-  flex: 1;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: #8b949e;
-  font-family: var(--font-sans);
-}
-
-.terminal-copy-btn {
-  padding: 0.375rem 0.75rem;
-  border-radius: 0.375rem;
-  background: transparent;
-  color: #8b949e;
-  border: none;
-  cursor: pointer;
-  transition: all 0.15s;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  font-family: var(--font-sans);
-}
-
-.terminal-copy-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #f0f6fc;
-}
-
-/* Override Nextra pre styles inside terminal wrapper */
-.terminal-wrapper pre,
-.terminal-wrapper pre:has(code),
-.terminal-wrapper figure pre,
-.terminal-wrapper [data-rehype-pretty-code-figure] pre,
-html:not(.dark) .terminal-wrapper pre,
-html:not(.dark) .terminal-wrapper pre:has(code),
-html.light .terminal-wrapper pre {
-  margin: 0 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  background: #0d1117 !important;
-  padding: 1.25rem 1.5rem !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-.terminal-wrapper pre code,
-.terminal-wrapper figure pre code {
-  background: transparent !important;
-}
-
-/* Ensure terminal wrapper itself has no extra borders in light mode */
-html:not(.dark) .terminal-wrapper,
-html.light .terminal-wrapper {
-  border: none !important;
-  outline: none !important;
-}
-
-/* Remove any figure/wrapper borders */
-.terminal-wrapper figure,
-.terminal-wrapper [data-rehype-pretty-code-figure] {
-  margin: 0 !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-.terminal-wrapper > div {
-  border: none !important;
-  box-shadow: none !important;
-}
+@import "tailwindcss";
+
+@theme {
+    /* Design tokens — dark-only palette from the Claude Design mockups */
+    --color-canvas: #0b0c0e;
+    --color-panel: #101114;
+    --color-cell: #0e0f12;
+    --color-ink: #f4f5f6;
+    --color-body: #b6b9c0;
+    --color-soft: #a1a4ab;
+    --color-mute: #8b8f97;
+    --color-faint: #6b6f78;
+    --color-comment: #5f636b;
+    --color-acc: #34e39a;
+    --color-acc2: #9af0c8;
 
-/* Hide Nextra default buttons inside terminal wrapper */
-.terminal-wrapper pre button,
-.terminal-wrapper [data-rehype-pretty-code-figure] button,
-.terminal-wrapper figure button {
-  display: none !important;
+    --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 90px;
+    }
+
+    body {
+        background: var(--color-canvas);
+        color: var(--color-ink);
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+        color: var(--color-acc);
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: var(--color-acc2);
+    }
+
+    code, kbd, samp, pre {
+        font-family: var(--font-mono);
+    }
+
+    ::selection {
+        background: rgba(52, 227, 154, 0.25);
+    }
+}
+
+@keyframes blink {
+    0%, 49% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
+}
+
+*::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.14);
+}
+
+*::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background: transparent;
+}
+
+/* Terminal card code blocks (rehype-code-block markup), usable inside and outside #markdown */
+[data-code-block] {
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 8px;
+    background: var(--color-panel);
+    overflow: hidden;
+}
+
+.code-window-bar {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.code-lang {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-faint);
+    user-select: none;
+}
+
+.code-copy-btn {
+    margin-left: auto;
+    padding: 3px 0;
+    border: none;
+    background: none;
+    color: var(--color-faint);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 150ms ease;
+}
+
+.code-copy-btn:hover {
+    color: var(--color-ink);
+}
+
+[data-code-block] pre {
+    margin: 0;
+    padding: 20px 18px;
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    line-height: 1.85;
+    white-space: pre;
+    overflow-x: auto;
+    color: #d7dade;
+    background: transparent;
+}
+
+[data-code-block] pre code {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    line-height: inherit;
+    background: transparent;
+    border: 0;
+    color: inherit;
+}
+
+/* Markdown container — styled after the Intro design page */
+#markdown {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--color-body);
+    word-wrap: break-word;
+
+    & > :first-child {
+        margin-top: 0 !important;
+    }
+
+    & > :last-child {
+        margin-bottom: 0 !important;
+    }
+
+    [hidden] {
+        display: none !important;
+    }
+
+    a {
+        color: var(--color-acc);
+        text-decoration: none;
+        transition: color 150ms ease;
+
+        &:hover,
+        &:active {
+            color: var(--color-acc2);
+        }
+
+        &:not([href]) {
+            color: inherit;
+        }
+    }
+
+    b,
+    strong {
+        font-weight: 600;
+        color: #e3e5e8;
+    }
+
+    img {
+        border-style: none;
+        max-width: 100%;
+        box-sizing: content-box;
+        border-radius: 8px;
+    }
+
+    hr {
+        margin: 2.5rem 0;
+        border: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-display);
+        font-weight: 600;
+        line-height: 1.25;
+        color: var(--color-ink);
+        margin: 2.75rem 0 0.875rem;
+        scroll-margin-top: 90px;
+    }
+
+    h1 {
+        font-size: 34px;
+        font-weight: 700;
+        letter-spacing: -1.2px;
+    }
+
+    h2 {
+        font-size: 25px;
+        letter-spacing: -0.6px;
+    }
+
+    h3 {
+        font-size: 19px;
+        letter-spacing: -0.3px;
+    }
+
+    h4 {
+        font-size: 16px;
+        letter-spacing: -0.2px;
+    }
+
+    h5 {
+        font-size: 14.5px;
+    }
+
+    h6 {
+        font-size: 13.5px;
+        color: var(--color-mute);
+    }
+
+    .heading-anchor {
+        margin-right: 10px;
+        color: rgba(107, 111, 120, 0.55);
+        font-family: var(--font-mono);
+        font-weight: 500;
+
+        &:hover {
+            color: var(--color-acc);
+        }
+    }
+
+    p {
+        margin: 0 0 0.875rem;
+    }
+
+    blockquote {
+        margin: 0 0 1rem;
+        padding: 0.25rem 1.25rem;
+        color: var(--color-mute);
+        border-left: 2px solid rgba(255, 255, 255, 0.18);
+
+        & > :first-child {
+            margin-top: 0;
+        }
+
+        & > :last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    ul,
+    ol {
+        margin: 0 0 1rem;
+        padding-left: 1.6em;
+    }
+
+    ul {
+        list-style-type: disc;
+    }
+
+    ul ul {
+        list-style-type: circle;
+    }
+
+    ul ul ul {
+        list-style-type: square;
+    }
+
+    ol {
+        list-style-type: decimal;
+    }
+
+    ul ul,
+    ul ol,
+    ol ol,
+    ol ul {
+        margin-top: 0.375em;
+        margin-bottom: 0;
+    }
+
+    li {
+        padding-left: 0.25em;
+
+        &::marker {
+            color: var(--color-faint);
+        }
+
+        & + li {
+            margin-top: 0.45em;
+        }
+    }
+
+    ol > li::marker {
+        font-family: var(--font-mono);
+        font-size: 0.875em;
+        color: var(--color-acc);
+    }
+
+    table {
+        border-spacing: 0;
+        border-collapse: separate;
+        display: block;
+        width: max-content;
+        max-width: 100%;
+        overflow: auto;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+
+        th {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: var(--color-mute);
+            text-align: left;
+            background: var(--color-panel);
+        }
+
+        th,
+        td {
+            padding: 0.65rem 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        td {
+            font-size: 14.5px;
+            background: var(--color-cell);
+        }
+
+        tr:last-child td {
+            border-bottom: 0;
+        }
+
+        code {
+            white-space: nowrap;
+        }
+    }
+
+    details {
+        display: block;
+
+        &:not([open]) > *:not(summary) {
+            display: none !important;
+        }
+
+        summary {
+            cursor: pointer;
+            color: var(--color-ink);
+        }
+    }
+
+    code {
+        font-family: var(--font-mono);
+        font-size: 0.9em;
+        color: #e3e5e8;
+    }
+
+    kbd {
+        font-family: var(--font-mono);
+        font-size: 0.85em;
+        color: #e3e5e8;
+        padding: 0.1em 0.4em;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-bottom-width: 2px;
+        border-radius: 5px;
+        background: var(--color-cell);
+    }
+
+    p,
+    & > div,
+    blockquote,
+    ul,
+    ol,
+    table,
+    [data-code-block],
+    details {
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+
+    [data-code-block] {
+        margin: 1.25rem 0;
+    }
 }

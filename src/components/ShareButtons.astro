@@ -1,0 +1,121 @@
+---
+import {
+    siMastodon,
+    siBluesky,
+    siX,
+    siFacebook,
+    siReddit,
+    siTelegram,
+    siWhatsapp,
+} from 'simple-icons';
+
+interface Props {
+    title: string;
+    url: string;
+}
+
+const {title, url} = Astro.props;
+
+// Encoders matching the share intents (whole "title url" string is encoded).
+const textWithUrl = encodeURIComponent(`${title} ${url}`);
+const eTitle = encodeURIComponent(title);
+const eUrl = encodeURIComponent(url);
+const mailHref = `mailto:?subject=${eTitle}&body=${eUrl}`;
+
+// Stroke icons from @tabler/icons (outline set) for non-brand actions + LinkedIn.
+const tabler = {
+    mail: [
+        'M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10',
+        'M3 7l9 6l9 -6',
+    ],
+    link: [
+        'M9 15l6 -6',
+        'M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464',
+        'M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463',
+    ],
+    linkedin: [
+        'M8 11v5',
+        'M8 8v.01',
+        'M12 16v-5',
+        'M16 16v-3a2 2 0 1 0 -4 0',
+        'M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4l0 -10',
+    ],
+};
+
+const links: {label: string; href: string; path?: string; strokePaths?: string[]}[] = [
+    {label: 'Mastodon', href: `https://share.joinmastodon.org/#text=${textWithUrl}`, path: siMastodon.path},
+    {label: 'Bluesky', href: `https://bsky.app/intent/compose?text=${textWithUrl}`, path: siBluesky.path},
+    {label: 'X', href: `https://x.com/intent/tweet?text=${textWithUrl}`, path: siX.path},
+    {label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${eUrl}&t=${eTitle}`, path: siFacebook.path},
+    {label: 'Reddit', href: `https://reddit.com/submit?url=${eUrl}&title=${eTitle}`, path: siReddit.path},
+    {label: 'Telegram', href: `https://t.me/share/url?url=${eUrl}&text=${eTitle}`, path: siTelegram.path},
+    {label: 'WhatsApp', href: `https://wa.me/?text=${textWithUrl}`, path: siWhatsapp.path},
+    {label: 'LinkedIn', href: `https://www.linkedin.com/shareArticle?url=${eUrl}`, strokePaths: tabler.linkedin},
+    {label: 'Email', href: mailHref, strokePaths: tabler.mail},
+];
+---
+<section class="mt-10 border-t border-white/9 pt-6">
+    <p class="mb-4 font-mono text-[11px] tracking-[0.8px] text-faint uppercase">Share</p>
+    <div class="flex flex-wrap items-center gap-3">
+        {links.map((link) => (
+                <a href={link.href}
+                   title={`Share via ${link.label}`}
+                   aria-label={`Share via ${link.label}`}
+                   rel="nofollow noopener"
+                   target="_blank"
+                   class="inline-flex h-6 w-6 items-center justify-center text-mute transition-colors hover:text-ink">
+                    {link.strokePaths ? (
+                            <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                {link.strokePaths.map((d) => <path d={d}/>)}
+                            </svg>
+                    ) : (
+                            <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d={link.path}/>
+                            </svg>
+                    )}
+                </a>
+        ))}
+        <button type="button"
+                data-share-copy
+                data-share-url={url}
+                title="Copy link"
+                aria-label="Copy link"
+                class="inline-flex h-6 cursor-pointer items-center gap-1.5 text-mute transition-colors hover:text-ink">
+            <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                {tabler.link.map((d) => <path d={d}/>)}
+            </svg>
+            <span data-share-copy-label class="hidden font-mono text-[11.5px] text-acc2"></span>
+        </button>
+    </div>
+</section>
+
+<script is:inline>
+    document.querySelectorAll('[data-share-copy]').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+            const url = btn.getAttribute('data-share-url');
+            const label = btn.querySelector('[data-share-copy-label]');
+            try {
+                await navigator.clipboard.writeText(url);
+            } catch {
+                const ta = document.createElement('textarea');
+                ta.value = url;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+            if (label) {
+                label.textContent = 'Copied!';
+                label.classList.remove('hidden');
+                setTimeout(() => {
+                    label.textContent = '';
+                    label.classList.add('hidden');
+                }, 1500);
+            }
+        });
+    });
+</script>

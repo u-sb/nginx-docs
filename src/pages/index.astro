@@ -1,0 +1,321 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import website_config, {versions} from '@/lib/website_config';
+
+const heroCopyCmd = 'sudo extrepo enable n.wtf && sudo apt update && sudo apt install -y nginx-extras';
+
+// Real install commands — verbatim from README.md / content/install.mdx.
+const tabs = [
+    {
+        id: 'extrepo',
+        label: 'Extrepo',
+        file: 'install.sh',
+        cmd: `# enable the repo via extrepo
+sudo apt update && sudo apt install extrepo -y
+sudo extrepo enable n.wtf
+
+# install the latest nginx
+sudo apt update && sudo apt install nginx-extras -y`,
+    },
+    {
+        id: 'oneline',
+        label: 'One-line',
+        file: 'setup.sh',
+        cmd: `# prerequisites
+sudo apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
+
+# fetch and store the signing key
+curl -sSL https://n.wtf/public.key | sudo bash -c 'gpg --dearmor > /usr/share/keyrings/n.wtf.gpg'
+
+# add the repository
+sudo bash -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.gpg] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list'
+
+sudo apt update
+sudo apt install nginx-extras -y`,
+    },
+    {
+        id: 'deb822',
+        label: 'DEB822',
+        file: 'n.wtf.sources',
+        cmd: `# prerequisites
+sudo apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
+
+# fetch and store the signing key
+curl -sSL https://n.wtf/public.key | sudo bash -c 'gpg --dearmor > /usr/share/keyrings/n.wtf.gpg'
+
+# add the repository
+sudo bash -c 'cat > /etc/apt/sources.list.d/n.wtf.sources << EOF
+Components: main
+Architectures: $(dpkg --print-architecture)
+Suites: $(lsb_release -cs)
+Types: deb
+Uris: https://mirror-cdn.xtom.com/sb/nginx/
+Signed-By: /usr/share/keyrings/n.wtf.gpg
+EOF'
+
+sudo apt update
+sudo apt install nginx-extras -y`,
+    },
+    {
+        id: 'docker',
+        label: 'Docker',
+        file: 'docker.sh',
+        cmd: `# run it
+docker run --name nginx --net host --restart always \\
+  -v $HOME/nginx-config:/usr/src/docker-nginx/conf:ro \\
+  -d ghcr.io/u-sb/nginx
+
+# compose setup: github.com/u-sb/nginx-docker`,
+    },
+];
+
+// Build-time shell "highlighter" — same simple scheme as the design mockup.
+const CMD_WORDS = new Set(['sudo', 'apt', 'apt-get', 'curl', 'echo', 'tee', 'docker', 'cd', 'mkdir', 'systemctl']);
+const TOKEN_RE = /(\s+)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(https?:\/\/[^\s"']+)|(--?[A-Za-z][\w-]*)|([A-Za-z][\w.-]*:)|([^\s]+)/g;
+
+function esc(s: string): string {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function highlight(text: string): string {
+    return text
+        .split('\n')
+        .map((line) => {
+            if (line.trim().startsWith('#')) return `<div class="text-comment">${esc(line)}</div>`;
+            if (line.trim() === '') return '<div> </div>';
+            let out = '';
+            let m: RegExpExecArray | null;
+            TOKEN_RE.lastIndex = 0;
+            while ((m = TOKEN_RE.exec(line))) {
+                const t = esc(m[0]);
+                if (m[1]) out += t;
+                else if (m[2]) out += `<span class="text-[#b5e8a0]">${t}</span>`;
+                else if (m[3]) out += `<span class="text-[#7cc4ff] underline">${t}</span>`;
+                else if (m[4]) out += `<span class="text-[#e0a45c]">${t}</span>`;
+                else if (m[5]) out += `<span class="text-[#7cc4ff]">${t}</span>`;
+                else out += CMD_WORDS.has(m[0]) ? `<span class="text-acc">${t}</span>` : t;
+            }
+            return `<div>${out}</div>`;
+        })
+        .join('');
+}
+
+const features = [
+    {
+        num: '01',
+        title: 'Always mainline',
+        desc: 'We track the newest nginx mainline release and publish it the moment it drops. No compiling, no waiting on your distro.',
+    },
+    {
+        num: '02',
+        title: 'TLS 1.3, everywhere',
+        desc: "OpenSSL 4 is statically linked, so TLS 1.3 and HTTP/3 work even on distributions whose system OpenSSL can't keep up.",
+    },
+    {
+        num: '03',
+        title: 'Batteries included',
+        desc: 'Brotli, Zstandard, QUIC/HTTP3, GeoIP2, ACME and a dozen more modules, prebuilt into the full and extras flavors.',
+    },
+];
+
+const modules = [
+    {name: 'ngx_brotli', desc: 'Brotli compression'},
+    {name: 'zstd-nginx', desc: 'Zstandard compression'},
+    {name: 'QUIC / HTTP3', desc: 'Next-gen transport'},
+    {name: 'http_geoip2', desc: 'MaxMind GeoIP2'},
+    {name: 'http_ipdb', desc: 'IPDB geolocation'},
+    {name: 'nginx-acme', desc: 'Automatic TLS certs'},
+    {name: 'headers-more', desc: 'Fine header control'},
+    {name: 'http-lua', desc: 'Lua scripting'},
+    {name: 'rtmp', desc: 'Media streaming'},
+    {name: 'fancyindex', desc: 'Pretty dir listings'},
+    {name: 'cache-purge', desc: 'Purge cached content'},
+    {name: 'dav-ext', desc: 'Extended WebDAV'},
+];
+
+const tabBtnBase = '-mb-px cursor-pointer whitespace-nowrap border-b-2 bg-transparent px-0.5 pb-3 pt-2.5 font-mono text-[13px] font-medium tracking-[0.2px]';
+---
+<BaseLayout>
+    <main class="w-full" data-pagefind-body>
+        <!-- HERO -->
+        <section class="mx-auto w-full max-w-[1120px] px-8 pb-12 pt-24">
+            <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
+                <div>
+                    <div class="font-mono text-[13px] text-faint"># open-source nginx repository &mdash; debian &amp; ubuntu</div>
+                    <h1 class="mt-5 font-display text-[clamp(38px,4.8vw,64px)] font-bold leading-[1.04] tracking-[-1.8px] text-ink">
+                        The <span class="text-acc">latest</span> nginx,<br/>packaged for you.
+                    </h1>
+                    <p class="mt-[22px] max-w-[490px] text-[17px] leading-[1.65] text-soft">
+                        A drop-in repository that ships nginx mainline the day it lands &mdash; TLS&nbsp;1.3, HTTP/3, Brotli &amp; Zstd, GeoIP2 and ACME, prebuilt and maintained so you never compile again.
+                    </p>
+                    <div class="mt-8 flex flex-wrap gap-3">
+                        <a href="/intro/" class="inline-flex items-center rounded-md bg-acc px-5 py-[11px] text-[14.5px] font-semibold text-[#07130c] hover:bg-acc2 hover:text-[#07130c]">Get started</a>
+                        <a href="#install" class="inline-flex items-center rounded-md border border-white/18 px-5 py-[11px] text-[14.5px] font-medium text-ink hover:border-white/35 hover:text-white">Installation</a>
+                    </div>
+                    <div class="mt-9 flex flex-wrap gap-5 font-mono text-[12.5px] text-faint">
+                        <span>nginx {versions.nginx}</span>
+                        <span class="text-[#33363c]">/</span>
+                        <span>OpenSSL {versions.openssl}</span>
+                        <span class="text-[#33363c]">/</span>
+                        <span>MIT</span>
+                    </div>
+                </div>
+
+                <!-- TERMINAL -->
+                <div class="rounded-lg border border-white/11 bg-panel">
+                    <div class="code-window-bar">
+                        <span class="code-lang">install.sh</span>
+                        <button id="hero-copy" type="button" class="code-copy-btn" data-copy-text={heroCopyCmd} aria-label="Copy install command">copy</button>
+                    </div>
+                    <div class="overflow-x-auto px-[18px] py-5 font-mono text-[13.5px] leading-[1.9] text-[#e3e5e8]">
+                        <div class="text-comment"># enable the repository</div>
+                        <div><span class="text-acc">$</span> sudo extrepo enable n.wtf</div>
+                        <div class="h-[1.9em]"></div>
+                        <div class="text-comment"># install nginx with the extras</div>
+                        <div><span class="text-acc">$</span> sudo apt install nginx-extras</div>
+                        <div class="h-[1.9em]"></div>
+                        <div class="text-[#8f939b]">nginx version: <span class="text-acc2">nginx-n.wtf/{versions.nginx}</span></div>
+                        <div class="text-[#8f939b]">built with OpenSSL {versions.openssl}</div>
+                        <div><span class="text-acc">$</span> <span class="inline-block h-[15px] w-2 animate-[blink_1.1s_step-end_infinite] bg-[#c7cace] align-[-2px]"></span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section class="mx-auto w-full max-w-[1120px] px-8 py-14">
+            <div class="grid grid-cols-1 gap-10 md:grid-cols-3">
+                {features.map((f) => (
+                    <div class="border-t border-white/14 pt-5">
+                        <div class="font-mono text-xs text-acc">{f.num}</div>
+                        <h3 class="mb-2 mt-3 font-display text-[19px] font-semibold tracking-[-0.3px] text-ink">{f.title}</h3>
+                        <p class="text-[14.5px] leading-[1.6] text-soft">{f.desc}</p>
+                    </div>
+                ))}
+            </div>
+        </section>
+
+        <!-- INSTALL -->
+        <section id="install" class="mx-auto w-full max-w-[1120px] px-8 py-14">
+            <div class="grid grid-cols-1 items-start gap-14 lg:grid-cols-[0.8fr_1.2fr]">
+                <div>
+                    <h2 class="font-display text-[32px] font-bold leading-[1.1] tracking-[-1px] text-ink">Install</h2>
+                    <p class="mt-4 max-w-[340px] text-[15px] leading-[1.65] text-soft">Pick your platform. Every method pulls signed packages and gives you rolling nginx updates through <span class="font-mono text-[13.5px] text-[#e3e5e8]">apt</span>.</p>
+                    <a href="/install/" class="mt-[18px] inline-block text-[14.5px] font-medium">Read the full guide &rarr;</a>
+                </div>
+                <div>
+                    <div id="install-tabs" class="flex gap-[22px] border-b border-white/10" role="tablist">
+                        {tabs.map((t, i) => (
+                            <button
+                                type="button"
+                                role="tab"
+                                data-tab={t.id}
+                                data-file={t.file}
+                                aria-selected={i === 0 ? 'true' : 'false'}
+                                class:list={[tabBtnBase, i === 0 ? 'border-acc text-ink' : 'border-transparent text-mute']}
+                            >{t.label}</button>
+                        ))}
+                    </div>
+                    <div class="mt-4 rounded-lg border border-white/11 bg-panel">
+                        <div class="code-window-bar">
+                            <span id="install-file" class="code-lang">{tabs[0].file}</span>
+                            <button id="install-copy" type="button" class="code-copy-btn" aria-label="Copy commands">copy</button>
+                        </div>
+                        <div id="install-panels">
+                            {tabs.map((t, i) => (
+                                <div
+                                    data-panel={t.id}
+                                    data-cmd={t.cmd}
+                                    hidden={i !== 0}
+                                    class="min-h-[230px] overflow-x-auto whitespace-pre px-[18px] py-5 font-mono text-[13.5px] leading-[1.85] text-[#d7dade]"
+                                    set:html={highlight(t.cmd)}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULES -->
+        <section class="mx-auto w-full max-w-[1120px] px-8 py-14">
+            <div class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
+                <h2 class="font-display text-[32px] font-bold tracking-[-1px] text-ink">What's inside</h2>
+                <p class="max-w-[400px] text-[14.5px] text-soft">Everything from the Debian &amp; Ubuntu official builds, plus these.</p>
+            </div>
+            <div class="overflow-hidden rounded-lg border border-white/10">
+                <div class="grid grid-cols-1 gap-px bg-white/8 sm:grid-cols-2 lg:grid-cols-4">
+                    {modules.map((m) => (
+                        <div class="bg-cell px-[18px] py-4">
+                            <div class="font-mono text-[13px] text-[#e9eaec]">{m.name}</div>
+                            <div class="mt-[5px] text-[12.5px] text-mute">{m.desc}</div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div class="mt-[18px] font-mono text-[12.5px] text-faint">runs on &mdash; debian 12 &middot; 13 &middot; 14&nbsp;&nbsp;/&nbsp;&nbsp;ubuntu 22.04 &rarr; 26.04&nbsp;&nbsp;/&nbsp;&nbsp;docker amd64 &middot; arm64</div>
+        </section>
+
+        <!-- CTA -->
+        <section class="mt-6 border-t border-white/9">
+            <div class="mx-auto flex w-full max-w-[1120px] flex-wrap items-center justify-between gap-6 px-8 py-16">
+                <div>
+                    <h2 class="font-display text-[28px] font-bold tracking-[-0.8px] text-ink">Ship the latest nginx today.</h2>
+                    <p class="mt-2.5 text-[15px] text-soft">One line to enable the repo, one to install. Updates are handled from there.</p>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="/intro/" class="inline-flex items-center rounded-md bg-acc px-5 py-[11px] text-[14.5px] font-semibold text-[#07130c] hover:bg-acc2 hover:text-[#07130c]">Get started</a>
+                    <a href={website_config.github} class="inline-flex items-center rounded-md border border-white/18 px-5 py-[11px] text-[14.5px] font-medium text-ink hover:border-white/35 hover:text-ink">GitHub</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</BaseLayout>
+
+<script>
+    // Install tabs — all panels are server-rendered; JS only toggles visibility.
+    const tabButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('#install-tabs [data-tab]'));
+    const panels = Array.from(document.querySelectorAll<HTMLElement>('#install-panels [data-panel]'));
+    const fileEl = document.getElementById('install-file');
+    const ACTIVE = ['border-acc', 'text-ink'];
+    const INACTIVE = ['border-transparent', 'text-mute'];
+
+    tabButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            tabButtons.forEach((b) => {
+                const on = b === btn;
+                b.classList.remove(...(on ? INACTIVE : ACTIVE));
+                b.classList.add(...(on ? ACTIVE : INACTIVE));
+                b.setAttribute('aria-selected', String(on));
+            });
+            panels.forEach((p) => {
+                p.hidden = p.dataset.panel !== btn.dataset.tab;
+            });
+            if (fileEl) fileEl.textContent = btn.dataset.file ?? '';
+        });
+    });
+
+    // Copy buttons — label flips to "copied" for 1.6s.
+    const copyTimers = new WeakMap<HTMLElement, ReturnType<typeof setTimeout>>();
+
+    function bindCopy(btn: HTMLElement, getText: () => string) {
+        btn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(getText());
+            } catch {
+                return;
+            }
+            btn.textContent = 'copied';
+            clearTimeout(copyTimers.get(btn));
+            copyTimers.set(btn, setTimeout(() => {
+                btn.textContent = 'copy';
+            }, 1600));
+        });
+    }
+
+    const heroCopy = document.getElementById('hero-copy');
+    if (heroCopy) bindCopy(heroCopy, () => heroCopy.dataset.copyText ?? '');
+
+    const installCopy = document.getElementById('install-copy');
+    if (installCopy) bindCopy(installCopy, () => panels.find((p) => !p.hidden)?.dataset.cmd ?? '');
+</script>

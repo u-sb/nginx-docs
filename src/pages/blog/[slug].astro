@@ -1,0 +1,117 @@
+---
+import {render} from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogToc from '@/components/BlogToc.astro';
+import ShareButtons from '@/components/ShareButtons.astro';
+import {getBlogPosts, tagSlug, formatDate} from '@/lib/posts';
+import website_config from '@/lib/website_config';
+
+export async function getStaticPaths() {
+    const posts = await getBlogPosts();
+    return posts.map((post) => ({
+        params: {slug: post.id},
+        props: {post},
+    }));
+}
+
+const {post} = Astro.props;
+const {Content, headings} = await render(post);
+const {title, excerpt, tags} = post.data;
+
+const canonicalPath = `/blog/${post.id}/`;
+const canonicalUrl = `${website_config.baseUrl}${canonicalPath}`;
+const publishedTime = post.data.date.toISOString();
+const modifiedTime = (post.data.updated ?? post.data.date).toISOString();
+const tocHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+
+const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': `${canonicalUrl}#article`,
+    headline: title,
+    description: excerpt,
+    url: canonicalUrl,
+    datePublished: publishedTime,
+    dateModified: modifiedTime,
+    author: {
+        '@type': 'Person',
+        name: website_config.author.name,
+        url: website_config.author.link,
+    },
+    publisher: {
+        '@type': 'Organization',
+        name: website_config.title,
+        url: `${website_config.baseUrl}/`,
+    },
+    mainEntityOfPage: {'@type': 'WebPage', '@id': canonicalUrl},
+    keywords: tags,
+    articleSection: tags[0] ?? 'Blog',
+    inLanguage: 'en',
+};
+---
+<BaseLayout title={title}
+            description={excerpt}
+            pageType="article"
+            canonical={canonicalPath}
+            publishedTime={publishedTime}
+            modifiedTime={modifiedTime}
+            articleTags={tags}>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)}/>
+
+    <div class="mx-auto w-full max-w-[1120px] px-8 pt-[52px]">
+        <div class="font-mono text-[12.5px] text-faint">
+            <a href="/" class="text-faint transition-colors hover:text-ink">~</a> /
+            <a href="/blog/" class="text-faint transition-colors hover:text-ink">blog</a> / {post.id}
+        </div>
+        <h1 class="mt-4 font-display text-[clamp(34px,4.4vw,52px)] leading-[1.05] font-bold tracking-[-1.6px] text-ink">{title}</h1>
+        <div class="mt-3.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-[12.5px] text-faint">
+            <time datetime={publishedTime}>{formatDate(post.data.date)}</time>
+            {post.data.updated && (
+                    <>
+                        <span class="select-none text-comment">·</span>
+                        <span>updated <time datetime={modifiedTime}>{formatDate(post.data.updated)}</time></span>
+                    </>
+            )}
+            {tags.map((tag) => (
+                    <>
+                        <span class="select-none text-comment">·</span>
+                        <a href={`/tags/${tagSlug(tag)}/`}
+                           title={`Posts tagged #${tag}`}
+                           class="text-mute transition-colors hover:text-acc2">#{tag}</a>
+                    </>
+            ))}
+        </div>
+    </div>
+
+    <div class:list={[
+        'mx-auto w-full max-w-[1120px] items-start gap-16 px-8 pt-11 pb-16',
+        tocHeadings.length > 0 ? 'grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_210px]' : '',
+    ]}>
+        <article class="min-w-0 max-w-[720px]" data-pagefind-body>
+            <div id="markdown">
+                <Content/>
+            </div>
+
+            {tags.length > 0 && (
+                    <footer class="mt-10 border-t border-white/9 pt-6">
+                        <p class="mb-3 font-mono text-[11px] tracking-[0.8px] text-faint uppercase">Tags</p>
+                        <div class="flex flex-wrap gap-x-5 gap-y-2">
+                            {tags.map((tag) => (
+                                    <a href={`/tags/${tagSlug(tag)}/`}
+                                       title={`Posts tagged #${tag}`}
+                                       class="font-mono text-[13.5px] text-mute transition-colors hover:text-acc2">#{tag}</a>
+                            ))}
+                        </div>
+                    </footer>
+            )}
+
+            <ShareButtons title={title} url={canonicalUrl}/>
+        </article>
+
+        {tocHeadings.length > 0 && (
+                <aside class="sticky top-[90px] hidden self-start lg:block">
+                    <BlogToc headings={tocHeadings}/>
+                </aside>
+        )}
+    </div>
+</BaseLayout>

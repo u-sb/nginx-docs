@@ -1,0 +1,79 @@
+---
+interface Heading {
+    depth: number;
+    slug: string;
+    text: string;
+}
+
+interface Props {
+    headings: Heading[];
+}
+
+const {headings} = Astro.props;
+---
+<aside class="sticky top-[90px] hidden self-start lg:block" data-toc>
+    <div class="mb-3 font-mono text-[11px] tracking-[0.8px] text-faint uppercase">On this page</div>
+    <nav class="flex max-h-[calc(100vh-150px)] flex-col overflow-y-auto border-l border-white/9">
+        {headings.map((h) => (
+                <a href={`#${h.slug}`}
+                   data-toc-link={h.slug}
+                   class:list={[
+                       'toc-link -ml-px block border-l border-transparent py-[5px] text-[13px] text-mute',
+                       h.depth >= 3 ? 'pl-[27px]' : 'pl-[15px]',
+                   ]}>{h.text}</a>
+        ))}
+    </nav>
+</aside>
+
+<style>
+    .toc-link {
+        transition: color 0.15s, border-color 0.15s;
+    }
+
+    .toc-link:hover {
+        color: var(--color-ink);
+    }
+
+    .toc-link.toc-active {
+        color: var(--color-ink);
+        border-left-color: var(--color-acc);
+    }
+</style>
+
+<script>
+    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
+
+    if (links.length > 0) {
+        const setActive = (slug: string) => {
+            links.forEach((link) => link.classList.toggle('toc-active', link.dataset.tocLink === slug));
+        };
+
+        // Highlight the section currently sitting under the sticky header.
+        const io = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) setActive(entry.target.id);
+                });
+            },
+            {rootMargin: '-80px 0px -70% 0px', threshold: 0},
+        );
+
+        links.forEach((link) => {
+            const target = document.getElementById(link.dataset.tocLink ?? '');
+            if (target) io.observe(target);
+
+            // Smooth scroll with a fixed-header offset on TOC clicks.
+            link.addEventListener('click', (event) => {
+                const slug = link.dataset.tocLink ?? '';
+                const section = document.getElementById(slug);
+                if (!section) return;
+                event.preventDefault();
+                window.scrollTo({top: section.getBoundingClientRect().top + window.scrollY - 84, behavior: 'smooth'});
+                history.replaceState(null, '', `#${slug}`);
+                setActive(slug);
+            });
+        });
+
+        setActive(decodeURIComponent(location.hash.slice(1)) || links[0].dataset.tocLink || '');
+    }
+</script>

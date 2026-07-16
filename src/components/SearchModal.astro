@@ -1,0 +1,147 @@
+---
+// Pagefind search modal. Opened via the header search button, Ctrl/Cmd+K, or `/`.
+// The Pagefind bundle only exists after `bun run build`; in dev mode the import
+// fails silently and the modal simply shows no results.
+---
+<div id="search-modal" class="hidden" aria-hidden="true">
+    <div id="search-overlay" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-[2px]"></div>
+    <div class="fixed left-[50%] top-[50%] z-50 grid w-[calc(100%-32px)] max-w-lg translate-x-[-50%] translate-y-[-50%] overflow-hidden rounded-lg border border-white/11 bg-panel shadow-[0_24px_64px_rgba(0,0,0,0.6)]">
+        <div class="relative flex flex-col">
+            <div class="flex items-center gap-2 border-b border-white/8 px-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="h-4 w-4 shrink-0 text-faint" aria-hidden="true">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/>
+                    <path d="M21 21l-6 -6"/>
+                </svg>
+                <input id="search-input" type="text" placeholder="Search docs…"
+                       class="w-full flex-1 bg-transparent py-3 font-mono text-[14px] text-ink placeholder:text-faint focus:outline-none"/>
+                <button id="search-close" aria-label="Close search"
+                        class="grid shrink-0 place-items-center rounded-md p-1 text-mute transition-colors hover:text-ink">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="h-4 w-4" aria-hidden="true">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M18 6l-12 12"/>
+                        <path d="M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="search-results" class="max-h-[50vh] overflow-y-auto">
+                <div class="px-4 py-8 text-center text-[13.5px] text-faint">Type to start searching</div>
+            </div>
+            <div class="flex items-center justify-between border-t border-white/8 px-4 py-2 font-mono text-[11px] text-faint">
+                <span class="flex items-center gap-1"><kbd class="rounded border border-white/11 bg-cell px-1.5 py-0.5 text-[10px]">ESC</kbd> to close</span>
+                <span class="flex items-center gap-1">
+                    <kbd class="rounded border border-white/11 bg-cell px-1.5 py-0.5 text-[10px]">CTRL</kbd>
+                    <span>/</span>
+                    <kbd class="rounded border border-white/11 bg-cell px-1.5 py-0.5 text-[10px]">⌘</kbd>
+                    <span>+</span>
+                    <kbd class="rounded border border-white/11 bg-cell px-1.5 py-0.5 text-[10px]">K</kbd>
+                    <span>to open</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style is:global>
+    #search-results mark {
+        background: transparent;
+        color: var(--color-acc);
+        font-weight: 600;
+    }
+</style>
+
+<script>
+    const modal = document.getElementById('search-modal')!;
+    const input = document.getElementById('search-input') as HTMLInputElement;
+    const results = document.getElementById('search-results')!;
+    const emptyState = '<div class="px-4 py-8 text-center text-[13.5px] text-faint">Type to start searching</div>';
+    let pagefind: any = null;
+
+    async function loadPagefind() {
+        if (pagefind) return pagefind;
+        try {
+            // Dynamic import via new Function so Vite/Rollup cannot statically analyze it:
+            // 1) dev mode does not error on the missing file; 2) the build does not wrap it
+            //    in a preload shell (Astro inline scripts leave __VITE_PRELOAD__ placeholders
+            //    unreplaced, which would throw a ReferenceError at runtime).
+            pagefind = await new Function('return import("/_pagefind/pagefind.js")')();
+        } catch {
+            console.log('Pagefind is not available');
+        }
+        return pagefind;
+    }
+
+    function openModal() {
+        modal.classList.remove('hidden');
+        modal.setAttribute('aria-hidden', 'false');
+        loadPagefind();
+        setTimeout(() => input.focus(), 100);
+    }
+
+    function closeModal() {
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+        input.value = '';
+        results.innerHTML = emptyState;
+    }
+
+    document.getElementById('search-open')?.addEventListener('click', openModal);
+    document.getElementById('search-close')!.addEventListener('click', closeModal);
+    document.getElementById('search-overlay')!.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+            e.preventDefault();
+            openModal();
+            return;
+        }
+        if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+            const t = e.target as HTMLElement | null;
+            const typing = t instanceof HTMLInputElement || t instanceof HTMLTextAreaElement || t?.isContentEditable;
+            if (!typing) {
+                e.preventDefault();
+                openModal();
+                return;
+            }
+        }
+        if (e.key === 'Escape') closeModal();
+    });
+
+    input.addEventListener('input', async () => {
+        const q = input.value;
+        if (!q.trim()) {
+            results.innerHTML = emptyState;
+            return;
+        }
+        const pf = await loadPagefind();
+        if (!pf) return;
+        const search = await pf.search(q);
+        const data = await Promise.all(search.results.slice(0, 10).map((r: any) => r.data()));
+        if (data.length === 0) {
+            results.innerHTML = '<div class="px-4 py-8 text-center text-[13.5px] text-faint">No results found</div>';
+            return;
+        }
+        const ul = document.createElement('ul');
+        ul.className = 'py-2';
+        for (const result of data) {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = result.url;
+            a.className = 'block px-4 py-3 transition-colors hover:bg-white/5';
+            const title = document.createElement('div');
+            title.className = 'font-mono text-[13.5px] font-medium text-ink';
+            title.textContent = result.meta?.title || 'Untitled';
+            const excerpt = document.createElement('div');
+            excerpt.className = 'mt-1 line-clamp-2 text-[13px] text-mute';
+            excerpt.innerHTML = result.excerpt || '';
+            a.append(title, excerpt);
+            a.addEventListener('click', closeModal);
+            li.appendChild(a);
+            ul.appendChild(li);
+        }
+        results.replaceChildren(ul);
+    });
+</script>

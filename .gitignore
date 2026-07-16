@@ -8,3 +8,9 @@ out
 dist
 *.log
 public/sitemap.xml
+
+# Generated OG images
+public/images/
+
+# Astro generated
+.astro/

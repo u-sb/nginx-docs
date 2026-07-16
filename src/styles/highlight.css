@@ -1,0 +1,127 @@
+/* highlight.js palette adapted to the n.wtf design:
+   commands / keywords → green accent, strings → pale green, URLs / links → blue,
+   flags / numbers → orange, comments → muted gray, default text → #d7dade.
+   Selector structure follows u.sb's highlight.css (highlight.js base16 template). */
+:root {
+    --hl-fg: #d7dade;
+    --hl-selection: rgba(52, 227, 154, 0.25);
+    --hl-comment: #5f636b;
+    --hl-keyword: #34e39a;
+    --hl-string: #b5e8a0;
+    --hl-link: #7cc4ff;
+    --hl-number: #e0a45c;
+    --hl-title: #9af0c8;
+    --hl-tag: #8f939b;
+}
+
+pre code.hljs {
+    display: block;
+    overflow-x: auto;
+}
+
+.hljs {
+    color: var(--hl-fg);
+    background: transparent;
+}
+
+.hljs::selection,
+.hljs ::selection {
+    background-color: var(--hl-selection);
+    color: var(--hl-fg);
+}
+
+.hljs-comment {
+    color: var(--hl-comment);
+}
+
+.hljs-tag {
+    color: var(--hl-tag);
+}
+
+.hljs-subst,
+.hljs-punctuation,
+.hljs-operator {
+    color: var(--hl-fg);
+}
+
+.hljs-operator {
+    opacity: 0.7;
+}
+
+.hljs-bullet,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-selector-tag,
+.hljs-name,
+.hljs-deletion {
+    color: var(--hl-number);
+}
+
+.hljs-symbol,
+.hljs-number,
+.hljs-attr,
+.hljs-variable.constant_,
+.hljs-literal {
+    color: var(--hl-number);
+}
+
+.hljs-link {
+    color: var(--hl-link);
+    text-decoration: underline;
+}
+
+.hljs-title,
+.hljs-class .hljs-title,
+.hljs-title.class_ {
+    color: var(--hl-title);
+}
+
+.hljs-strong {
+    font-weight: bold;
+    color: var(--hl-title);
+}
+
+.hljs-code,
+.hljs-addition,
+.hljs-title.class_.inherited__,
+.hljs-string {
+    color: var(--hl-string);
+}
+
+.hljs-built_in,
+.hljs-doctag,
+.hljs-quote,
+.hljs-keyword.hljs-atrule,
+.hljs-regexp {
+    color: var(--hl-keyword);
+}
+
+.hljs-function .hljs-title,
+.hljs-attribute,
+.hljs-title.function_,
+.hljs-section {
+    color: var(--hl-link);
+}
+
+.hljs-type,
+.hljs-template-tag,
+.diff .hljs-meta,
+.hljs-keyword {
+    color: var(--hl-keyword);
+}
+
+.hljs-emphasis {
+    color: var(--hl-string);
+    font-style: italic;
+}
+
+.hljs-meta,
+.hljs-meta .hljs-keyword,
+.hljs-meta .hljs-string {
+    color: var(--hl-number);
+}
+
+.hljs-meta .hljs-keyword,
+.hljs-meta-keyword {
+    font-weight: bold;
+}

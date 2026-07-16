@@ -1,0 +1,55 @@
+---
+import type {MarkdownHeading} from 'astro';
+
+interface Props {
+    headings: MarkdownHeading[];
+}
+
+const {headings} = Astro.props;
+const tocHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+---
+{tocHeadings.length > 0 && (
+    <>
+        <nav data-blog-toc aria-label="Table of contents">
+            <div class="mb-3 font-mono text-[11px] tracking-[0.8px] text-faint uppercase">On this page</div>
+            <div class="flex flex-col border-l border-white/9">
+                {tocHeadings.map((heading) => (
+                        <a href={`#${heading.slug}`}
+                           data-toc-link={heading.slug}
+                           class:list={[
+                               'block -ml-px border-l border-transparent py-[5px] pl-[15px] text-[13px] text-mute transition-[color,border-color] duration-150 hover:text-ink',
+                               heading.depth === 3 && 'pl-[27px]',
+                           ]}>{heading.text}</a>
+                ))}
+            </div>
+        </nav>
+
+        <script is:inline>
+            (function () {
+                const links = Array.from(document.querySelectorAll('[data-blog-toc] [data-toc-link]'));
+                if (!links.length) return;
+
+                const setActive = (id) => {
+                    links.forEach((link) => {
+                        const active = link.getAttribute('data-toc-link') === id;
+                        link.classList.toggle('text-ink', active);
+                        link.classList.toggle('border-acc', active);
+                        link.classList.toggle('text-mute', !active);
+                        link.classList.toggle('border-transparent', !active);
+                    });
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) setActive(entry.target.id);
+                    });
+                }, {rootMargin: '-80px 0px -70% 0px', threshold: 0});
+
+                links.forEach((link) => {
+                    const el = document.getElementById(link.getAttribute('data-toc-link'));
+                    if (el) observer.observe(el);
+                });
+            })();
+        </script>
+    </>
+)}

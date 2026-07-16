@@ -1,0 +1,41 @@
+---
+import {tagSlug, formatDate, type BlogPost} from '@/lib/posts';
+
+interface Props {
+    posts: BlogPost[];
+    activeTag?: string;
+}
+
+const {posts, activeTag} = Astro.props;
+---
+<ul class="border-t border-white/9">
+    {posts.map((post) => (
+            <li class="border-b border-white/9 py-7">
+                <a href={`/blog/${post.id}/`} title={post.data.title}
+                   class="group block text-ink hover:text-ink">
+                    <h2 class="font-display text-[21px] font-semibold tracking-[-0.4px] text-ink transition-colors group-hover:text-acc2">
+                        {post.data.title}
+                    </h2>
+                    <p class="mt-2 max-w-[680px] text-[15px] leading-[1.7] text-soft">{post.data.excerpt}</p>
+                </a>
+                <div class="mt-3 flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-[12.5px] text-faint">
+                    <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                    {post.data.tags.map((tag) => {
+                        const slug = tagSlug(tag);
+                        const active = activeTag === slug;
+                        return (
+                                <>
+                                    <span class="select-none text-comment">·</span>
+                                    <a href={`/tags/${slug}/`}
+                                       title={`Posts tagged #${tag}`}
+                                       class:list={[
+                                           'transition-colors hover:text-acc2',
+                                           active ? 'text-acc2' : 'text-mute',
+                                       ]}>#{tag}</a>
+                                </>
+                        );
+                    })}
+                </div>
+            </li>
+    ))}
+</ul>
