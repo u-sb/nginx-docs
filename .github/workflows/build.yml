@@ -60,7 +60,7 @@ jobs:
           name: dist
           path: ${{ github.workspace }}/dist/
       - run: ls -R ${{ github.workspace }}/dist/
-      - uses: easingthemes/ssh-deploy@v6.0.1
+      - uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: '-avz --delete'
