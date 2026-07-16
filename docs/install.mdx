@@ -21,6 +21,16 @@ ARM64 platform has less audience. Please report if you hit issues.
 
 Debian 13 Trixie onwards are compiled with PCRE2 and a later version of `http_lua` module, please report issues.
 
+## Install via extrepo
+
+Currently extrepo is only available on Debian.
+
+```bash
+sudo apt update && sudo apt install extrepo -y
+sudo extrepo enable n.wtf
+sudo apt update && sudo apt install nginx-extras -y
+```
+
 ## Install via DEB
 
 One-Line Style:
