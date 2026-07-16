@@ -16,7 +16,11 @@ interface Props {
 const {title, description, keywords, pageType = 'website', canonical, noindex = false, publishedTime, modifiedTime, articleTags} = Astro.props;
 
 const isHome = Astro.url.pathname === '/';
-const fullTitle = isHome || !title ? website_config.title : `${title} - ${website_config.title}`;
+const fullTitle = isHome || !title
+    ? `${website_config.title} - ${website_config.tagline}`
+    : `${title} - ${website_config.title}`;
+// Every page is canonical at its own path unless the caller overrides it.
+const canonicalPath = canonical ?? Astro.url.pathname;
 const pageDescription = description ?? website_config.description;
 const ogSlug = Astro.url.pathname.replace(/^\/+|\/+$/g, '') || 'index';
 const ogImage = `${website_config.baseUrl}/images/${ogSlug}.webp`;
@@ -27,7 +31,7 @@ const ogImage = `${website_config.baseUrl}/images/${ogSlug}.webp`;
 <meta name="description" content={pageDescription}/>
 {keywords && <meta name="keywords" content={keywords}/>}
 {noindex && <meta name="robots" content="noindex, follow"/>}
-{canonical && <link rel="canonical" href={`${website_config.baseUrl}${canonical}`}/>}
+<link rel="canonical" href={`${website_config.baseUrl}${canonicalPath}`}/>
 <meta property="og:title" content={fullTitle}/>
 <meta property="og:type" content={pageType === 'website' ? 'website' : 'article'}/>
 <meta property="og:description" content={pageDescription}/>
@@ -37,7 +41,7 @@ const ogImage = `${website_config.baseUrl}/images/${ogSlug}.webp`;
 <meta property="og:image:alt" content={website_config.title}/>
 <meta property="og:site_name" content={website_config.title}/>
 <meta property="og:locale" content="en_US"/>
-{canonical && <meta property="og:url" content={`${website_config.baseUrl}${canonical}`}/>}
+<meta property="og:url" content={`${website_config.baseUrl}${canonicalPath}`}/>
 {pageType === 'article' && publishedTime && <meta property="article:published_time" content={publishedTime}/>}
 {pageType === 'article' && modifiedTime && <meta property="article:modified_time" content={modifiedTime}/>}
 {pageType === 'article' && articleTags?.map((t) => <meta property="article:tag" content={t}/>)}

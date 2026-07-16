@@ -1,5 +1,6 @@
 const website_config = {
     title: 'N.WTF',
+    tagline: 'nginx Debian / Ubuntu Repository',
     description: 'Open-source nginx Debian / Ubuntu repository with latest mainline builds.',
     baseUrl: 'https://n.wtf',
     author: {
