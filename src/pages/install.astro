@@ -1,0 +1,138 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import SecondaryText from '@/components/SecondaryText.astro';
+import TerminalCard from '@/components/TerminalCard.astro';
+
+const headings = [
+    {depth: 2, slug: 'fully-supported-os', text: 'Fully Supported OS'},
+    {depth: 2, slug: 'install-via-extrepo', text: 'Install via extrepo'},
+    {depth: 2, slug: 'install-via-deb', text: 'Install via DEB'},
+    {depth: 2, slug: 'install-from-docker', text: 'Install from Docker'},
+    {depth: 2, slug: 'unsupported-os', text: 'Unsupported OS'},
+    {depth: 2, slug: 'removed-os', text: 'Removed OS'},
+];
+
+const fullySupported = [
+    {name: 'Debian 12 Bookworm (OldStable)', note: 'Update through 2028-07 or later'},
+    {name: 'Debian 13 Trixie (Stable)', note: 'Update through 2030-07 or later'},
+    {name: 'Debian 14 Forky (Testing) - experimental', note: 'Update through 2032-07 or later'},
+    {name: 'Ubuntu 22.04 Jammy (LTS)', note: 'Update through 2027-04 or later'},
+    {name: 'Ubuntu 24.04 Noble (LTS)', note: 'Update through 2029-04 or later'},
+    {name: 'Ubuntu 25.10 Questing', note: 'Update through 2026-12 or later'},
+    {name: 'Ubuntu 26.04 Resolute (LTS)', note: 'Update through 2031-04 or later'},
+];
+
+const unsupported = [
+    {name: 'Ubuntu 20.04 Focal (LTS)', note: 'Last update 1.31.0-1nwtf+362 - this is the final update'},
+    {name: 'Ubuntu 25.04 Plucky', note: 'Last update 1.31.0-1nwtf+362'},
+    {name: 'Debian 11 Bullseye', note: 'Last update 1.31.0-1nwtf+362'},
+];
+
+const removed = [
+    'Debian 8 Jessie', 'Debian 9 Stretch', 'Debian 10 Buster',
+    'Ubuntu 14.04 Trusty', 'Ubuntu 16.04 Xenial', 'Ubuntu 18.04 Bionic',
+    'Ubuntu 18.10 Cosmic', 'Ubuntu 19.04 Disco', 'Ubuntu 19.10 Eoan',
+    'Ubuntu 20.10 Groovy', 'Ubuntu 21.04 Hirsute', 'Ubuntu 21.10 Impish',
+    'Ubuntu 22.10 Kinetic', 'Ubuntu 23.04 Lunar', 'Ubuntu 23.10 Mantic',
+    'Ubuntu 24.10 Oracular',
+];
+
+// Real install commands — text verbatim from the repository docs.
+const extrepoCmd = `sudo apt update && sudo apt install extrepo -y
+sudo extrepo enable n.wtf
+sudo apt update && sudo apt install nginx-extras -y`;
+
+const onelineCmd = `sudo apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
+
+curl -sSL https://n.wtf/public.key | sudo bash -c 'gpg --dearmor > /usr/share/keyrings/n.wtf.gpg'
+
+sudo bash -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/n.wtf.gpg] https://mirror-cdn.xtom.com/sb/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/n.wtf.list'
+
+sudo apt update
+
+sudo apt install nginx-extras -y`;
+
+const deb822Cmd = `sudo apt install -y lsb-release ca-certificates apt-transport-https curl gnupg dpkg
+
+curl -sSL https://n.wtf/public.key | sudo bash -c 'gpg --dearmor > /usr/share/keyrings/n.wtf.gpg'
+
+sudo bash -c 'cat > /etc/apt/sources.list.d/n.wtf.sources << EOF
+Components: main
+Architectures: $(dpkg --print-architecture)
+Suites: $(lsb_release -cs)
+Types: deb
+Uris: https://mirror-cdn.xtom.com/sb/nginx/
+Signed-By: /usr/share/keyrings/n.wtf.gpg
+EOF'
+
+sudo apt update
+
+sudo apt install nginx-extras -y`;
+
+const h2 = 'm-0 mb-3.5 font-display text-[25px] font-semibold tracking-[-0.6px] text-ink';
+const p = 'm-0 text-[16px] leading-[1.75] text-body';
+---
+<DocsLayout title="Installation"
+            description="Supported operating systems and how to install nginx from the n.wtf repository via DEB or Docker."
+            slug="install"
+            headings={headings}>
+    <span slot="lede">Supported operating systems, and how to install nginx from the <span class="font-mono text-[15px] text-[#e3e5e8]">n.wtf</span> repository.</span>
+
+    <section id="fully-supported-os" class="scroll-mt-[90px]">
+        <h2 class={h2}>Fully Supported OS</h2>
+        <div class="divide-y divide-white/9 border-y border-white/9">
+            {fullySupported.map((os) => (
+                    <div class="flex flex-col gap-0.5 py-[13px] sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                        <span class="text-[14.5px] leading-[1.6] text-body">{os.name}</span>
+                        <SecondaryText>{os.note}</SecondaryText>
+                    </div>
+            ))}
+        </div>
+        <p class:list={[p, 'mt-4 mb-3.5']}>We support LTS and current releases of Debian and Ubuntu, as well as releases that are close to GA.</p>
+        <p class:list={[p, 'mb-3.5']}>The ARM64 builds have a smaller audience, so please report any issues you hit.</p>
+        <p class={p}>Debian 13 Trixie onwards is compiled with PCRE2 and a newer version of the <code class="font-mono text-[14px] text-[#e3e5e8]">http_lua</code> module; please report any issues.</p>
+    </section>
+
+    <section id="install-via-extrepo" class="mt-12 scroll-mt-[90px]">
+        <h2 class={h2}>Install via extrepo</h2>
+        <p class:list={[p, 'mb-4']}>Currently extrepo is only available on Debian.</p>
+        <TerminalCard file="install.sh" cmd={extrepoCmd}/>
+    </section>
+
+    <section id="install-via-deb" class="mt-12 scroll-mt-[90px]">
+        <h2 class={h2}>Install via DEB</h2>
+        <p class:list={[p, 'mb-4']}>One-Line Style:</p>
+        <TerminalCard file="setup.sh" cmd={onelineCmd}/>
+        <p class:list={[p, 'mt-6 mb-4']}>DEB822:</p>
+        <TerminalCard file="n.wtf.sources" cmd={deb822Cmd}/>
+    </section>
+
+    <section id="install-from-docker" class="mt-12 scroll-mt-[90px]">
+        <h2 class={h2}>Install from Docker</h2>
+        <p class={p}>Check out <a href="https://github.com/u-sb/nginx-docker">Docker image for nginx-docker</a>.</p>
+    </section>
+
+    <section id="unsupported-os" class="mt-12 scroll-mt-[90px]">
+        <h2 class={h2}>Unsupported OS</h2>
+        <div class="divide-y divide-white/9 border-y border-white/9">
+            {unsupported.map((os) => (
+                    <div class="flex flex-col gap-0.5 py-[13px] sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                        <span class="text-[14.5px] leading-[1.6] text-body">{os.name}</span>
+                        <SecondaryText>{os.note}</SecondaryText>
+                    </div>
+            ))}
+        </div>
+        <p class:list={[p, 'mt-4 mb-3.5']}>We do not provide full, long-term support for legacy OS, but you can use them at your own risk. Unsupported OS do not always get the latest updates; support is on a reasonable-efforts basis and we may stop updating them at any time.</p>
+        <p class={p}>Releases tagged <SecondaryText>this is the final update</SecondaryText> will not receive further updates.</p>
+    </section>
+
+    <section id="removed-os" class="mt-12 scroll-mt-[90px]">
+        <h2 class={h2}>Removed OS</h2>
+        <p class:list={[p, 'mb-2']}>We no longer provide packages for these OS:</p>
+        <div class="grid grid-cols-1 gap-x-10 sm:grid-cols-2">
+            {removed.map((os) => (
+                    <div class="border-b border-white/7 py-[11px] text-[14.5px] text-body">{os}</div>
+            ))}
+        </div>
+    </section>
+</DocsLayout>

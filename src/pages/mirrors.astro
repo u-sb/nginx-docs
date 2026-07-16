@@ -1,0 +1,94 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import TerminalCard from '@/components/TerminalCard.astro';
+
+const headings = [
+    {depth: 2, slug: 'mirror-list', text: 'Mirror list'},
+    {depth: 2, slug: 'mirror-our-repo', text: 'Mirror Our Repo'},
+];
+
+// Mirror data — verbatim from the repository docs.
+const regions = [
+    {
+        name: 'United States',
+        mirrors: [{name: 'xTom US', url: 'https://mirrors.xtom.com/sb/nginx/'}],
+    },
+    {
+        name: 'Netherlands',
+        mirrors: [{name: 'xTom NL', url: 'https://mirrors.xtom.nl/sb/nginx/'}],
+    },
+    {
+        name: 'Germany',
+        mirrors: [{name: 'xTom DE', url: 'https://mirrors.xtom.de/sb/nginx/'}],
+    },
+    {
+        name: 'Estonia',
+        mirrors: [{name: 'xTom EE', url: 'https://mirrors.xtom.ee/sb/nginx/'}],
+    },
+    {
+        name: 'Hong Kong',
+        mirrors: [{name: 'xTom HK', url: 'https://mirrors.xtom.hk/sb/nginx/'}],
+    },
+    {
+        name: 'Japan',
+        mirrors: [{name: 'xTom JP', url: 'https://mirrors.xtom.jp/sb/nginx/'}],
+    },
+    {
+        name: 'Singapore',
+        mirrors: [{name: 'xTom SG', url: 'https://mirrors.xtom.sg/sb/nginx/'}],
+    },
+    {
+        name: 'Australia',
+        mirrors: [{name: 'xTom AU', url: 'https://mirrors.xtom.au/sb/nginx/'}],
+    },
+    {
+        name: 'China Mainland',
+        mirrors: [
+            {name: 'USTC', url: 'https://mirrors.ustc.edu.cn/sb/nginx/'},
+            {name: 'NJU', url: 'https://mirror.nju.edu.cn/sb/nginx/'},
+            {name: 'TUNA', url: 'https://mirrors.tuna.tsinghua.edu.cn/n.wtf/'},
+            {name: 'BFSU', url: 'https://mirrors.bfsu.edu.cn/u.sb/'},
+            {name: 'ISRC-ISCAS', url: 'https://mirror.iscas.ac.cn/sb/nginx/'},
+            {name: 'NYIST', url: 'https://mirror.nyist.edu.cn/u.sb/'},
+            {name: 'XJTU', url: 'https://mirrors.xjtu.edu.cn/sb/nginx/'},
+        ],
+    },
+];
+
+const rsyncCmd = 'rsync rsync://mirrors.xtom.com/repo/sb/';
+
+const displayUrl = (url: string) => url.replace(/^https:\/\//, '').replace(/\/$/, '');
+---
+<DocsLayout title="Mirrors"
+            description="Repository mirrors around the world, plus how to mirror the repo yourself."
+            slug="mirrors"
+            headings={headings}>
+    <span slot="lede">Repository mirrors around the world. Pick the one closest to you.</span>
+
+    <section id="mirror-list" class="scroll-mt-[90px]">
+        <h2 class="sr-only">Mirror list</h2>
+        <div class="overflow-hidden rounded-lg border border-white/10">
+            <div class="grid grid-cols-1 gap-px bg-white/8 sm:grid-cols-2">
+                {regions.map((region) => (
+                        <div class:list={['bg-cell px-[18px] py-4', region.mirrors.length > 1 && 'sm:col-span-2']}>
+                            <div class="font-display text-[15px] font-semibold text-ink">{region.name}</div>
+                            <div class="mt-2.5 flex flex-col gap-1.5">
+                                {region.mirrors.map((mirror) => (
+                                        <div class="flex flex-col gap-x-4 gap-y-0.5 sm:flex-row sm:items-baseline">
+                                            <span class="w-24 shrink-0 font-mono text-[12.5px] text-mute">{mirror.name}</span>
+                                            <a href={mirror.url}
+                                               class="min-w-0 truncate font-mono text-[13px] text-soft transition-colors hover:text-acc2">{displayUrl(mirror.url)}</a>
+                                        </div>
+                                ))}
+                            </div>
+                        </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section id="mirror-our-repo" class="mt-12 scroll-mt-[90px]">
+        <h2 class="m-0 mb-3.5 font-display text-[25px] font-semibold tracking-[-0.6px] text-ink">Mirror Our Repo</h2>
+        <TerminalCard file="rsync" cmd={rsyncCmd}/>
+    </section>
+</DocsLayout>

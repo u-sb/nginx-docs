@@ -1,0 +1,60 @@
+---
+import {marked} from 'marked';
+import DocsLayout from '@/layouts/DocsLayout.astro';
+import {changelog} from '@/data/changelog';
+
+// Group entries by year (dates are "Mon D, YYYY"; order in the array is newest first).
+const years: {year: string; entries: typeof changelog}[] = [];
+for (const entry of changelog) {
+    const year = entry.date.slice(-4);
+    const group = years.at(-1);
+    if (group && group.year === year) group.entries.push(entry);
+    else years.push({year, entries: [entry]});
+}
+
+const headings = years.map(({year}) => ({depth: 2, slug: `y${year}`, text: year}));
+
+const inline = (md: string) => marked.parseInline(md) as string;
+---
+<DocsLayout title="Changelog"
+            description="Release history of the n.wtf nginx packages."
+            slug="changelog"
+            headings={headings}>
+    <span slot="lede">Release history of the <span class="font-mono text-[15px] text-[#e3e5e8]">n.wtf</span> nginx packages.</span>
+
+    <div class="changelog flex flex-col gap-12">
+        {years.map(({year, entries}) => (
+                <section id={`y${year}`} class="scroll-mt-[90px]">
+                    <h2 class="m-0 mb-5 font-display text-[25px] font-semibold tracking-[-0.6px] text-ink">{year}</h2>
+                    <div class="flex flex-col">
+                        {entries.map((entry) => (
+                                <article class="grid grid-cols-1 gap-x-8 gap-y-2 border-t border-white/9 py-5 last:pb-0 sm:grid-cols-[130px_minmax(0,1fr)]">
+                                    <time class="pt-px font-mono text-[12.5px] leading-[1.8] text-faint">{entry.date.replace(`, ${year}`, '')}</time>
+                                    <ul class="m-0 flex list-none flex-col gap-1.5 p-0">
+                                        {entry.items.map((item) => (
+                                                <li class="text-[14.5px] leading-[1.7] text-body" set:html={inline(item)}/>
+                                        ))}
+                                    </ul>
+                                </article>
+                        ))}
+                    </div>
+                </section>
+        ))}
+    </div>
+</DocsLayout>
+
+<style is:global>
+    .changelog li a {
+        color: var(--color-acc);
+    }
+
+    .changelog li a:hover {
+        color: var(--color-acc2);
+    }
+
+    .changelog li code {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: #e3e5e8;
+    }
+</style>

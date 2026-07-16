@@ -1,0 +1,30 @@
+---
+import {highlightShell} from '@/lib/highlight-shell';
+
+interface Props {
+    file: string;
+    cmd: string;
+    class?: string;
+}
+
+const {file, cmd, class: className} = Astro.props;
+---
+<div class:list={['min-w-0 rounded-lg border border-white/11 bg-panel', className]} data-terminal-card data-cmd={cmd}>
+    <div class="code-window-bar">
+        <span class="code-lang">{file}</span>
+        <button type="button" class="code-copy-btn" data-terminal-copy aria-label={`Copy ${file}`}>copy</button>
+    </div>
+    <div class="overflow-x-auto px-[18px] py-5 font-mono text-[13.5px] leading-[1.85] whitespace-pre text-[#d7dade]"
+         set:html={highlightShell(cmd)}/>
+</div>
+
+<script>
+    document.querySelectorAll<HTMLButtonElement>('[data-terminal-card] [data-terminal-copy]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const cmd = btn.closest<HTMLElement>('[data-terminal-card]')?.dataset.cmd ?? '';
+            navigator.clipboard?.writeText(cmd);
+            btn.textContent = 'copied';
+            setTimeout(() => (btn.textContent = 'copy'), 1600);
+        });
+    });
+</script>

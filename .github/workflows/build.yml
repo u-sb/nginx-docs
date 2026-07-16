@@ -27,7 +27,7 @@ jobs:
         uses: actions/cache@v5
         with:
           path: ${{ github.workspace }}/.astro
-          key: ${{ runner.os }}-astro-${{ hashFiles('**/bun.lock') }}-${{ hashFiles('src/**', 'docs/**', 'blog/**') }}
+          key: ${{ runner.os }}-astro-${{ hashFiles('**/bun.lock') }}-${{ hashFiles('src/**', 'blog/**') }}
           restore-keys: |
             ${{ runner.os }}-astro-${{ hashFiles('**/bun.lock') }}-
 

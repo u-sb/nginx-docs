@@ -1,0 +1,14 @@
+---
+import DocsLayout from '@/layouts/DocsLayout.astro';
+
+const p = 'm-0 text-[16px] leading-[1.75] text-body';
+---
+<DocsLayout title="Contact"
+            description="How to reach the maintainers for bug reports, feature requests and other inquiries."
+            slug="contact"
+            headings={[]}>
+    <span slot="lede">How to reach the maintainers.</span>
+
+    <p class:list={[p, 'mb-3.5']}>You can use <a href="https://github.com/u-sb/nginx-docs/issues">GitHub Issues</a> for bug reports and feature requests.</p>
+    <p class={p}>For other inquiries, please contact <a href="https://m.ac/contact/">m.ac</a>.</p>
+</DocsLayout>
