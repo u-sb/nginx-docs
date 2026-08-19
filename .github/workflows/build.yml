@@ -50,7 +50,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - host_id: REMOTE_HOST_SJC
+          - host_id: REMOTE_HOST_NYC
       fail-fast: false
     env:
       REMOTE_HOST: ${{ secrets[matrix.host_id] }}
