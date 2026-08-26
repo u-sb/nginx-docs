@@ -1,0 +1,76 @@
+---
+title: nginx 1.31.4
+excerpt: A quiet release upstream, but the packaging around it changed a lot. Every third-party module is now dynamic, Brotli and Zstd moved to opt-in snippets, and the bundled OpenSSL jumps to 4.0.2.
+date: 2026-08-26
+tags: [nginx, Release, Security]
+---
+
+Upstream released [nginx 1.31.4](https://nginx.org/en/CHANGES) on August 19, 2026, and the n.wtf packages are now published for all [supported Debian and Ubuntu releases](/install/). nginx itself carries no security fixes this time. The statically linked OpenSSL does, so these packages are still a security update.
+
+Most of the work this time is on the packaging side. If you serve Brotli or Zstd, read the two module sections first: both now need a line of config they did not need before.
+
+## What changed upstream
+
+`proxy_protocol` in the stream and mail modules can now send PROXY protocol version 2 to backends, where before it only spoke version 1. HTTP/2 and gRPC requests to backends are now always sent with the `:authority` pseudo-header, and HTTP/1.1 requests with `Host`.
+
+It also fixes a worker segfault when the `select` method was in use, treats incomplete gRPC responses carrying a non-zero `Content-Length` as malformed, and repairs a binary compatibility break with third-party modules using script codes that appeared in 1.31.3. That last one matters here, since these packages ship eighteen third-party modules.
+
+## OpenSSL 4.0.2
+
+We rebuild against the newest OpenSSL on every packaging run, so 1.31.4 links [OpenSSL 4.0.2](https://github.com/openssl/openssl/releases/tag/openssl-4.0.2), released August 25, 2026. It is a security patch release; the most severe issue is rated Moderate.
+
+Eleven CVEs are fixed. The ones most likely to touch a web server are a double free when a QUIC server processes an `INITIAL` packet ([CVE-2026-18798](https://nvd.nist.gov/vuln/detail/CVE-2026-18798)), unbounded memory growth in the QUIC incoming channel queue ([CVE-2026-14456](https://nvd.nist.gov/vuln/detail/CVE-2026-14456)), excessive memory buffering DTLS records for a future epoch ([CVE-2026-54874](https://nvd.nist.gov/vuln/detail/CVE-2026-54874)), and a heap buffer overflow in CMS key unwrapping ([CVE-2026-63072](https://nvd.nist.gov/vuln/detail/CVE-2026-63072)). If you serve HTTP/3, take the QUIC ones seriously.
+
+## Every third-party module is now dynamic
+
+Brotli, Zstandard and ACME used to be compiled straight into the binary with `--add-module`. They are built with `--add-dynamic-module` from this release on, which means all eighteen third-party modules are `.so` files under `/usr/lib/nginx/modules/`, each in its own package. On a running box:
+
+```bash
+nginx -V 2>&1 | tr ' ' '\n' | grep add-dynamic-module
+```
+
+Brotli and Zstd land in `libnginx-mod-http-brotli` and `libnginx-mod-http-zstd`, which the plain `nginx` metapackage pulls in; ACME and IPDB are in `libnginx-mod-http-acme` and `libnginx-mod-http-ipdb`, which come with `nginx-extras`. Nothing was dropped; `nginx-extras` still installs every one of them. Each [module page](/modules/) now lists the package it ships in.
+
+## Brotli and Zstd are opt-in
+
+Their settings used to be symlinked into `conf.d` and were active the moment the package landed. Two packages writing compression directives into the same http block collide, so both now install a snippet instead:
+
+```nginx
+# /etc/nginx/nginx.conf, inside http { }
+include /etc/nginx/snippets/brotli.conf;
+include /etc/nginx/snippets/zstd.conf;
+```
+
+Both lines ship commented out. Uncomment the ones you want, or include the snippet in a single server or location block if you would rather scope it. `brotli.conf` turns on the filter and static modules at compression level 5 with a MIME type list for text, JSON, XML, SVG and web fonts; `zstd.conf` turns on the filter and static modules and leaves the module defaults alone. Obsolete `conf.d` symlinks from earlier packages are removed on upgrade.
+
+`gzip_vary` is now on in the shipped `nginx.conf` as well. With three encodings in play, proxies and CDNs need `Vary: Accept-Encoding` to keep the compressed and identity variants apart.
+
+## A hardened Zstd module
+
+The [Zstandard module](/modules/zstd/) is now built from the [u-sb fork](https://github.com/u-sb/zstd-nginx-module), which takes Alex Zhang's original and merges the memory safety work and test suites from [myguard-labs](https://github.com/myguard-labs/nginx-zstd-module) and [GetPageSpeed](https://github.com/GetPageSpeed/zstd-nginx-module).
+
+Its defaults are more useful than the original's: `zstd_comp_level` is 3, `zstd_min_length` is 1024, and `zstd_types` already covers HTML, text, CSS, JavaScript, JSON, XML and SVG, so `zstd on;` on its own is a sane production config. New directives include `zstd_max_length`, `zstd_long`, `zstd_window_log`, `zstd_max_cctx_memory` and `zstd_bypass`.
+
+## Changes
+
+- Upgrade nginx to 1.31.4
+- Upgrade OpenSSL to 4.0.2
+- Build every third-party module dynamically, with Brotli and Zstd in their own packages
+- Ship Brotli and Zstd settings as snippets under `/etc/nginx/snippets/`
+- Enable `gzip_vary` by default
+- Switch the Zstandard module to the hardened u-sb fork
+- Add Ubuntu 26.10 Stonking builds
+
+## How to upgrade
+
+```bash
+sudo apt update
+sudo apt full-upgrade
+
+nginx -v
+# nginx version: nginx-n.wtf/1.31.4
+```
+
+`full-upgrade` matters more than usual here: the module split adds new packages, and plain `apt upgrade` will hold nginx back rather than install them. If `apt` asks what to do about `/etc/nginx/nginx.conf`, keeping your own version is fine. All you miss are the two commented `include` lines above, which you can add by hand.
+
+Not on the repository yet? The [install page](/install/) has extrepo, one-line, DEB822, and Docker instructions.

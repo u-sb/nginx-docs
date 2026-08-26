@@ -5,13 +5,15 @@ export const groupA: ModuleDetail[] = [
         slug: 'brotli',
         name: 'ngx_brotli',
         desc: 'Brotli compression for responses and static assets',
-        kind: 'static',
+        kind: 'dynamic',
+        package: 'libnginx-mod-http-brotli',
+        metapackage: 'nginx',
         repo: 'https://github.com/google/ngx_brotli',
         license: 'BSD-2-Clause',
         overview: [
             'ngx_brotli adds Brotli compression to nginx. Brotli is a compression format developed at Google that typically produces smaller output than gzip at comparable speed, and every modern browser advertises support for it in the Accept-Encoding header.',
             'The project ships two modules. The filter module compresses responses on the fly, and the static module serves pre-compressed .br files from disk so no CPU is spent at request time.',
-            'Google maintains the module. It is one of the most widely deployed third-party nginx modules and is compiled into most distribution builds.',
+            'Google maintains the module. It is one of the most widely deployed third-party nginx modules and is compiled into most distribution builds. Our package installs a ready-made /etc/nginx/snippets/brotli.conf; include it from nginx.conf to switch it on.',
         ],
         highlights: [
             {
@@ -39,25 +41,32 @@ export const groupA: ModuleDetail[] = [
                 desc: 'Sets the sliding window size used during compression, default 512k.',
             },
         ],
-        example: `brotli on;
-brotli_comp_level 6;
-brotli_types text/plain text/css application/javascript
-             application/json image/svg+xml;
+        example: `# the package installs /etc/nginx/snippets/brotli.conf:
+#     brotli on;
+#     brotli_static on;
+#     brotli_comp_level 5;
+#     brotli_types application/javascript application/json ... text/css;
 
-# serve pre-compressed .br files when they exist on disk
-brotli_static on;`,
+# turn it on from the http block of nginx.conf
+include /etc/nginx/snippets/brotli.conf;
+
+# anything after the include overrides the shipped defaults
+brotli_comp_level 6;
+brotli_min_length 256;`,
     },
     {
         slug: 'zstd',
         name: 'zstd-nginx-module',
         desc: 'Zstandard response compression with dictionary support',
-        kind: 'static',
-        repo: 'https://github.com/tokers/zstd-nginx-module',
+        kind: 'dynamic',
+        package: 'libnginx-mod-http-zstd',
+        metapackage: 'nginx',
+        repo: 'https://github.com/u-sb/zstd-nginx-module',
         license: 'BSD-2-Clause',
         overview: [
             'zstd-nginx-module adds Zstandard (zstd) compression to nginx. Zstandard is a compression algorithm developed at Facebook that targets high compression ratios at fast compression and decompression speeds.',
-            'Like ngx_brotli, it ships a filter module for on-the-fly compression and a static module that serves pre-compressed .zst files. It can also load an external dictionary trained on your content, which improves ratios on small responses.',
-            'The module is written and maintained by Alex Zhang (tokers). Upstream labels it experimental, and it is enabled per location, so it is easy to roll out gradually.',
+            'Like ngx_brotli, it builds two loadable modules: ngx_http_zstd_filter_module compresses responses on the fly, and ngx_http_zstd_static_module serves pre-compressed .zst files from disk. It can also load an external dictionary trained on your content, which improves ratios on small responses. Our package installs a ready-made /etc/nginx/snippets/zstd.conf; include it from nginx.conf to switch it on.',
+            'The module was written by Alex Zhang (tokers). We build the u-sb fork, which merges the extra directives, memory safety work and test suites from myguard-labs/nginx-zstd-module and GetPageSpeed/zstd-nginx-module. Compression is configured per location, so it is easy to roll out gradually. Keep gzip_vary on, so proxies and CDNs cache the compressed and identity variants apart.',
         ],
         highlights: [
             {
@@ -66,39 +75,49 @@ brotli_static on;`,
             },
             {
                 name: 'zstd_comp_level',
-                desc: 'Sets the compression level, default 1.',
-            },
-            {
-                name: 'zstd_types',
-                desc: 'Limits compression to the listed MIME types, default text/html.',
+                desc: 'Sets the compression level, default 3; negative levels trade ratio for CPU.',
             },
             {
                 name: 'zstd_min_length',
-                desc: 'Skips responses shorter than the given byte length, default 20.',
+                desc: 'Skips responses shorter than the given byte length, default 1024.',
+            },
+            {
+                name: 'zstd_types',
+                desc: 'Limits compression to the listed MIME types; the built-in default already covers HTML, text, CSS, JavaScript, JSON, XML and SVG.',
             },
             {
                 name: 'zstd_static',
                 desc: 'Serves a pre-compressed .zst file next to the original when the client accepts zstd.',
             },
             {
+                name: 'zstd_long',
+                desc: 'Enables long-distance matching for large, repetitive responses; off by default.',
+            },
+            {
                 name: 'zstd_dict_file',
                 desc: 'Loads an external zstd dictionary used for both dynamic compression and decompression.',
             },
         ],
-        example: `zstd on;
-zstd_comp_level 3;
-zstd_min_length 256;
-zstd_types text/plain text/css application/javascript
-           application/json image/svg+xml;
+        example: `# the package installs /etc/nginx/snippets/zstd.conf:
+#     zstd on;
+#     zstd_static on;
 
-# serve pre-compressed .zst files when they exist on disk
-zstd_static on;`,
+# turn it on from the http block of nginx.conf
+include /etc/nginx/snippets/zstd.conf;
+
+# keep proxies and CDNs caching the compressed and identity variants apart
+gzip_vary on;
+
+# anything after the include overrides the shipped defaults
+zstd_comp_level 6;`,
     },
     {
         slug: 'acme',
         name: 'nginx-acme',
         desc: 'Automatic TLS certificates via the ACME protocol',
-        kind: 'static',
+        kind: 'dynamic',
+        package: 'libnginx-mod-http-acme',
+        metapackage: 'nginx-extras',
         repo: 'https://github.com/nginx/nginx-acme',
         docs: 'https://nginx.org/en/docs/http/ngx_http_acme_module.html',
         license: 'Apache-2.0',
@@ -159,6 +178,7 @@ server {
         desc: 'Basic authentication against the system PAM stack',
         kind: 'dynamic',
         package: 'libnginx-mod-http-auth-pam',
+        metapackage: 'nginx-extras',
         repo: 'https://github.com/sto/ngx_http_auth_pam_module',
         license: 'BSD-2-Clause',
         overview: [
@@ -201,6 +221,7 @@ http {
         desc: 'Purge entries from proxy and FastCGI caches',
         kind: 'dynamic',
         package: 'libnginx-mod-http-cache-purge',
+        metapackage: 'nginx-full',
         repo: 'https://github.com/FRiCKLE/ngx_cache_purge',
         license: 'BSD-2-Clause',
         overview: [

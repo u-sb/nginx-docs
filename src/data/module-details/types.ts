@@ -5,6 +5,7 @@ export interface ModuleDetail {
     desc: string; // one-liner used on cards and as the page lede
     kind: 'static' | 'dynamic'; // --add-module vs --add-dynamic-module in our build
     package?: string; // Debian package that ships the .so (dynamic modules only)
+    metapackage?: 'nginx' | 'nginx-full' | 'nginx-extras'; // lowest flavor whose Depends pulls the package in
     repo: string; // upstream source repository
     docs?: string; // official docs URL when it is not the repo README
     license: string; // upstream license, e.g. 'BSD-2-Clause'

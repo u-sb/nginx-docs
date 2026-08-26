@@ -7,6 +7,7 @@ export const groupD: ModuleDetail[] = [
         desc: 'RTMP, HLS, and MPEG-DASH live streaming',
         kind: 'dynamic',
         package: 'libnginx-mod-rtmp',
+        metapackage: 'nginx-extras',
         repo: 'https://github.com/arut/nginx-rtmp-module',
         docs: 'https://github.com/arut/nginx-rtmp-module/wiki/Directives',
         license: 'BSD-2-Clause',
@@ -62,6 +63,7 @@ rtmp {
         desc: 'Regex and string substitution on response bodies',
         kind: 'dynamic',
         package: 'libnginx-mod-http-subs-filter',
+        metapackage: 'nginx-full',
         repo: 'https://github.com/yaoweibin/ngx_http_substitutions_filter_module',
         license: 'BSD-2-Clause',
         overview: [
@@ -110,6 +112,7 @@ http {
         desc: 'Track POST upload progress for progress bars',
         kind: 'dynamic',
         package: 'libnginx-mod-http-uploadprogress',
+        metapackage: 'nginx-extras',
         repo: 'https://github.com/masterzen/nginx-upload-progress-module',
         license: 'BSD-2-Clause',
         overview: [
@@ -162,6 +165,7 @@ http {
         desc: 'Least-busy load balancing for upstreams',
         kind: 'dynamic',
         package: 'libnginx-mod-http-upstream-fair',
+        metapackage: 'nginx-extras',
         repo: 'https://github.com/itoffshore/nginx-upstream-fair',
         license: 'BSD-2-Clause',
         overview: [

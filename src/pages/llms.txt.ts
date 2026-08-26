@@ -20,7 +20,7 @@ export const GET: APIRoute = async () => {
     lines.push(`Author: ${author.name} (${author.link})`);
     lines.push(`Site: ${baseUrl}`);
     lines.push(`Current versions: nginx ${versions.nginx} (mainline), OpenSSL ${versions.openssl}`);
-    lines.push(`Supported OS: Debian 12 Bookworm, Debian 13 Trixie, Debian 14 Forky (experimental); Ubuntu 22.04 Jammy, 24.04 Noble, 25.10 Questing, 26.04 Resolute; Docker (amd64/arm64)`);
+    lines.push(`Supported OS: Debian 12 Bookworm, Debian 13 Trixie, Debian 14 Forky (experimental); Ubuntu 22.04 Jammy, 24.04 Noble, 25.10 Questing, 26.04 Resolute, 26.10 Stonking (experimental); Docker (amd64/arm64)`);
     lines.push('');
 
     lines.push('## Install');

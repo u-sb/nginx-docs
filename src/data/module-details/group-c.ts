@@ -6,6 +6,8 @@ export const groupC: ModuleDetail[] = [
         name: 'http-ipdb',
         desc: 'Client geolocation variables from ipip.net IPDB files',
         kind: 'dynamic',
+        package: 'libnginx-mod-http-ipdb',
+        metapackage: 'nginx-extras',
         repo: 'https://github.com/vislee/ngx_http_ipdb_module',
         license: 'GPL-2.0',
         overview: [
@@ -58,6 +60,7 @@ http {
         desc: 'Script request handling with LuaJIT',
         kind: 'dynamic',
         package: 'libnginx-mod-http-lua',
+        metapackage: 'nginx-extras',
         repo: 'https://github.com/openresty/lua-nginx-module',
         license: 'BSD-2-Clause',
         overview: [
@@ -116,6 +119,7 @@ http {
         desc: 'Pub/sub messaging over WebSocket and EventSource',
         kind: 'dynamic',
         package: 'libnginx-mod-nchan',
+        metapackage: 'nginx-extras',
         repo: 'https://github.com/slact/nchan',
         docs: 'https://nchan.io/',
         license: 'MIT',
@@ -174,6 +178,7 @@ http {
         desc: 'Development kit required by other modules',
         kind: 'dynamic',
         package: 'libnginx-mod-http-ndk',
+        metapackage: 'nginx-extras',
         repo: 'https://github.com/vision5/ngx_devel_kit',
         license: 'BSD-3-Clause',
         overview: [

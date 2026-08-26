@@ -7,6 +7,19 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
     {
+        date: "Aug 26, 2026",
+        items: [
+            "Upgrade nginx to 1.31.4",
+            "Upgrade OpenSSL to 4.0.2",
+            "All third-party modules are now built dynamically; Brotli and Zstandard ship in `libnginx-mod-http-brotli` and `libnginx-mod-http-zstd`",
+            "Brotli and Zstandard settings moved to `/etc/nginx/snippets/`; `include` them from `nginx.conf` to enable them",
+            "Obsolete `conf.d` symlinks are removed on upgrade",
+            "`gzip_vary` is enabled by default",
+            "Switch the Zstandard module to the [u-sb fork](https://github.com/u-sb/zstd-nginx-module)",
+            "Add Ubuntu 26.10 Stonking builds"
+        ]
+    },
+    {
         date: "Jul 17, 2026",
         items: [
             "Upgrade nginx to 1.31.3",

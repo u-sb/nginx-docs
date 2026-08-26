@@ -26,6 +26,14 @@ const headings = [
     {depth: 2, slug: 'availability', text: 'Availability'},
 ];
 
+// Metapackages that pull this module in: nginx-full depends on nginx, nginx-extras on nginx-full.
+const flavorChain = {
+    'nginx': ['nginx', 'nginx-full', 'nginx-extras'],
+    'nginx-full': ['nginx-full', 'nginx-extras'],
+    'nginx-extras': ['nginx-extras'],
+} as const;
+const flavors = flavorChain[mod.metapackage ?? 'nginx-extras'];
+
 const h2 = 'm-0 mb-3.5 font-display text-[25px] font-semibold tracking-[-0.6px] text-ink';
 const p = 'm-0 text-[16px] leading-[1.75] text-body';
 ---
@@ -73,7 +81,9 @@ const p = 'm-0 text-[16px] leading-[1.75] text-body';
         {mod.kind === 'static' ? (
                 <p class={p}>Compiled into every n.wtf nginx binary. Install <code>nginx-extras</code> and the directives above work out of the box, no <code>load_module</code> line needed.</p>
         ) : (
-                <p class={p}>Ships as a dynamic module{mod.package && <> in <code>{mod.package}</code></>}, installed automatically with <code>nginx-extras</code>. The package drops a <code>load_module</code> config into <code>/etc/nginx/modules-enabled/</code>, so it loads on start.</p>
+                <p class={p}>Ships as a dynamic module{mod.package && <> in <code>{mod.package}</code></>}, installed with {flavors.map((f, i) => (
+                        <Fragment>{i > 0 && (i === flavors.length - 1 ? ' and ' : ', ')}<code>{f}</code></Fragment>
+                ))}. The package drops a <code>load_module</code> config into <code>/etc/nginx/modules-enabled/</code>, so it loads on start.</p>
         )}
     </section>
 

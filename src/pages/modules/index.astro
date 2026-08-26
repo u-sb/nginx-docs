@@ -5,13 +5,15 @@ import {moduleDetails} from '@/data/module-details';
 
 const staticCount = moduleDetails.filter((m) => m.kind === 'static').length;
 const dynamicCount = moduleDetails.length - staticCount;
+// Every module is a loadable .so today; keep the split wording only if one is ever compiled in again.
+const mix = staticCount > 0 ? `${staticCount} compiled in, ${dynamicCount} loadable` : 'all loadable dynamic modules';
 ---
 <DocsLayout title="Modules"
             description={`The ${moduleDetails.length} third-party modules built into every n.wtf nginx package.`}
             slug="modules"
             headings={[]}
             wide>
-    <span slot="lede">The {moduleDetails.length} third-party modules built into every <span class="font-mono text-[15px] text-[#e3e5e8]">n.wtf</span> nginx package: {staticCount} compiled in, {dynamicCount} loadable.</span>
+    <span slot="lede">The {moduleDetails.length} third-party modules built into every <span class="font-mono text-[15px] text-[#e3e5e8]">n.wtf</span> nginx package: {mix}.</span>
 
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {moduleDetails.map((m) => (

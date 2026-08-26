@@ -7,6 +7,7 @@ export const groupB: ModuleDetail[] = [
         desc: 'Adds the missing WebDAV methods to nginx',
         kind: 'dynamic',
         package: 'libnginx-mod-http-dav-ext',
+        metapackage: 'nginx-extras',
         repo: 'https://github.com/arut/nginx-dav-ext-module',
         license: 'BSD-2-Clause',
         overview: [
@@ -53,6 +54,7 @@ http {
         desc: 'Shell-style echo, sleep, and subrequests in config',
         kind: 'dynamic',
         package: 'libnginx-mod-http-echo',
+        metapackage: 'nginx-extras',
         repo: 'https://github.com/openresty/echo-nginx-module',
         license: 'BSD-2-Clause',
         overview: [
@@ -103,6 +105,7 @@ server {
         desc: 'Styled directory listings with headers and sorting',
         kind: 'dynamic',
         package: 'libnginx-mod-http-fancyindex',
+        metapackage: 'nginx-full',
         repo: 'https://github.com/aperezdc/ngx-fancyindex',
         license: 'BSD-2-Clause',
         overview: [
@@ -157,6 +160,7 @@ server {
         desc: 'Client geolocation from MaxMind GeoIP2 databases',
         kind: 'dynamic',
         package: 'libnginx-mod-http-geoip2',
+        metapackage: 'nginx-extras',
         repo: 'https://github.com/leev/ngx_http_geoip2_module',
         license: 'BSD-2-Clause',
         overview: [
@@ -210,6 +214,7 @@ http {
         desc: 'Set and clear arbitrary request and response headers',
         kind: 'dynamic',
         package: 'libnginx-mod-http-headers-more-filter',
+        metapackage: 'nginx-full',
         repo: 'https://github.com/openresty/headers-more-nginx-module',
         license: 'BSD-2-Clause',
         overview: [
