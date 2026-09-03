@@ -131,10 +131,10 @@ export default function ogImages() {
           const title = readMeta(html, 'og:title') || website_config.website_name;
           const description = truncate(readMeta(html, 'og:description'), 140);
 
-          const { node, stylesheets } = await fromJsx(ogCard(title, description, footer));
+          const { node, css } = await fromJsx(ogCard(title, description, footer));
           const images = await prepareImages({ node });
           const buffer = Buffer.from(
-            await renderer.render(node, { width: WIDTH, height: HEIGHT, format: FORMAT, quality: QUALITY, stylesheets, images }),
+            await renderer.render(node, { width: WIDTH, height: HEIGHT, format: FORMAT, quality: QUALITY, css, images }),
           );
 
           await mkdir(path.dirname(publicFile), { recursive: true });
