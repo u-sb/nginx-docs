@@ -1,0 +1,74 @@
+---
+title: nginx 1.31.5
+excerpt: A feature release. Locations can now match on a variable, request bodies can be read before location matching, and a use-after-free in HTTP/2 proxying is fixed.
+date: 2026-09-03
+tags: [nginx, Release]
+---
+
+Upstream released [nginx 1.31.5](https://nginx.org/en/CHANGES) on September 2, 2026, and the n.wtf packages are now published for all [supported Debian and Ubuntu releases](/install/). No entry in the upstream changelog is marked as a security fix, and the bundled OpenSSL stays at 4.0.2. One of the bug fixes closes a use-after-free in HTTP/2 proxying, which is reason enough to upgrade.
+
+Two new core features are worth a look: predicate locations and early request body reads.
+
+## Predicate locations
+
+A `location` can now be selected by a variable instead of a URI:
+
+```nginx
+map $http_user_agent $is_ai_scraper {
+    default        0;
+    ~*GPTBot       1;
+    ~*ClaudeBot    1;
+}
+
+server {
+    location $is_ai_scraper {
+        return 403;
+    }
+
+    location / {
+        proxy_pass http://backend;
+    }
+}
+```
+
+The block is entered when the variable is non-empty and not the string `0`, the same truth test `if` uses. Anything that ends up in a variable can drive it: a `map` over a header, a `geo` block over the client address, or a client certificate field. This is the routing people have been faking with `if` and `rewrite` for years, done in the location tree where the rest of the config expects it.
+
+## Early request body reads
+
+`client_body_early_read` makes nginx read the request body right after the headers arrive, before location matching, using the body size and buffer settings from the `server` block. It takes one or more strings and switches on when any of them is non-empty and not `0`:
+
+```nginx
+map $http_content_type $is_json {
+    application/json  1;
+}
+
+server {
+    client_body_early_read $is_json;
+    client_max_body_size    256;
+    client_body_buffer_size 256;
+}
+```
+
+The point is to have `$request_body` populated in time for a predicate location to look at it. Two caveats from the [upstream documentation](https://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_early_read): it does not work with modules that stream the body unbuffered, such as gRPC, nor with modules that write the body to a file, such as WebDAV. `client_body_in_file_only` is ignored while the early read is active.
+
+## Bug fixes
+
+The one to note is a use-after-free in a worker process when proxying with buffering to an HTTP/2 client and an error occurred while sending the response. Upstream lists it as a bug fix rather than a security fix, but freed heap memory being touched on an error path is not something to leave running.
+
+Also fixed: a worker could fail to exit, or log `accept4() failed (9: Bad file descriptor)`, if it ran out of file descriptors before a graceful shutdown; FastCGI and uwsgi requests were malformed when a parameter name was too long; and there are smaller fixes in HTTP/3, the slice module and the memcached module.
+
+## Changes
+
+- Upgrade nginx to 1.31.5
+
+## How to upgrade
+
+```bash
+sudo apt update
+sudo apt full-upgrade
+
+nginx -v
+# nginx version: nginx-n.wtf/1.31.5
+```
+
+Not on the repository yet? The [install page](/install/) has extrepo, one-line, DEB822, and Docker instructions.

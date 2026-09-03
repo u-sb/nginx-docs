@@ -7,6 +7,12 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
     {
+        date: "Sep 3, 2026",
+        items: [
+            "Upgrade nginx to 1.31.5"
+        ]
+    },
+    {
         date: "Aug 26, 2026",
         items: [
             "Upgrade nginx to 1.31.4",

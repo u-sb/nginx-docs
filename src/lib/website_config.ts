@@ -27,7 +27,7 @@ const website_config = {
 // Bump these (and only these) on every release; the OpenSSL date is the one
 // printed by `nginx -V` ("built with OpenSSL <version> <date>").
 export const versions = {
-    nginx: '1.31.4',
+    nginx: '1.31.5',
     openssl: '4.0.2',
     opensslDate: '25 Aug 2026',
 };
