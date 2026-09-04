@@ -209,6 +209,64 @@ http {
 }`,
     },
     {
+        slug: 'json',
+        name: 'ngx_http_json_module',
+        desc: 'Extract values from a JSON document into nginx variables',
+        kind: 'static',
+        repo: 'https://github.com/nginx/nginx',
+        docs: 'https://nginx.org/en/docs/http/ngx_http_json_module.html',
+        license: 'BSD-2-Clause',
+        overview: [
+            'ngx_http_json_module reads a JSON document held in any nginx variable and exposes members of it as further variables. A path picks the member: object keys are separated by dots and array elements are addressed by a zero-based index in square brackets, so user.name and tags[0] both work.',
+            'The document is parsed once per request no matter how many variables are pulled from it, and only when one of those variables is first accessed. Strings are stored unescaped, numbers, booleans and null exactly as written, and an object or array path yields its whole text. If the member is missing or the source is not a complete, valid JSON document, the variable is simply not found.',
+            'It is an official nginx module, new in 1.31.5, and is not built by default upstream. Paired with client_body_early_read and predicate locations from the same release, it routes on request body fields without Lua or njs.',
+        ],
+        highlights: [
+            {
+                name: 'json_set',
+                desc: 'Sets a variable to the value found at a path in the JSON document held in a source variable; http context.',
+            },
+            {
+                name: 'json_max_depth',
+                desc: 'Maximum nesting depth a document may have before it is rejected as invalid, 1 to 256, default 32.',
+            },
+            {
+                name: 'dot and bracket paths',
+                desc: 'user.name, items[0], and \'obj["a.b"].c[2]\' for member names containing dots or brackets.',
+            },
+            {
+                name: 'lazy single parse',
+                desc: 'One parse per request, done on first access to any extracted variable.',
+            },
+        ],
+        example: `# read JSON bodies before location matching (1.31.5)
+map $http_content_type $is_json {
+    application/json  1;
+}
+
+client_body_early_read $is_json;
+
+json_set $req_method $request_body method;
+json_set $first_item $request_body items[0];
+
+# route JSON-RPC style requests by the "method" field
+map $req_method $is_search {
+    search  1;
+}
+
+server {
+    listen 8080;
+
+    location $is_search {
+        proxy_pass http://search-backend;
+    }
+
+    location / {
+        proxy_pass http://backend;
+    }
+}`,
+    },
+    {
         slug: 'headers-more',
         name: 'headers-more',
         desc: 'Set and clear arbitrary request and response headers',

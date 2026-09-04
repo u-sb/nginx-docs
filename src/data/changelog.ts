@@ -9,7 +9,8 @@ export const changelog: ChangelogEntry[] = [
     {
         date: "Sep 3, 2026",
         items: [
-            "Upgrade nginx to 1.31.5"
+            "Upgrade nginx to 1.31.5",
+            "Build in the [`ngx_http_json_module`](/modules/json/) (`--with-http_json_module`)"
         ]
     },
     {
