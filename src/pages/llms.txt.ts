@@ -11,11 +11,15 @@ function isoDate(d: Date | string): string {
 export const GET: APIRoute = async () => {
     const {baseUrl, title, description, author} = website_config;
     const posts = await getBlogPosts();
+    const officialModules = moduleDetails.filter((m) => m.official);
+    const thirdPartyModules = moduleDetails.filter((m) => !m.official);
+    // Changelog items carry site-relative markdown links; make them absolute for a plain-text reader.
+    const absolute = (md: string) => md.replaceAll('](/', `](${baseUrl}/`);
 
     const lines: string[] = [];
     lines.push(`# ${title}`);
     lines.push('');
-    lines.push(`> ${description.trim()} TLS 1.3 and HTTP/3 via statically linked OpenSSL, plus ${moduleDetails.length} third-party modules (Brotli, Zstandard, GeoIP2, ACME, Lua, and more). Free to use; packages are signed and served from mirrors worldwide.`);
+    lines.push(`> ${description.trim()} TLS 1.3 and HTTP/3 via statically linked OpenSSL, plus ${thirdPartyModules.length} third-party modules (Brotli, Zstandard, GeoIP2, ACME, Lua, and more) and ${officialModules.length} optional official nginx modules. Free to use; packages are signed and served from mirrors worldwide.`);
     lines.push('');
     lines.push(`Author: ${author.name} (${author.link})`);
     lines.push(`Site: ${baseUrl}`);
@@ -56,9 +60,17 @@ export const GET: APIRoute = async () => {
 
     lines.push('## Modules');
     lines.push('');
-    lines.push(`All ${moduleDetails.length} bundled third-party modules, each with directives, an nginx.conf example, and its upstream license:`);
+    lines.push(`All ${moduleDetails.length} bundled modules, each with directives, an nginx.conf example, and its upstream license.`);
     lines.push('');
-    for (const m of moduleDetails) {
+    lines.push(`### Third-party modules (${thirdPartyModules.length}, all dynamic, loaded from /usr/lib/nginx/modules/)`);
+    lines.push('');
+    for (const m of thirdPartyModules) {
+        lines.push(`- [${m.name}](${baseUrl}/modules/${m.slug}/): ${m.desc} (${m.kind}, ${m.license})`);
+    }
+    lines.push('');
+    lines.push(`### Official nginx modules (${officialModules.length}, from the nginx source tree; static = compiled into the binary, dynamic = separate libnginx-mod-* package)`);
+    lines.push('');
+    for (const m of officialModules) {
         lines.push(`- [${m.name}](${baseUrl}/modules/${m.slug}/): ${m.desc} (${m.kind}, ${m.license})`);
     }
     lines.push('');
@@ -73,7 +85,7 @@ export const GET: APIRoute = async () => {
     lines.push('## Recent Releases');
     lines.push('');
     for (const entry of changelog.slice(0, 10)) {
-        lines.push(`- ${entry.date}: ${entry.items.join('; ')}`);
+        lines.push(`- ${entry.date}: ${absolute(entry.items.join('; '))}`);
     }
     lines.push('');
     lines.push(`Full changelog: ${baseUrl}/changelog/`);

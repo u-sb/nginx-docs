@@ -7,6 +7,7 @@ export const groupE: ModuleDetail[] = [
         name: 'ngx_http_json_module',
         desc: 'Extract values from a JSON document into nginx variables',
         kind: 'static',
+        official: true,
         repo: 'https://github.com/nginx/nginx',
         docs: 'https://nginx.org/en/docs/http/ngx_http_json_module.html',
         license: 'BSD-2-Clause',
@@ -65,6 +66,7 @@ server {
         name: 'ngx_http_ssl_module',
         desc: 'HTTPS support with certificates, protocols, ciphers and sessions',
         kind: 'static',
+        official: true,
         repo: 'https://github.com/nginx/nginx/blob/master/src/http/modules/ngx_http_ssl_module.c',
         docs: 'https://nginx.org/en/docs/http/ngx_http_ssl_module.html',
         license: 'BSD-2-Clause',
@@ -123,6 +125,7 @@ server {
         name: 'ngx_http_stub_status_module',
         desc: 'Basic connection and request counters on a status page',
         kind: 'static',
+        official: true,
         repo: 'https://github.com/nginx/nginx/blob/master/src/http/modules/ngx_http_stub_status_module.c',
         docs: 'https://nginx.org/en/docs/http/ngx_http_stub_status_module.html',
         license: 'BSD-2-Clause',
@@ -169,6 +172,7 @@ server {
         name: 'ngx_http_realip_module',
         desc: 'Restore the client address from a proxy header or PROXY protocol',
         kind: 'static',
+        official: true,
         repo: 'https://github.com/nginx/nginx/blob/master/src/http/modules/ngx_http_realip_module.c',
         docs: 'https://nginx.org/en/docs/http/ngx_http_realip_module.html',
         license: 'BSD-2-Clause',
@@ -220,6 +224,7 @@ server {
         name: 'ngx_http_auth_request_module',
         desc: 'Authorize requests with a subrequest to an external service',
         kind: 'static',
+        official: true,
         repo: 'https://github.com/nginx/nginx/blob/master/src/http/modules/ngx_http_auth_request_module.c',
         docs: 'https://nginx.org/en/docs/http/ngx_http_auth_request_module.html',
         license: 'BSD-2-Clause',
@@ -267,6 +272,7 @@ location = /auth {
         name: 'ngx_http_v2_module',
         desc: 'Serve HTTP/2 over TLS with ALPN or over cleartext TCP',
         kind: 'static',
+        official: true,
         repo: 'https://github.com/nginx/nginx/blob/master/src/http/v2/ngx_http_v2_module.c',
         docs: 'https://nginx.org/en/docs/http/ngx_http_v2_module.html',
         license: 'BSD-2-Clause',
@@ -325,6 +331,7 @@ location = /auth {
         name: 'ngx_http_v3_module',
         desc: 'Serve HTTP/3 over QUIC alongside HTTPS on the same port',
         kind: 'static',
+        official: true,
         repo: 'https://github.com/nginx/nginx/blob/master/src/http/v3/ngx_http_v3_module.c',
         docs: 'https://nginx.org/en/docs/http/ngx_http_v3_module.html',
         license: 'BSD-2-Clause',
@@ -384,6 +391,7 @@ location = /auth {
         name: 'ngx_http_dav_module',
         desc: 'File management over WebDAV with PUT, DELETE, MKCOL, COPY and MOVE',
         kind: 'static',
+        official: true,
         repo: 'https://github.com/nginx/nginx/blob/master/src/http/modules/ngx_http_dav_module.c',
         docs: 'https://nginx.org/en/docs/http/ngx_http_dav_module.html',
         license: 'BSD-2-Clause',
@@ -432,6 +440,7 @@ location = /auth {
         name: 'ngx_http_slice_module',
         desc: 'Split large proxied responses into cacheable byte-range slices',
         kind: 'static',
+        official: true,
         repo: 'https://github.com/nginx/nginx/blob/master/src/http/modules/ngx_http_slice_filter_module.c',
         docs: 'https://nginx.org/en/docs/http/ngx_http_slice_module.html',
         license: 'BSD-2-Clause',
@@ -472,6 +481,192 @@ location = /auth {
     proxy_cache_valid 200 206 1h;
 
     proxy_pass        http://localhost:8000;
+}`,
+    },
+    {
+        slug: 'mail',
+        name: 'ngx_mail_module',
+        desc: 'IMAP, POP3 and SMTP proxy with HTTP-backed authentication',
+        kind: 'dynamic',
+        official: true,
+        package: 'libnginx-mod-mail',
+        metapackage: 'nginx-extras',
+        repo: 'https://github.com/nginx/nginx/tree/master/src/mail',
+        docs: 'https://nginx.org/en/docs/mail/ngx_mail_core_module.html',
+        license: 'BSD-2-Clause',
+        overview: [
+            'ngx_mail_module turns nginx into a proxy for IMAP, POP3 and SMTP. A mail block holds one server per listening port, the protocol directive (or the well-known port) picks the protocol, and every client login is checked by an HTTP request to the authentication server named in auth_http. That server answers with Auth-Status, Auth-Server and Auth-Port headers, so it decides both whether the login is valid and which backend the session is proxied to.',
+            'ngx_mail_ssl_module adds TLS to the proxy: the ssl parameter of listen gives implicit TLS on ports such as 993 and 995, while starttls on or only controls the STLS and STARTTLS commands on plain ports. The auth_http request carries Client-IP, Auth-Login-Attempt and, since 1.7.11, Auth-SSL-* headers describing the client TLS session, and an Auth-Wait header in a failure response delays the next attempt instead of closing the connection. max_errors (1.21.0) closes a connection after 5 protocol errors by default.',
+            'It is an official nginx module that upstream does not build by default; it needs --with-mail and --with-mail_ssl_module. The n.wtf packages build it as a dynamic module shipped in libnginx-mod-mail, which the nginx-extras metapackage pulls in. The typical use is a single TLS front end for several mail stores, with the login check done by a small web service.',
+        ],
+        highlights: [
+            {
+                name: 'listen',
+                desc: 'Address and port of the server; the ssl parameter enables implicit TLS and proxy_protocol accepts the PROXY protocol.',
+            },
+            {
+                name: 'protocol',
+                desc: 'Selects imap, pop3 or smtp; if omitted it is detected from ports 143/993, 110/995 and 25/587/465.',
+            },
+            {
+                name: 'auth_http',
+                desc: 'URL of the HTTP authentication server that validates logins and names the backend server and port.',
+            },
+            {
+                name: 'starttls',
+                desc: 'Controls STLS and STARTTLS: off denies them, on allows them, only requires TLS before login; default off.',
+            },
+            {
+                name: 'ssl_certificate',
+                desc: 'PEM certificate for the mail server; may be repeated for RSA and ECDSA certificates since 1.11.0.',
+            },
+            {
+                name: 'server_name',
+                desc: 'Name used in the POP3/SMTP greeting, the CRAM-MD5 salt and the EHLO to the backend; default is the hostname.',
+            },
+        ],
+        example: `mail {
+    server_name mail.example.com;
+    auth_http   127.0.0.1:9000/auth;
+
+    ssl_certificate     /etc/nginx/ssl/mail.example.com.crt;
+    ssl_certificate_key /etc/nginx/ssl/mail.example.com.key;
+
+    # IMAP with optional STARTTLS on 143, implicit TLS on 993
+    server {
+        listen   143;
+        protocol imap;
+        starttls on;
+    }
+
+    server {
+        listen   993 ssl;
+        protocol imap;
+    }
+
+    # submission port, TLS required before login
+    server {
+        listen   587;
+        protocol smtp;
+        starttls only;
+    }
+}`,
+    },
+    {
+        slug: 'stream',
+        name: 'ngx_stream_module',
+        desc: 'TCP and UDP proxying with TLS termination and SNI preread',
+        kind: 'dynamic',
+        official: true,
+        package: 'libnginx-mod-stream',
+        metapackage: 'nginx',
+        repo: 'https://github.com/nginx/nginx/tree/master/src/stream',
+        docs: 'https://nginx.org/en/docs/stream/ngx_stream_core_module.html',
+        license: 'BSD-2-Clause',
+        overview: [
+            'ngx_stream_module (1.9.0) proxies raw TCP and UDP connections. A stream block holds servers that listen on a port, optionally with the udp parameter (1.9.13) for datagrams, and hand each session to a proxied server or an upstream group, with load balancing, health checking and PROXY protocol support on both sides.',
+            'ngx_stream_ssl_module terminates TLS on a listen port with the ssl parameter, and ngx_stream_ssl_preread_module (1.11.5) reads the ClientHello without terminating TLS, exposing $ssl_preread_server_name, $ssl_preread_alpn_protocols (1.13.10) and $ssl_preread_protocol (1.15.2) so a map can route by SNI, ALPN or protocol version. Since 1.25.5 stream servers also support server_name based on SNI. Variables such as $protocol, $status, $session_time and $proxy_protocol_addr have been available since 1.11.2 and 1.11.4.',
+            'It is an official nginx module that upstream does not build by default; it needs --with-stream, --with-stream_ssl_module and --with-stream_ssl_preread_module. The n.wtf packages build it as a dynamic module shipped in libnginx-mod-stream, and the base nginx metapackage depends on it, so every n.wtf install has it. Typical uses are forwarding DNS, database or mail ports and sharing port 443 between TLS services by SNI.',
+        ],
+        highlights: [
+            {
+                name: 'listen',
+                desc: 'Port the server accepts on; udp (1.9.13) handles datagrams and should be combined with reuseport, ssl enables TLS.',
+            },
+            {
+                name: 'proxy_pass',
+                desc: 'Address of the proxied server or upstream group; the value may contain variables so a map can choose the target.',
+            },
+            {
+                name: 'ssl_preread',
+                desc: 'Extracts SNI, ALPN and protocol version from the ClientHello at the preread phase without terminating TLS; default off.',
+            },
+            {
+                name: '$ssl_preread_server_name',
+                desc: 'Server name requested through SNI, available while ssl_preread is on; the usual key for routing port 443 by host.',
+            },
+            {
+                name: 'proxy_protocol',
+                desc: 'listen parameter (1.11.4) that expects a PROXY protocol header; version 2 is supported since 1.13.11.',
+            },
+            {
+                name: 'resolver',
+                desc: 'Name servers used to resolve upstream names, with valid=time to override the TTL; default port 53.',
+            },
+        ],
+        example: `stream {
+    # route TLS by SNI without terminating it
+    map $ssl_preread_server_name $backend {
+        mail.example.com  192.168.0.10:993;
+        default           192.168.0.20:443;
+    }
+
+    server {
+        listen      443;
+        ssl_preread on;
+        proxy_pass  $backend;
+    }
+
+    # plain UDP forwarding, for example DNS
+    server {
+        listen     53 udp reuseport;
+        proxy_pass 192.168.0.53:53;
+    }
+}`,
+    },
+    {
+        slug: 'stream-geoip',
+        name: 'ngx_stream_geoip_module',
+        desc: 'Client country and city variables for stream servers',
+        kind: 'dynamic',
+        official: true,
+        package: 'libnginx-mod-stream-geoip',
+        metapackage: 'nginx-extras',
+        repo: 'https://github.com/nginx/nginx/blob/master/src/stream/ngx_stream_geoip_module.c',
+        docs: 'https://nginx.org/en/docs/stream/ngx_stream_geoip_module.html',
+        license: 'BSD-2-Clause',
+        overview: [
+            'ngx_stream_geoip_module (1.11.3) creates variables whose values depend on the client IP address, looked up in the precompiled legacy MaxMind databases. geoip_country provides $geoip_country_code, $geoip_country_code3 and $geoip_country_name, geoip_city adds region, city, postal code, continent and coordinates, and geoip_org provides $geoip_org.',
+            'The directives are set once in the stream context and the variables are then available in every stream server, most often through a map that picks an upstream by $geoip_country_code or $geoip_city_continent_code. With IPv6-enabled databases, IPv4 clients are looked up as IPv4-mapped IPv6 addresses. The legacy GeoIP databases it reads have been discontinued by MaxMind, so new deployments should use the GeoIP2 module at /modules/geoip2/ instead.',
+            'It is an official nginx module that upstream does not build by default; it needs --with-stream_geoip_module and the MaxMind GeoIP library. The n.wtf packages build it as a dynamic module shipped in libnginx-mod-stream-geoip, which depends on libnginx-mod-stream and is pulled in by the nginx-extras metapackage. The typical use is steering TCP sessions to the nearest region while an existing legacy database is still in service.',
+        ],
+        highlights: [
+            {
+                name: 'geoip_country',
+                desc: 'Database file used to determine the country of the client address; stream context only.',
+            },
+            {
+                name: 'geoip_city',
+                desc: 'Database file that yields country, region, city, postal code, continent code, latitude and longitude.',
+            },
+            {
+                name: 'geoip_org',
+                desc: 'Database file that sets $geoip_org to the organization name for the client address.',
+            },
+            {
+                name: '$geoip_country_code',
+                desc: 'Two-letter country code such as US or DE; $geoip_country_code3 gives the three-letter form.',
+            },
+            {
+                name: '$geoip_city_continent_code',
+                desc: 'Two-letter continent code such as EU or NA from the city database, handy for choosing a regional upstream.',
+            },
+        ],
+        example: `stream {
+    geoip_country /usr/share/GeoIP/GeoIP.dat;
+
+    # send clients to a regional backend by country
+    map $geoip_country_code $backend {
+        default  us.example.com:12345;
+        DE       eu.example.com:12345;
+        FR       eu.example.com:12345;
+        JP       ap.example.com:12345;
+    }
+
+    server {
+        listen     12345;
+        proxy_pass $backend;
+    }
 }`,
     },
 ];
