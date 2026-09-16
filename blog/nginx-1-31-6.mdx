@@ -1,0 +1,46 @@
+---
+title: nginx 1.31.6
+excerpt: A security release. Upstream fixes a heap buffer overflow in HTTP/3 that needs an old OpenSSL to trigger, and closes two holes in the predicate location code that shipped two weeks ago.
+date: 2026-09-16
+tags: [nginx, Release, Security]
+---
+
+Upstream released [nginx 1.31.6](https://nginx.org/en/CHANGES) on September 15, 2026, and the n.wtf packages are now published for all [supported Debian and Ubuntu releases](/install/). It is a security release, though the exposure for these packages is smaller than the label suggests. Read the first section and decide for yourself; the bug fixes below are reason enough to upgrade anyway.
+
+## CVE-2026-90439
+
+The advisory is for [CVE-2026-90439](https://nvd.nist.gov/vuln/detail/CVE-2026-90439), a heap buffer overflow in `ngx_http_v3_module`. Under certain configurations, a worker process handling a QUIC TLS handshake can write past a heap buffer. Upstream rates it Moderate, CVSS 6.9, and lists versions 1.29.2 through 1.31.5 as affected. The likely outcome is a worker crash and restart rather than code execution, but a crash you can trigger from the network is still a crash you can trigger from the network.
+
+The condition that matters: it only happens when nginx is built against OpenSSL 3.5.0 or earlier. Those OpenSSL versions have no QUIC TLS API of their own, so nginx runs its compatibility layer, and that is where the bug lives. The n.wtf packages have linked OpenSSL 4.0.x since 1.31.2, currently 4.0.2, which uses the native API and skips the compat layer entirely. As far as this advisory goes, these packages were not exposed.
+
+The other side of the same coin is a small behaviour change: nginx now ignores the QUIC transport parameters extension if it turns up in a plain TLS connection. Nothing legitimate sends that, so you will not notice.
+
+If you run a distro nginx or a self-built one against an older OpenSSL with HTTP/3 on, the advisory does apply to you. Upgrade, or switch `listen ... quic` off until you can.
+
+## Predicate location fixes
+
+1.31.5 added [predicate locations](/blog/nginx-1-31-5/), and two bugs in them are fixed here. First, if evaluating the predicate variable failed, the error was silently swallowed and the predicate treated as false, so the request fell through to the next location instead of erroring out. Second, an error during a nested location lookup could be ignored when regex or predicate locations sat at the same level. Both are the kind of thing you would only see as a request quietly landing in the wrong block. If you started using `location $var` after the last post, this is the release to be on.
+
+## Other fixes
+
+Binary upgrade, the `USR2` dance, refused to work when the control API socket was configured and the new binary had the perl module compiled in. These packages build perl as a dynamic module, `libnginx-mod-http-perl`. If you load it and use the control API, this one is probably yours.
+
+A `geo` block with the `ranges` parameter could segfault at config load time if its binary base file was corrupted. The file is now checksummed before use. Unlikely to bite anyone, but a crash on `nginx -t` from a stale cache file is an unpleasant way to start an incident.
+
+## Changes
+
+- Upgrade nginx to 1.31.6
+
+## How to upgrade
+
+```bash
+sudo apt update
+sudo apt full-upgrade
+
+nginx -v
+# nginx version: nginx-n.wtf/1.31.6
+```
+
+The bundled OpenSSL stays at 4.0.2 and the module set is unchanged from 1.31.5, so this is a straight package swap with no config to touch.
+
+Not on the repository yet? The [install page](/install/) has extrepo, one-line, DEB822, and Docker instructions.
