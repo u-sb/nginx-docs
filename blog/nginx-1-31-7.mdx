@@ -1,0 +1,58 @@
+---
+title: nginx 1.31.7
+excerpt: A security release. nginx 1.31.7 fixes five CVEs, including two worker buffer overflows and an HTTP/3 request body bug, and the bundled OpenSSL moves to 4.0.3, which fixes fourteen more.
+date: 2026-10-15
+tags: [nginx, OpenSSL, Release, Security]
+---
+
+Upstream released [nginx 1.31.7](https://nginx.org/en/CHANGES) on October 14, 2026, and the n.wtf packages are now published for all [supported Debian and Ubuntu releases](/install/). Five of the upstream changes are security fixes. The statically linked OpenSSL also moves to 4.0.3, which is a security release too, so upgrade soon.
+
+## Security fixes in nginx
+
+From the [upstream changelog](https://nginx.org/en/CHANGES):
+
+- A buffer overflow in a worker process when the `alias` directive serves a request whose URI was changed by `rewrite` and then mapped to a file path ([CVE-2026-15176](https://nvd.nist.gov/vuln/detail/CVE-2026-15176)).
+- A buffer overflow in a worker process while evaluating string expressions with variables, which affected the document root calculation and request logging in the http and stream modules ([CVE-2026-93479](https://nvd.nist.gov/vuln/detail/CVE-2026-93479)).
+- Over HTTP/3, part of an unknown frame could be treated as request body, which could bypass `client_max_body_size` or inject data into the proxied request ([CVE-2026-95101](https://nvd.nist.gov/vuln/detail/CVE-2026-95101)).
+- With TLS session ticket key rotation, one of the keys was left uninitialized, which could allow a session to be forged ([CVE-2026-97629](https://nvd.nist.gov/vuln/detail/CVE-2026-97629)).
+- With asynchronous file I/O (AIO), a use-after-free in certain configurations when an SSI page has `include virtual` commands ([CVE-2026-97205](https://nvd.nist.gov/vuln/detail/CVE-2026-97205)).
+
+The first two reach the most configs: `alias` combined with `rewrite` is common, and nearly every config has variables in `root` or `log_format`. The HTTP/3 fix applies if you serve [HTTP/3](/modules/http3/), the session ticket fix if you rotate keys with more than one `ssl_session_ticket_key`, and the SSI fix only if you run `aio` together with SSI `include virtual`.
+
+## Other changes upstream
+
+- The [`ngx_http_geoip_module`](/modules/geoip/) and [`ngx_stream_geoip_module`](/modules/stream-geoip/) now support databases in the MaxMind DB (MMDB) format. Upstream documents this as requiring the libmaxminddb library. The [GeoIP2 module](/modules/geoip2/) is still in these packages either way.
+- Backend SSL certificates can now be verified by IP address.
+- QUIC now supports reconfiguration and binary upgrade when `quic_bpf` is in use.
+- The [HTTP/2 module](/modules/http2/) now uses the RFC 9218 prioritization scheme, and RFC 7540 priority signals are ignored.
+
+Among the bug fixes: serving a cached `X-Accel-Redirect` response could segfault a worker or log `request count is zero` alerts, and the WebDAV module could segfault on COPY and MOVE in a location with `alias`. A low `http3_stream_buffer_size` could get QUIC connections closed with `quic flood detected`, a bug present since 1.27.5.
+
+One fix changes what you will see in the logs. nginx used to treat an SSL connection closed without `close_notify`, including a reset, as a clean shutdown. It now logs `SSL_read() failed` for those, so a jump in that message after the upgrade is expected.
+
+## OpenSSL 4.0.3
+
+The packages now link [OpenSSL 4.0.3](https://github.com/openssl/openssl/blob/openssl-4.0/CHANGES.md), released September 29, 2026. It fixes fourteen CVEs. The only one rated High is in DTLS retransmission ([CVE-2026-84782](https://nvd.nist.gov/vuln/detail/CVE-2026-84782)), and nginx does not use DTLS.
+
+Two are closer to a web server's concerns. A use-after-free in the X.509 extension cache, rated Moderate, can crash a multi-threaded server that requests client certificates when several connections build chains to the same CA at once ([CVE-2026-84783](https://nvd.nist.gov/vuln/detail/CVE-2026-84783)). A certificate with many relative CRL distribution points can make OpenSSL allocate far more memory than it should, rated Low ([CVE-2026-35189](https://nvd.nist.gov/vuln/detail/CVE-2026-35189)); servers are exposed only if they ask for client certificates.
+
+Several more Low fixes are in OpenSSL's QUIC stack: amplification credit accounting, stream reassembly, flow control and connection ID backlogs. nginx has its own QUIC implementation and uses OpenSSL for the TLS handshake, so these mostly matter to other software built on OpenSSL's QUIC.
+
+## Changes
+
+- Upgrade nginx to 1.31.7
+- Upgrade OpenSSL to 4.0.3
+
+## How to upgrade
+
+```bash
+sudo apt update
+sudo apt full-upgrade
+
+nginx -v
+# nginx version: nginx-n.wtf/1.31.7
+```
+
+To check the bundled OpenSSL, run `nginx -V` and look for `built with OpenSSL 4.0.3 29 Sep 2026` on the third line.
+
+Not on the repository yet? The [install page](/install/) has extrepo, one-line, DEB822, and Docker instructions.
