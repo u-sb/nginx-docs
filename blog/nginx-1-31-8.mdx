@@ -1,0 +1,48 @@
+---
+title: nginx 1.31.8
+excerpt: A bug fix release a week after the 1.31.7 security update, with no CVEs. It changes how working_directory resolves relative paths, silences a kernel TLS log alert, and fixes an HTTP/3 crash on strict alignment platforms.
+date: 2026-10-22
+tags: [nginx, Release]
+---
+
+Upstream released [nginx 1.31.8](https://nginx.org/en/CHANGES) on October 21, 2026, and the n.wtf packages are now published for all [supported Debian and Ubuntu releases](/install/). Nothing in the upstream changelog is marked as a security fix, and the bundled OpenSSL stays at 4.0.3. If you have not installed [1.31.7](/blog/nginx-1-31-7/) yet, this upgrade brings its five security fixes along.
+
+## working_directory is now relative to the prefix
+
+`working_directory` sets where worker processes run, which mostly decides where core dumps land. A relative path used to resolve against whatever directory nginx was started from. It now resolves against the nginx prefix, which is `/usr/share/nginx` in these packages (see `--prefix` in `nginx -V`).
+
+Absolute paths behave as before, so only a relative setting needs checking. Separately, an invalid `working_directory` no longer makes workers exit on start or during a reload.
+
+## Kernel TLS log noise
+
+With kernel TLS on OpenSSL 3.2.0 or newer, closing an SSL connection could log `recv() failed (5: Input/output error)` alerts. nginx now ignores the error once the connection has been shut down.
+
+The n.wtf packages build OpenSSL with `enable-ktls`, and 4.0.3 is well past 3.2.0. Kernel TLS stays off until you turn it on, usually with `ssl_conf_command Options KTLS;` alongside `sendfile on;`. If you have, and your error log has been collecting those alerts, they stop after this upgrade.
+
+## HTTP/3 on strict alignment platforms
+
+Workers could be killed by `SIGBUS` when serving [HTTP/3](/modules/http3/) on platforms with strict alignment requirements. The [fix](https://github.com/nginx/nginx/pull/1317) is in the Huffman encoder: in HTTP/3 its output pointer can sit at any offset, and it was writing 32 or 64 bits at a time through a cast pointer. The n.wtf packages are built for amd64 and arm64, so the crash is unlikely to show up here. The same release also [removes undefined behaviour](https://github.com/nginx/nginx/pull/1701) when the HTTP/3 parser meets empty field values.
+
+## JSON parser API change
+
+Upstream changed the JSON parser's internal API: strings containing escape sequences are now reported as separate events, and `ngx_json_unescape_string()` decodes into a separate buffer. The [JSON module](/modules/json/) is built into these packages with its directives unchanged, so configs using `json_set` keep working as they are. The change affects third-party C modules that call the parser directly.
+
+The last fix in the changelog is a build failure on Solaris with `--with-control-api`, which does not affect Debian or Ubuntu.
+
+## Changes
+
+- Upgrade nginx to 1.31.8
+
+## How to upgrade
+
+```bash
+sudo apt update
+sudo apt full-upgrade
+
+nginx -v
+# nginx version: nginx-n.wtf/1.31.8
+```
+
+The module set and configure arguments are the same as in 1.31.7, so there is no config to touch unless you use a relative `working_directory`.
+
+Not on the repository yet? The [install page](/install/) has extrepo, one-line, DEB822, and Docker instructions.
