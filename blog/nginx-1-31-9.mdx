@@ -1,0 +1,78 @@
+---
+title: nginx 1.31.9
+excerpt: An urgent security release. nginx 1.31.9 fixes ten CVEs, five of them the NGINX2Root set from Xint, which includes a memory corruption bug in HTTP/2 flow control that has been in every release since 1.9.5.
+date: 2026-11-19
+tags: [nginx, Release, Security]
+---
+
+Upstream released [nginx 1.31.9](https://nginx.org/en/CHANGES) on November 18, 2026, and the n.wtf packages are now published for all [supported Debian and Ubuntu releases](/install/). Ten of the upstream changes are security fixes. Five of them were disclosed the same day by Xint as [NGINX2Root](https://nginx2root.com/), and one of those is reachable on any server with HTTP/2 enabled. Upgrade now, and make sure nginx is restarted afterwards. The bundled OpenSSL stays at 4.0.3.
+
+## NGINX2Root
+
+Xint's [writeup](https://xint.io/blog/nginx2root-remote-code-execution) describes five memory safety bugs in nginx and says each one leads to remote code execution in a worker process on its own. Xint also chained them with a separate flaw in the Linux kernel's SCTP subsystem to get root on the host, which is where the name comes from. The final exploit steps are intentionally left out of the writeup.
+
+The upstream changelog is more reserved: it describes a segmentation fault in a worker process "or potential other impact". The severity ratings below are from the [nginx security advisories](https://nginx.org/en/security_advisories.html).
+
+- A flow control window overflow in HTTP/2, rated major ([CVE-2026-123007](https://nvd.nist.gov/vuln/detail/CVE-2026-123007)). It affects 1.9.5 through 1.31.8, which is every release since nginx gained HTTP/2 in 2015. The only precondition is that HTTP/2 is enabled.
+- A use-after-free in HTTP/2 when `worker_connections` are not enough, rated medium ([CVE-2026-123633](https://nvd.nist.gov/vuln/detail/CVE-2026-123633)), affecting 1.19.7 through 1.31.8. Xint's path needs HTTP/2 with requests forwarded to an upstream.
+- A use-after-free in HTTP/3 when `worker_connections` are not enough, rated medium ([CVE-2026-121810](https://nvd.nist.gov/vuln/detail/CVE-2026-121810)), affecting 1.25.0 through 1.31.8. Xint's path needs HTTP/3 with requests forwarded to an upstream.
+- A use-after-free in the resolver when the same name is resolved simultaneously in subrequests, rated medium ([CVE-2026-123634](https://nvd.nist.gov/vuln/detail/CVE-2026-123634)), affecting 0.6.18 through 1.31.8. It needs the `resolver` directive and an attacker who can trigger name resolution. Xint's example is `proxy_pass http://$host;` combined with `mirror`.
+- A use-after-free in the mail proxy server, rated major ([CVE-2026-113425](https://nvd.nist.gov/vuln/detail/CVE-2026-113425)), affecting 0.5.33 through 1.31.8.
+
+For these packages: [HTTP/2](/modules/http2/) and [HTTP/3](/modules/http3/) are compiled in and active wherever your config has `http2 on;` or a `quic` listener, which covers most TLS sites. The [mail proxy](/modules/mail/) is a dynamic module in `libnginx-mod-mail`, pulled in by `nginx-extras`, and only matters if you have a `mail` block.
+
+nginx 1.31.9 closes the nginx side. The kernel flaw is a separate bug, fixed through your distribution's kernel updates and not through this repository.
+
+## The other five security fixes
+
+- Worker processes could get caught in an endless loop while reading the request body over SSL, rated major ([CVE-2026-118899](https://nvd.nist.gov/vuln/detail/CVE-2026-118899)). The advisory scopes it to TLS 1.3 and to 1.13.0 through 1.31.8.
+- In the [stream module](/modules/stream/), an attacker able to complete the SSL handshake synchronously could get client certificates verified against the default server's configuration instead of the virtual server selected by SNI, rated medium ([CVE-2026-120967](https://nvd.nist.gov/vuln/detail/CVE-2026-120967)). It affects 1.25.5 through 1.31.8.
+- A buffer overflow in a worker process with `try_files` and `alias` in certain configurations, rated minor ([CVE-2026-125283](https://nvd.nist.gov/vuln/detail/CVE-2026-125283)), affecting 0.9.6 through 1.31.8.
+- A segmentation fault in a worker process when PROXY protocol version 2 is used with dynamic SSL certificate loading, rated minor ([CVE-2026-120993](https://nvd.nist.gov/vuln/detail/CVE-2026-120993)). It only affects 1.31.4 through 1.31.8, so the stable branch never had it.
+- `ngx_stream_ssl_preread_module` could interpret malformed ClientHello messages differently than other TLS implementations, which could bypass security restrictions, rated minor ([CVE-2026-123640](https://nvd.nist.gov/vuln/detail/CVE-2026-123640)). It affects 1.15.2 through 1.31.8.
+
+The stream fixes reach every n.wtf install, because the base `nginx` metapackage depends on `libnginx-mod-stream`. They matter if you verify client certificates per SNI name in `stream`, or route by SNI with `ssl_preread`.
+
+On the stable branch, all of the above except the PROXY protocol fix are in 1.30.7.
+
+## Other changes upstream
+
+Two behaviour changes can reject traffic that used to pass:
+
+- Header lines without a colon are now rejected.
+- A request is now rejected if its chunked body contains too much framing overhead.
+
+Among the bug fixes: a GeoIP database in the MMDB format with invalid coordinates could overflow a buffer in a worker process. MMDB support in the [GeoIP module](/modules/geoip/) arrived in [1.31.7](/blog/nginx-1-31-7/), so only the last two releases had the bug. A proxied request could hang while its body was being discarded, some QPACK static table values were decoded incorrectly over HTTP/3, and HTTP/2 response trailers could delay data of higher priority streams.
+
+The rest: `$cookie_...` variables and `ngx_http_userid_module` mishandled a `Cookie` header containing a cookie without a name, non-cacheable variables in `index` could be evaluated incorrectly, `ssl_ocsp_cache` could cache OCSP responses incorrectly for client certificates with uncommon serial numbers, and the control API did not respond to requests with a too long request line.
+
+## If you cannot upgrade right away
+
+Xint lists a workaround for each of its five bugs:
+
+- CVE-2026-123007 and CVE-2026-123633: turn HTTP/2 off with `http2 off;` in each affected `server` block, and remove any legacy `http2` parameter from `listen`.
+- CVE-2026-121810: remove the `quic` listeners, set `http3 off;`, and send `add_header Alt-Svc 'clear' always;` so clients stop trying HTTP/3.
+- CVE-2026-123634: point `proxy_pass` at a fixed upstream group so no name is resolved at request time, and set `mirror off;` where mirroring is not needed.
+- CVE-2026-113425: bind the IMAP, POP3 and SMTP listeners to loopback, or firewall them to trusted addresses.
+
+All of them cost features, so treat them as a stopgap until the upgrade.
+
+## Changes
+
+- Upgrade nginx to 1.31.9
+
+## How to upgrade
+
+```bash
+sudo apt update
+sudo apt full-upgrade
+
+nginx -v
+# nginx version: nginx-n.wtf/1.31.9
+```
+
+A configuration reload does not replace the running executable, so confirm the workers are running the new binary. If `systemctl status nginx` shows a start time from before the upgrade, run `sudo systemctl restart nginx`.
+
+The module set and configure arguments are the same as in 1.31.8.
+
+Not on the repository yet? The [install page](/install/) has extrepo, one-line, DEB822, and Docker instructions.
