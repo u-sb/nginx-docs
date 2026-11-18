@@ -12,7 +12,7 @@ Documentation site for [n.wtf](https://n.wtf/) - an nginx Debian/Ubuntu reposito
 bun install          # Install dependencies
 bun run dev          # Development server
 bun run build        # Build (astro build + pagefind indexing into dist/)
-bun run check        # Type-check (astro check)
+bun run check        # Type-check (astro sync + tsc --noEmit --runExternalCode)
 ```
 
 Always use **bun** (not npm/pnpm). When adding dependencies, install the latest version via `bun add` — never guess/pin version numbers by hand.
@@ -20,7 +20,7 @@ Always use **bun** (not npm/pnpm). When adding dependencies, install the latest 
 ## ⚠️ Important Rules
 
 - **Version numbers are single-sourced.** Nginx/OpenSSL versions live ONLY in `src/lib/website_config.ts` (`versions.nginx`, `versions.openssl`, `versions.opensslDate`). Never hardcode current versions in pages/components — import `versions` instead. Historical versions in `docs/changelog.mdx` and `blog/*.mdx` are records; leave them alone.
-- **TypeScript stays on 6.x.** TS 7 (the Go-based rewrite) is not yet supported by Astro (and previously broke twoslash). When running `ncu`/upgrades, skip typescript (`ncu -u --reject typescript`).
+- **Type-checking is `tsc` + `@astrojs/ts-content-mapper` (experimental), not `astro check`.** It needs TypeScript 7.1+ (currently `7.1.0-beta`; move to stable 7.1 once released) and the `contentMappers` entry in `tsconfig.json`. `baseUrl` is removed in TS 7 — `paths` resolve relative to `tsconfig.json`. `@emnapi/runtime` is pinned in devDependencies to match the `@emnapi/core` version that `@astrojs/astro2tsx` depends on (otherwise bun hoists rolldown's 2.x beta and the mapper crashes on startup with `setLastError is not a function`); bump the two together, or drop the pin once astro2tsx declares the dependency itself.
 - **Never invent or rewrite copy (文案).** All user-facing text was written/approved by the owner. Install commands must be the real ones (extrepo / `mirror-cdn.xtom.com` apt source / DEB822 / `ghcr.io/u-sb/nginx` Docker) — no placeholder domains. When porting or restyling, keep text verbatim.
 - **Long code lines vs CSS grid.** Command lines don't wrap (`whitespace-pre`); a grid item defaults to `min-width: auto` and a long line will blow the track past the container and crush sibling columns. Every grid column containing a terminal card needs `min-w-0` (or `minmax(0,1fr)` on the track) and the code container needs `overflow-x-auto`.
 - **`public/public.key` and `public/public-rsa.key` are the apt signing keys** served at n.wtf — never delete or rename them. Favicons in `public/` are also live assets.
