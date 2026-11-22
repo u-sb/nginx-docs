@@ -50,9 +50,11 @@ export const groupA: ModuleDetail[] = [
 # turn it on from the http block of nginx.conf
 include /etc/nginx/snippets/brotli.conf;
 
-# anything after the include overrides the shipped defaults
-brotli_comp_level 6;
-brotli_min_length 256;`,
+# directives the snippet does not set can follow the include
+brotli_min_length 256;
+
+# to change one it does set, such as brotli_comp_level,
+# set it in a server or location block`,
     },
     {
         slug: 'zstd',
@@ -108,7 +110,7 @@ include /etc/nginx/snippets/zstd.conf;
 # keep proxies and CDNs caching the compressed and identity variants apart
 gzip_vary on;
 
-# anything after the include overrides the shipped defaults
+# directives the snippet does not set can follow the include
 zstd_comp_level 6;`,
     },
     {
