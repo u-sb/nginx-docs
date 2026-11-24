@@ -12,14 +12,14 @@ export const groupE: ModuleDetail[] = [
         docs: 'https://nginx.org/en/docs/http/ngx_http_json_module.html',
         license: 'BSD-2-Clause',
         overview: [
-            'ngx_http_json_module reads a JSON document held in any nginx variable and exposes members of it as further variables. A path picks the member: object keys are separated by dots and array elements are addressed by a zero-based index in square brackets, so user.name and tags[0] both work.',
+            '`ngx_http_json_module` reads a JSON document held in any nginx variable and exposes members of it as further variables. A path picks the member: object keys are separated by dots and array elements are addressed by a zero-based index in square brackets, so `user.name` and `tags[0]` both work.',
             'The document is parsed once per request no matter how many variables are pulled from it, and only when one of those variables is first accessed. Strings are stored unescaped, numbers, booleans and null exactly as written, and an object or array path yields its whole text. If the member is missing or the source is not a complete, valid JSON document, the variable is simply not found.',
-            'It is an official nginx module, new in 1.31.5, and is not built by default upstream. Paired with client_body_early_read and predicate locations from the same release, it routes on request body fields without Lua or njs.',
+            'It is an official nginx module, new in 1.31.5, and is not built by default upstream. Paired with `client_body_early_read` and predicate locations from the same release, it routes on request body fields without Lua or njs.',
         ],
         highlights: [
             {
                 name: 'json_set',
-                desc: 'Sets a variable to the value found at a path in the JSON document held in a source variable; http context.',
+                desc: 'Sets a variable to the value found at a path in the JSON document held in a source variable; `http` context.',
             },
             {
                 name: 'json_max_depth',
@@ -27,7 +27,7 @@ export const groupE: ModuleDetail[] = [
             },
             {
                 name: 'dot and bracket paths',
-                desc: 'user.name, items[0], and \'obj["a.b"].c[2]\' for member names containing dots or brackets.',
+                desc: '`user.name`, `items[0]`, and `\'obj["a.b"].c[2]\'` for member names containing dots or brackets.',
             },
             {
                 name: 'lazy single parse',
@@ -71,9 +71,9 @@ server {
         docs: 'https://nginx.org/en/docs/http/ngx_http_ssl_module.html',
         license: 'BSD-2-Clause',
         overview: [
-            'ngx_http_ssl_module provides the support needed for HTTPS. A server block becomes a TLS server through the ssl parameter of the listen directive, and the module loads the PEM certificate and key, selects the enabled protocols and ciphers, and manages session caching and resumption.',
-            'Since 1.11.0 ssl_certificate can be given more than once to serve RSA and ECDSA certificates side by side, and since 1.15.9 the file name may contain variables. The module adds the 495, 496 and 497 error codes for error_page and exposes variables such as $ssl_protocol, $ssl_cipher, $ssl_server_name, $ssl_session_reused, $ssl_early_data and the $ssl_client_* family for client certificates.',
-            'It is an official nginx module that requires the OpenSSL library and is not built by default upstream, so it needs the --with-http_ssl_module configure parameter. The typical use is terminating TLS for every public site and API served by nginx.',
+            '`ngx_http_ssl_module` provides the support needed for HTTPS. A server block becomes a TLS server through the `ssl` parameter of the `listen` directive, and the module loads the PEM certificate and key, selects the enabled protocols and ciphers, and manages session caching and resumption.',
+            'Since 1.11.0 `ssl_certificate` can be given more than once to serve RSA and ECDSA certificates side by side, and since 1.15.9 the file name may contain variables. The module adds the 495, 496 and 497 error codes for `error_page` and exposes variables such as `$ssl_protocol`, `$ssl_cipher`, `$ssl_server_name`, `$ssl_session_reused`, `$ssl_early_data` and the `$ssl_client_*` family for client certificates.',
+            'It is an official nginx module that requires the OpenSSL library and is not built by default upstream, so it needs the `--with-http_ssl_module` configure parameter. The typical use is terminating TLS for every public site and API served by nginx.',
         ],
         highlights: [
             {
@@ -82,19 +82,19 @@ server {
             },
             {
                 name: 'ssl_certificate_key',
-                desc: 'PEM file with the secret key; engine:, store: and data:$variable forms are also accepted.',
+                desc: 'PEM file with the secret key; `engine:`, `store:` and `data:$variable` forms are also accepted.',
             },
             {
                 name: 'ssl_protocols',
-                desc: 'Enables the listed protocol versions, default TLSv1.2 TLSv1.3 (TLSv1.3 by default since 1.23.4).',
+                desc: 'Enables the listed protocol versions, default `TLSv1.2 TLSv1.3` (`TLSv1.3` by default since 1.23.4).',
             },
             {
                 name: 'ssl_ciphers',
-                desc: 'Cipher list in OpenSSL format, default HIGH:!aNULL:!MD5.',
+                desc: 'Cipher list in OpenSSL format, default `HIGH:!aNULL:!MD5`.',
             },
             {
                 name: 'ssl_session_cache',
-                desc: 'Session parameter cache; default none, shared:name:size is recommended and holds about 4000 sessions per megabyte.',
+                desc: 'Session parameter cache; default `none`, `shared:name:size` is recommended and holds about 4000 sessions per megabyte.',
             },
             {
                 name: 'ssl_stapling',
@@ -130,14 +130,14 @@ server {
         docs: 'https://nginx.org/en/docs/http/ngx_http_stub_status_module.html',
         license: 'BSD-2-Clause',
         overview: [
-            'ngx_http_stub_status_module provides access to basic status information. A location carrying the stub_status directive returns a small plain text page with the number of active connections, the totals of accepted and handled connections and requests, and how many connections are currently reading, writing or waiting.',
-            'accepts and handled are normally equal unless a resource limit such as worker_connections was reached. The same numbers are available as the $connections_active, $connections_reading, $connections_writing and $connections_waiting variables (1.3.14). Before 1.7.5 the directive required an arbitrary argument such as stub_status on.',
-            'It is an official nginx module and is not built by default upstream, so it needs the --with-http_stub_status_module configure parameter. It is the usual data source for monitoring agents and Prometheus exporters, normally restricted to localhost or a monitoring network.',
+            '`ngx_http_stub_status_module` provides access to basic status information. A location carrying the `stub_status` directive returns a small plain text page with the number of active connections, the totals of accepted and handled connections and requests, and how many connections are currently reading, writing or waiting.',
+            '`accepts` and `handled` are normally equal unless a resource limit such as `worker_connections` was reached. The same numbers are available as the `$connections_active`, `$connections_reading`, `$connections_writing` and `$connections_waiting` variables (1.3.14). Before 1.7.5 the directive required an arbitrary argument such as `stub_status on`.',
+            'It is an official nginx module and is not built by default upstream, so it needs the `--with-http_stub_status_module` configure parameter. It is the usual data source for monitoring agents and Prometheus exporters, normally restricted to localhost or a monitoring network.',
         ],
         highlights: [
             {
                 name: 'stub_status',
-                desc: 'Serves the basic status page from the surrounding location; server or location context, no arguments since 1.7.5.',
+                desc: 'Serves the basic status page from the surrounding location; `server` or `location` context, no arguments since 1.7.5.',
             },
             {
                 name: 'Active connections',
@@ -177,18 +177,18 @@ server {
         docs: 'https://nginx.org/en/docs/http/ngx_http_realip_module.html',
         license: 'BSD-2-Clause',
         overview: [
-            'ngx_http_realip_module changes the client address, and optionally the client port, to the values sent in a specified header field. It is used when nginx sits behind a load balancer, CDN or other proxy and the address seen on the socket belongs to that proxy rather than to the visitor.',
-            'Replacement happens only for connections coming from addresses listed with set_real_ip_from, which accepts an address, a CIDR range, a hostname (1.13.1) or unix: for all UNIX-domain sockets. With real_ip_recursive on, the last address in the header that is not trusted is used instead of the last address. The original values stay available in $realip_remote_addr (1.9.7) and $realip_remote_port (1.11.0).',
-            'It is an official nginx module and is not built by default upstream, so it needs the --with-http_realip_module configure parameter. A typical use is reading X-Forwarded-For behind a CDN so that access logs, access rules and rate limits see the real visitor address.',
+            '`ngx_http_realip_module` changes the client address, and optionally the client port, to the values sent in a specified header field. It is used when nginx sits behind a load balancer, CDN or other proxy and the address seen on the socket belongs to that proxy rather than to the visitor.',
+            'Replacement happens only for connections coming from addresses listed with `set_real_ip_from`, which accepts an address, a CIDR range, a hostname (1.13.1) or `unix:` for all UNIX-domain sockets. With `real_ip_recursive on`, the last address in the header that is not trusted is used instead of the last address. The original values stay available in `$realip_remote_addr` (1.9.7) and `$realip_remote_port` (1.11.0).',
+            'It is an official nginx module and is not built by default upstream, so it needs the `--with-http_realip_module` configure parameter. A typical use is reading X-Forwarded-For behind a CDN so that access logs, access rules and rate limits see the real visitor address.',
         ],
         highlights: [
             {
                 name: 'set_real_ip_from',
-                desc: 'Defines trusted addresses known to send correct replacement addresses: address, CIDR, hostname or unix:.',
+                desc: 'Defines trusted addresses known to send correct replacement addresses: address, CIDR, hostname or `unix:`.',
             },
             {
                 name: 'real_ip_header',
-                desc: 'Header field whose value replaces the client address, default X-Real-IP; proxy_protocol uses the PROXY header.',
+                desc: 'Header field whose value replaces the client address, default X-Real-IP; `proxy_protocol` uses the PROXY header.',
             },
             {
                 name: 'real_ip_recursive',
@@ -229,9 +229,9 @@ server {
         docs: 'https://nginx.org/en/docs/http/ngx_http_auth_request_module.html',
         license: 'BSD-2-Clause',
         overview: [
-            'ngx_http_auth_request_module implements client authorization based on the result of a subrequest. Before serving a protected location nginx sends a subrequest to the configured URI: a 2xx response allows access, 401 or 403 denies it with the same code, and any other code is treated as an error.',
-            'For a 401 the client also receives the WWW-Authenticate header from the subrequest response. auth_request_set copies values from the authorization response, such as $upstream_http_* headers, into request variables for use in later proxying. The module appeared in 1.5.4 and can be combined with ngx_http_access_module and ngx_http_auth_basic_module through the satisfy directive.',
-            'It is an official nginx module and is not built by default upstream, so it needs the --with-http_auth_request_module configure parameter. A typical use is putting single sign-on or an OAuth2 proxy in front of internal applications that have no authentication of their own.',
+            '`ngx_http_auth_request_module` implements client authorization based on the result of a subrequest. Before serving a protected location nginx sends a subrequest to the configured URI: a 2xx response allows access, 401 or 403 denies it with the same code, and any other code is treated as an error.',
+            'For a 401 the client also receives the WWW-Authenticate header from the subrequest response. `auth_request_set` copies values from the authorization response, such as `$upstream_http_*` headers, into request variables for use in later proxying. The module appeared in 1.5.4 and can be combined with `ngx_http_access_module` and `ngx_http_auth_basic_module` through the `satisfy` directive.',
+            'It is an official nginx module and is not built by default upstream, so it needs the `--with-http_auth_request_module` configure parameter. A typical use is putting single sign-on or an OAuth2 proxy in front of internal applications that have no authentication of their own.',
         ],
         highlights: [
             {
@@ -240,7 +240,7 @@ server {
             },
             {
                 name: 'auth_request_set',
-                desc: 'Sets a request variable after the authorization request completes; the value may use $upstream_http_*.',
+                desc: 'Sets a request variable after the authorization request completes; the value may use `$upstream_http_*`.',
             },
             {
                 name: 'response code handling',
@@ -248,7 +248,7 @@ server {
             },
             {
                 name: 'satisfy',
-                desc: 'Combines auth_request with access and auth_basic checks so any or all of them must pass.',
+                desc: 'Combines `auth_request` with access and `auth_basic` checks so any or all of them must pass.',
             },
         ],
         example: `location /private/ {
@@ -277,9 +277,9 @@ location = /auth {
         docs: 'https://nginx.org/en/docs/http/ngx_http_v2_module.html',
         license: 'BSD-2-Clause',
         overview: [
-            'ngx_http_v2_module provides support for HTTP/2 (RFC 9113). Since 1.25.1 it is switched on with the http2 directive in the http or server context rather than a listen parameter, and applies to every listen socket in that server.',
-            'Accepting HTTP/2 over TLS relies on the ALPN extension, available since OpenSSL 1.0.2, and if ssl_prefer_server_ciphers is on the cipher list must comply with the RFC 9113 Appendix A black list. The $http2 variable holds the negotiated identifier, h2 over TLS, h2c over cleartext, or an empty string. Server push and several protocol-specific timeouts were made obsolete in 1.25.1 and 1.19.7, with early_hints, keepalive_timeout and client_header_timeout taking their place.',
-            'It is an official nginx module, present since 1.9.5, and is not built by default upstream, so it needs the --with-http_v2_module configure parameter. Its typical use is enabling multiplexed HTTPS on any server block that already has a TLS certificate.',
+            '`ngx_http_v2_module` provides support for HTTP/2 (RFC 9113). Since 1.25.1 it is switched on with the `http2` directive in the `http` or `server` context rather than a `listen` parameter, and applies to every listen socket in that server.',
+            'Accepting HTTP/2 over TLS relies on the ALPN extension, available since OpenSSL 1.0.2, and if `ssl_prefer_server_ciphers` is on the cipher list must comply with the RFC 9113 Appendix A black list. The `$http2` variable holds the negotiated identifier, `h2` over TLS, `h2c` over cleartext, or an empty string. Server push and several protocol-specific timeouts were made obsolete in 1.25.1 and 1.19.7, with `early_hints`, `keepalive_timeout` and `client_header_timeout` taking their place.',
+            'It is an official nginx module, present since 1.9.5, and is not built by default upstream, so it needs the `--with-http_v2_module` configure parameter. Its typical use is enabling multiplexed HTTPS on any server block that already has a TLS certificate.',
         ],
         highlights: [
             {
@@ -300,11 +300,11 @@ location = /auth {
             },
             {
                 name: 'http2_recv_buffer_size',
-                desc: 'Size of the per-worker input buffer, http context only, default 256k.',
+                desc: 'Size of the per-worker input buffer, `http` context only, default 256k.',
             },
             {
                 name: '$http2',
-                desc: 'Negotiated protocol identifier: h2 over TLS, h2c over cleartext TCP, or an empty string.',
+                desc: 'Negotiated protocol identifier: `h2` over TLS, `h2c` over cleartext TCP, or an empty string.',
             },
         ],
         example: `server {
@@ -336,14 +336,14 @@ location = /auth {
         docs: 'https://nginx.org/en/docs/http/ngx_http_v3_module.html',
         license: 'BSD-2-Clause',
         overview: [
-            'ngx_http_v3_module provides experimental support for HTTP/3 (RFC 9114) over QUIC. A server accepts it through a listen socket with the quic parameter, and the docs recommend using the same port for HTTP/3 and HTTPS and advertising it to clients with an Alt-Svc response header.',
-            'QUIC needs a TLS library with QUIC support: upstream requires OpenSSL 1.1.1 or higher, 0-RTT needs OpenSSL 3.5.1 or higher (before 1.29.1 it could not be enabled with OpenSSL at all), and BoringSSL, LibreSSL or QuicTLS are the alternatives. The n.wtf build links OpenSSL statically, so the module works regardless of the system libssl. The $http3 variable reports h3 for HTTP/3 connections, hq for hq connections, or an empty string, and quic_bpf can route packets with eBPF on Linux 5.7+ to support connection migration.',
-            'It is an official nginx module, present since 1.25.0, and is not built by default upstream, so it needs the --with-http_v3_module configure parameter. The usual deployment is adding a quic listener next to the existing ssl listener so browsers upgrade to HTTP/3 on their next visit.',
+            '`ngx_http_v3_module` provides experimental support for HTTP/3 (RFC 9114) over QUIC. A server accepts it through a `listen` socket with the `quic` parameter, and the docs recommend using the same port for HTTP/3 and HTTPS and advertising it to clients with an Alt-Svc response header.',
+            'QUIC needs a TLS library with QUIC support: upstream requires OpenSSL 1.1.1 or higher, 0-RTT needs OpenSSL 3.5.1 or higher (before 1.29.1 it could not be enabled with OpenSSL at all), and BoringSSL, LibreSSL or QuicTLS are the alternatives. The n.wtf build links OpenSSL statically, so the module works regardless of the system libssl. The `$http3` variable reports `h3` for HTTP/3 connections, `hq` for hq connections, or an empty string, and `quic_bpf` can route packets with eBPF on Linux 5.7+ to support connection migration.',
+            'It is an official nginx module, present since 1.25.0, and is not built by default upstream, so it needs the `--with-http_v3_module` configure parameter. The usual deployment is adding a `quic` listener next to the existing `ssl` listener so browsers upgrade to HTTP/3 on their next visit.',
         ],
         highlights: [
             {
                 name: 'http3',
-                desc: 'Enables HTTP/3 protocol negotiation on quic listen sockets, default on.',
+                desc: 'Enables HTTP/3 protocol negotiation on `quic` `listen` sockets, default on.',
             },
             {
                 name: 'http3_max_concurrent_streams',
@@ -359,7 +359,7 @@ location = /auth {
             },
             {
                 name: 'quic_gso',
-                desc: 'Sends packets in optimized batch mode using segmentation offloading (Linux UDP_SEGMENT), default off.',
+                desc: 'Sends packets in optimized batch mode using segmentation offloading (Linux `UDP_SEGMENT`), default off.',
             },
             {
                 name: 'quic_host_key',
@@ -396,18 +396,18 @@ location = /auth {
         docs: 'https://nginx.org/en/docs/http/ngx_http_dav_module.html',
         license: 'BSD-2-Clause',
         overview: [
-            'ngx_http_dav_module is intended for file management automation via the WebDAV protocol. It processes the HTTP and WebDAV methods PUT, DELETE, MKCOL, COPY and MOVE against files under the location\'s root.',
-            'A file uploaded with PUT is first written to a temporary file and then renamed, so the docs recommend keeping client_body_temp_path on the same file system as the destination to avoid a cross-device copy; the "Date" request header can set the modification time. The module does not implement PROPFIND, OPTIONS or LOCK, so clients that require additional WebDAV methods will not work with it alone. The third-party dav-ext module at /modules/dav-ext/ adds the missing methods.',
-            'It is an official nginx module and is not built by default upstream, so it needs the --with-http_dav_module configure parameter. Combined with limit_except it is a common way to accept uploads from scripts or backup tools into a directory that nginx also serves.',
+            '`ngx_http_dav_module` is intended for file management automation via the WebDAV protocol. It processes the HTTP and WebDAV methods PUT, DELETE, MKCOL, COPY and MOVE against files under the location\'s root.',
+            'A file uploaded with PUT is first written to a temporary file and then renamed, so the docs recommend keeping `client_body_temp_path` on the same file system as the destination to avoid a cross-device copy; the "Date" request header can set the modification time. The module does not implement PROPFIND, OPTIONS or LOCK, so clients that require additional WebDAV methods will not work with it alone. The third-party dav-ext module at /modules/dav-ext/ adds the missing methods.',
+            'It is an official nginx module and is not built by default upstream, so it needs the `--with-http_dav_module` configure parameter. Combined with `limit_except` it is a common way to accept uploads from scripts or backup tools into a directory that nginx also serves.',
         ],
         highlights: [
             {
                 name: 'dav_methods',
-                desc: 'Allows the listed methods from PUT, DELETE, MKCOL, COPY and MOVE; default off denies all of them.',
+                desc: 'Allows the listed methods from PUT, DELETE, MKCOL, COPY and MOVE; default `off` denies all of them.',
             },
             {
                 name: 'dav_access',
-                desc: 'Sets permissions for newly created files and directories as user:, group: and all: entries, default user:rw.',
+                desc: 'Sets permissions for newly created files and directories as `user:`, `group:` and `all:` entries, default `user:rw`.',
             },
             {
                 name: 'create_full_put_path',
@@ -445,9 +445,9 @@ location = /auth {
         docs: 'https://nginx.org/en/docs/http/ngx_http_slice_module.html',
         license: 'BSD-2-Clause',
         overview: [
-            'ngx_http_slice_module is a filter that splits a request into subrequests, each returning a certain byte range of the response. This provides more effective caching of big responses, because each slice is fetched and stored independently.',
-            'The module exposes $slice_range, the current slice in HTTP byte range format such as bytes=0-1048575. For a subrequest to return the right range that variable must be passed to the upstream as the Range header with proxy_set_header, and when caching is on it must also be part of proxy_cache_key and 206 responses must be made cacheable with proxy_cache_valid. Setting slice too low may cause excessive memory usage and a large number of open files.',
-            'It is an official nginx module, present since 1.9.8, and is not built by default upstream, so it needs the --with-http_slice_module configure parameter. Its typical use is a caching proxy in front of large downloads or video files where clients seek with range requests.',
+            '`ngx_http_slice_module` is a filter that splits a request into subrequests, each returning a certain byte range of the response. This provides more effective caching of big responses, because each slice is fetched and stored independently.',
+            'The module exposes `$slice_range`, the current slice in HTTP byte range format such as `bytes=0-1048575`. For a subrequest to return the right range that variable must be passed to the upstream as the Range header with `proxy_set_header`, and when caching is on it must also be part of `proxy_cache_key` and 206 responses must be made cacheable with `proxy_cache_valid`. Setting `slice` too low may cause excessive memory usage and a large number of open files.',
+            'It is an official nginx module, present since 1.9.8, and is not built by default upstream, so it needs the `--with-http_slice_module` configure parameter. Its typical use is a caching proxy in front of large downloads or video files where clients seek with range requests.',
         ],
         highlights: [
             {
@@ -456,7 +456,7 @@ location = /auth {
             },
             {
                 name: '$slice_range',
-                desc: 'The current slice range in HTTP byte range format, for example bytes=0-1048575.',
+                desc: 'The current slice range in HTTP byte range format, for example `bytes=0-1048575`.',
             },
             {
                 name: 'proxy_set_header Range $slice_range',
@@ -495,18 +495,18 @@ location = /auth {
         docs: 'https://nginx.org/en/docs/mail/ngx_mail_core_module.html',
         license: 'BSD-2-Clause',
         overview: [
-            'ngx_mail_module turns nginx into a proxy for IMAP, POP3 and SMTP. A mail block holds one server per listening port, the protocol directive (or the well-known port) picks the protocol, and every client login is checked by an HTTP request to the authentication server named in auth_http. That server answers with Auth-Status, Auth-Server and Auth-Port headers, so it decides both whether the login is valid and which backend the session is proxied to.',
-            'ngx_mail_ssl_module adds TLS to the proxy: the ssl parameter of listen gives implicit TLS on ports such as 993 and 995, while starttls on or only controls the STLS and STARTTLS commands on plain ports. The auth_http request carries Client-IP, Auth-Login-Attempt and, since 1.7.11, Auth-SSL-* headers describing the client TLS session, and an Auth-Wait header in a failure response delays the next attempt instead of closing the connection. max_errors (1.21.0) closes a connection after 5 protocol errors by default.',
-            'It is an official nginx module that upstream does not build by default; it needs --with-mail and --with-mail_ssl_module. The n.wtf packages build it as a dynamic module shipped in libnginx-mod-mail, which the nginx-extras metapackage pulls in. The typical use is a single TLS front end for several mail stores, with the login check done by a small web service.',
+            '`ngx_mail_module` turns nginx into a proxy for IMAP, POP3 and SMTP. A `mail` block holds one server per listening port, the `protocol` directive (or the well-known port) picks the protocol, and every client login is checked by an HTTP request to the authentication server named in `auth_http`. That server answers with Auth-Status, Auth-Server and Auth-Port headers, so it decides both whether the login is valid and which backend the session is proxied to.',
+            '`ngx_mail_ssl_module` adds TLS to the proxy: the `ssl` parameter of `listen` gives implicit TLS on ports such as 993 and 995, while `starttls on` or `only` controls the STLS and STARTTLS commands on plain ports. The `auth_http` request carries Client-IP, Auth-Login-Attempt and, since 1.7.11, Auth-SSL-* headers describing the client TLS session, and an Auth-Wait header in a failure response delays the next attempt instead of closing the connection. `max_errors` (1.21.0) closes a connection after 5 protocol errors by default.',
+            'It is an official nginx module that upstream does not build by default; it needs `--with-mail` and `--with-mail_ssl_module`. The n.wtf packages build it as a dynamic module shipped in `libnginx-mod-mail`, which the `nginx-extras` metapackage pulls in. The typical use is a single TLS front end for several mail stores, with the login check done by a small web service.',
         ],
         highlights: [
             {
                 name: 'listen',
-                desc: 'Address and port of the server; the ssl parameter enables implicit TLS and proxy_protocol accepts the PROXY protocol.',
+                desc: 'Address and port of the server; the `ssl` parameter enables implicit TLS and `proxy_protocol` accepts the PROXY protocol.',
             },
             {
                 name: 'protocol',
-                desc: 'Selects imap, pop3 or smtp; if omitted it is detected from ports 143/993, 110/995 and 25/587/465.',
+                desc: 'Selects `imap`, `pop3` or `smtp`; if omitted it is detected from ports 143/993, 110/995 and 25/587/465.',
             },
             {
                 name: 'auth_http',
@@ -514,7 +514,7 @@ location = /auth {
             },
             {
                 name: 'starttls',
-                desc: 'Controls STLS and STARTTLS: off denies them, on allows them, only requires TLS before login; default off.',
+                desc: 'Controls STLS and STARTTLS: `off` denies them, `on` allows them, `only` requires TLS before login; default off.',
             },
             {
                 name: 'ssl_certificate',
@@ -564,18 +564,18 @@ location = /auth {
         docs: 'https://nginx.org/en/docs/stream/ngx_stream_core_module.html',
         license: 'BSD-2-Clause',
         overview: [
-            'ngx_stream_module (1.9.0) proxies raw TCP and UDP connections. A stream block holds servers that listen on a port, optionally with the udp parameter (1.9.13) for datagrams, and hand each session to a proxied server or an upstream group, with load balancing, health checking and PROXY protocol support on both sides.',
-            'ngx_stream_ssl_module terminates TLS on a listen port with the ssl parameter, and ngx_stream_ssl_preread_module (1.11.5) reads the ClientHello without terminating TLS, exposing $ssl_preread_server_name, $ssl_preread_alpn_protocols (1.13.10) and $ssl_preread_protocol (1.15.2) so a map can route by SNI, ALPN or protocol version. Since 1.25.5 stream servers also support server_name based on SNI. Variables such as $protocol, $status, $session_time and $proxy_protocol_addr have been available since 1.11.2 and 1.11.4.',
-            'It is an official nginx module that upstream does not build by default; it needs --with-stream, --with-stream_ssl_module and --with-stream_ssl_preread_module. The n.wtf packages build it as a dynamic module shipped in libnginx-mod-stream, and the base nginx metapackage depends on it, so every n.wtf install has it. Typical uses are forwarding DNS, database or mail ports and sharing port 443 between TLS services by SNI.',
+            '`ngx_stream_module` (1.9.0) proxies raw TCP and UDP connections. A `stream` block holds servers that listen on a port, optionally with the `udp` parameter (1.9.13) for datagrams, and hand each session to a proxied server or an upstream group, with load balancing, health checking and PROXY protocol support on both sides.',
+            '`ngx_stream_ssl_module` terminates TLS on a listen port with the `ssl` parameter, and `ngx_stream_ssl_preread_module` (1.11.5) reads the ClientHello without terminating TLS, exposing `$ssl_preread_server_name`, `$ssl_preread_alpn_protocols` (1.13.10) and `$ssl_preread_protocol` (1.15.2) so a `map` can route by SNI, ALPN or protocol version. Since 1.25.5 stream servers also support `server_name` based on SNI. Variables such as `$protocol`, `$status`, `$session_time` and `$proxy_protocol_addr` have been available since 1.11.2 and 1.11.4.',
+            'It is an official nginx module that upstream does not build by default; it needs `--with-stream`, `--with-stream_ssl_module` and `--with-stream_ssl_preread_module`. The n.wtf packages build it as a dynamic module shipped in `libnginx-mod-stream`, and the base nginx metapackage depends on it, so every n.wtf install has it. Typical uses are forwarding DNS, database or mail ports and sharing port 443 between TLS services by SNI.',
         ],
         highlights: [
             {
                 name: 'listen',
-                desc: 'Port the server accepts on; udp (1.9.13) handles datagrams and should be combined with reuseport, ssl enables TLS.',
+                desc: 'Port the server accepts on; `udp` (1.9.13) handles datagrams and should be combined with `reuseport`, `ssl` enables TLS.',
             },
             {
                 name: 'proxy_pass',
-                desc: 'Address of the proxied server or upstream group; the value may contain variables so a map can choose the target.',
+                desc: 'Address of the proxied server or upstream group; the value may contain variables so a `map` can choose the target.',
             },
             {
                 name: 'ssl_preread',
@@ -583,15 +583,15 @@ location = /auth {
             },
             {
                 name: '$ssl_preread_server_name',
-                desc: 'Server name requested through SNI, available while ssl_preread is on; the usual key for routing port 443 by host.',
+                desc: 'Server name requested through SNI, available while `ssl_preread` is on; the usual key for routing port 443 by host.',
             },
             {
                 name: 'proxy_protocol',
-                desc: 'listen parameter (1.11.4) that expects a PROXY protocol header; version 2 is supported since 1.13.11.',
+                desc: '`listen` parameter (1.11.4) that expects a PROXY protocol header; version 2 is supported since 1.13.11.',
             },
             {
                 name: 'resolver',
-                desc: 'Name servers used to resolve upstream names, with valid=time to override the TTL; default port 53.',
+                desc: 'Name servers used to resolve upstream names, with `valid=time` to override the TTL; default port 53.',
             },
         ],
         example: `stream {
@@ -626,14 +626,14 @@ location = /auth {
         docs: 'https://nginx.org/en/docs/stream/ngx_stream_geoip_module.html',
         license: 'BSD-2-Clause',
         overview: [
-            'ngx_stream_geoip_module (1.11.3) creates variables whose values depend on the client IP address, looked up in the precompiled legacy MaxMind databases. geoip_country provides $geoip_country_code, $geoip_country_code3 and $geoip_country_name, geoip_city adds region, city, postal code, continent and coordinates, and geoip_org provides $geoip_org.',
-            'The directives are set once in the stream context and the variables are then available in every stream server, most often through a map that picks an upstream by $geoip_country_code or $geoip_city_continent_code. With IPv6-enabled databases, IPv4 clients are looked up as IPv4-mapped IPv6 addresses. The legacy GeoIP databases it reads have been discontinued by MaxMind, so new deployments should use the GeoIP2 module at /modules/geoip2/ instead.',
-            'It is an official nginx module that upstream does not build by default; it needs --with-stream_geoip_module and the MaxMind GeoIP library. The n.wtf packages build it as a dynamic module shipped in libnginx-mod-stream-geoip, which depends on libnginx-mod-stream and is pulled in by the nginx-extras metapackage. The typical use is steering TCP sessions to the nearest region while an existing legacy database is still in service.',
+            '`ngx_stream_geoip_module` (1.11.3) creates variables whose values depend on the client IP address, looked up in the precompiled legacy MaxMind databases. `geoip_country` provides `$geoip_country_code`, `$geoip_country_code3` and `$geoip_country_name`, `geoip_city` adds region, city, postal code, continent and coordinates, and `geoip_org` provides `$geoip_org`.',
+            'The directives are set once in the `stream` context and the variables are then available in every stream server, most often through a `map` that picks an upstream by `$geoip_country_code` or `$geoip_city_continent_code`. With IPv6-enabled databases, IPv4 clients are looked up as IPv4-mapped IPv6 addresses. The legacy GeoIP databases it reads have been discontinued by MaxMind, so new deployments should use the GeoIP2 module at /modules/geoip2/ instead.',
+            'It is an official nginx module that upstream does not build by default; it needs `--with-stream_geoip_module` and the MaxMind GeoIP library. The n.wtf packages build it as a dynamic module shipped in `libnginx-mod-stream-geoip`, which depends on `libnginx-mod-stream` and is pulled in by the `nginx-extras` metapackage. The typical use is steering TCP sessions to the nearest region while an existing legacy database is still in service.',
         ],
         highlights: [
             {
                 name: 'geoip_country',
-                desc: 'Database file used to determine the country of the client address; stream context only.',
+                desc: 'Database file used to determine the country of the client address; `stream` context only.',
             },
             {
                 name: 'geoip_city',
@@ -641,11 +641,11 @@ location = /auth {
             },
             {
                 name: 'geoip_org',
-                desc: 'Database file that sets $geoip_org to the organization name for the client address.',
+                desc: 'Database file that sets `$geoip_org` to the organization name for the client address.',
             },
             {
                 name: '$geoip_country_code',
-                desc: 'Two-letter country code such as US or DE; $geoip_country_code3 gives the three-letter form.',
+                desc: 'Two-letter country code such as US or DE; `$geoip_country_code3` gives the three-letter form.',
             },
             {
                 name: '$geoip_city_continent_code',

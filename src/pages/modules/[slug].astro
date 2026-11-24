@@ -5,6 +5,7 @@ import ArrowLeft from '@/components/icons/ArrowLeft.astro';
 import ArrowRight from '@/components/icons/ArrowRight.astro';
 import ArrowUpRight from '@/components/icons/ArrowUpRight.astro';
 import {moduleDetails} from '@/data/module-details';
+import {marked} from 'marked';
 
 export async function getStaticPaths() {
     return moduleDetails.map((mod, i) => ({
@@ -18,6 +19,9 @@ export async function getStaticPaths() {
 }
 
 const {mod, prev, next} = Astro.props;
+
+// Overview paragraphs and directive descriptions support inline markdown (backtick code).
+const inline = (md: string) => marked.parseInline(md) as string;
 
 const headings = [
     {depth: 2, slug: 'overview', text: 'Overview'},
@@ -55,7 +59,7 @@ const p = 'm-0 text-[16px] leading-[1.75] text-body';
     <section id="overview" class="scroll-mt-[90px]">
         <h2 class={h2}>Overview</h2>
         {mod.overview.map((paragraph) => (
-                <p class:list={[p, 'mb-3.5 last:mb-0']}>{paragraph}</p>
+                <p class:list={[p, 'mb-3.5 last:mb-0']} set:html={inline(paragraph)}/>
         ))}
     </section>
 
@@ -65,7 +69,7 @@ const p = 'm-0 text-[16px] leading-[1.75] text-body';
             {mod.highlights.map((item) => (
                     <div class="grid grid-cols-1 gap-x-8 gap-y-1 py-[13px] sm:grid-cols-[220px_minmax(0,1fr)]">
                         <code class="font-mono text-[13px] leading-[1.7] break-words text-acc2">{item.name}</code>
-                        <span class="text-[14.5px] leading-[1.7] text-body">{item.desc}</span>
+                        <span class="text-[14.5px] leading-[1.7] text-body" set:html={inline(item.desc)}/>
                     </div>
             ))}
         </div>

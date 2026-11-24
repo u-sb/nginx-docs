@@ -12,8 +12,8 @@ export const groupA: ModuleDetail[] = [
         license: 'BSD-2-Clause',
         overview: [
             'ngx_brotli adds Brotli compression to nginx. Brotli is a compression format developed at Google that typically produces smaller output than gzip at comparable speed, and every modern browser advertises support for it in the Accept-Encoding header.',
-            'The project ships two modules. The filter module compresses responses on the fly, and the static module serves pre-compressed .br files from disk so no CPU is spent at request time.',
-            'Google maintains the module. It is one of the most widely deployed third-party nginx modules and is compiled into most distribution builds. Our package installs a ready-made /etc/nginx/snippets/brotli.conf; include it from nginx.conf to switch it on.',
+            'The project ships two modules. The filter module compresses responses on the fly, and the static module serves pre-compressed `.br` files from disk so no CPU is spent at request time.',
+            'Google maintains the module. It is one of the most widely deployed third-party nginx modules and is compiled into most distribution builds. Our package installs a ready-made `/etc/nginx/snippets/brotli.conf`; include it from `nginx.conf` to switch it on.',
         ],
         highlights: [
             {
@@ -34,7 +34,7 @@ export const groupA: ModuleDetail[] = [
             },
             {
                 name: 'brotli_static',
-                desc: 'Serves a pre-compressed .br file next to the original when the client accepts Brotli.',
+                desc: 'Serves a pre-compressed `.br` file next to the original when the client accepts Brotli.',
             },
             {
                 name: 'brotli_window',
@@ -67,8 +67,8 @@ brotli_min_length 256;
         license: 'BSD-2-Clause',
         overview: [
             'zstd-nginx-module adds Zstandard (zstd) compression to nginx. Zstandard is a compression algorithm developed at Facebook that targets high compression ratios at fast compression and decompression speeds.',
-            'Like ngx_brotli, it builds two loadable modules: ngx_http_zstd_filter_module compresses responses on the fly, and ngx_http_zstd_static_module serves pre-compressed .zst files from disk. It can also load an external dictionary trained on your content, which improves ratios on small responses. Our package installs a ready-made /etc/nginx/snippets/zstd.conf; include it from nginx.conf to switch it on.',
-            'The module was written by Alex Zhang (tokers). We build the u-sb fork, which merges the extra directives, memory safety work and test suites from myguard-labs/nginx-zstd-module and GetPageSpeed/zstd-nginx-module. Compression is configured per location, so it is easy to roll out gradually. Keep gzip_vary on, so proxies and CDNs cache the compressed and identity variants apart.',
+            'Like ngx_brotli, it builds two loadable modules: `ngx_http_zstd_filter_module` compresses responses on the fly, and `ngx_http_zstd_static_module` serves pre-compressed `.zst` files from disk. It can also load an external dictionary trained on your content, which improves ratios on small responses. Our package installs a ready-made `/etc/nginx/snippets/zstd.conf`; include it from `nginx.conf` to switch it on.',
+            'The module was written by Alex Zhang (tokers). We build the u-sb fork, which merges the extra directives, memory safety work and test suites from myguard-labs/nginx-zstd-module and GetPageSpeed/zstd-nginx-module. Compression is configured per location, so it is easy to roll out gradually. Keep `gzip_vary` on, so proxies and CDNs cache the compressed and identity variants apart.',
         ],
         highlights: [
             {
@@ -89,7 +89,7 @@ brotli_min_length 256;
             },
             {
                 name: 'zstd_static',
-                desc: 'Serves a pre-compressed .zst file next to the original when the client accepts zstd.',
+                desc: 'Serves a pre-compressed `.zst` file next to the original when the client accepts zstd.',
             },
             {
                 name: 'zstd_long',
@@ -143,11 +143,11 @@ zstd_comp_level 6;`,
             },
             {
                 name: '$acme_certificate / $acme_certificate_key',
-                desc: 'Variables that feed the managed certificate and key into ssl_certificate and ssl_certificate_key.',
+                desc: 'Variables that feed the managed certificate and key into `ssl_certificate` and `ssl_certificate_key`.',
             },
             {
                 name: 'challenge',
-                desc: 'Selects the ACME challenge type, http-01 (default) or tls-alpn-01.',
+                desc: 'Selects the ACME challenge type, `http-01` (default) or `tls-alpn-01`.',
             },
             {
                 name: 'state_path',
@@ -184,22 +184,22 @@ server {
         repo: 'https://github.com/sto/ngx_http_auth_pam_module',
         license: 'BSD-2-Clause',
         overview: [
-            'ngx_http_auth_pam_module implements HTTP basic authentication against PAM, the pluggable authentication framework used on Linux. Any PAM backend works, including local Unix accounts, LDAP, and custom pam_exec scripts.',
-            'nginx prompts the client for credentials and hands them to the configured PAM service for verification. The worker runs as an unprivileged user, so the PAM stack must authenticate without root: for local shadow passwords that means giving the nginx user read access to /etc/shadow.',
+            '`ngx_http_auth_pam_module` implements HTTP basic authentication against PAM, the pluggable authentication framework used on Linux. Any PAM backend works, including local Unix accounts, LDAP, and custom `pam_exec` scripts.',
+            'nginx prompts the client for credentials and hands them to the configured PAM service for verification. The worker runs as an unprivileged user, so the PAM stack must authenticate without root: for local shadow passwords that means giving the nginx user read access to `/etc/shadow`.',
             'The module is maintained by Sergio Talens-Oliag and has been packaged in Debian and Ubuntu for years.',
         ],
         highlights: [
             {
                 name: 'auth_pam',
-                desc: 'Sets the basic auth realm and turns on PAM authentication for a location, or disables it with off.',
+                desc: 'Sets the basic auth realm and turns on PAM authentication for a location, or disables it with `off`.',
             },
             {
                 name: 'auth_pam_service_name',
-                desc: 'Selects the PAM service file under /etc/pam.d to authenticate against, default nginx.',
+                desc: 'Selects the PAM service file under `/etc/pam.d` to authenticate against, default `nginx`.',
             },
             {
                 name: 'auth_pam_set_pam_env',
-                desc: 'Exports HOST and REQUEST as PAM environment variables so pam_exec scripts can decide per request.',
+                desc: 'Exports `HOST` and `REQUEST` as PAM environment variables so `pam_exec` scripts can decide per request.',
             },
             {
                 name: 'Backend agnostic',
@@ -234,11 +234,11 @@ http {
         highlights: [
             {
                 name: 'proxy_cache_purge',
-                desc: 'Removes an entry from a proxy_cache zone whose key matches the given value.',
+                desc: 'Removes an entry from a `proxy_cache` zone whose key matches the given value.',
             },
             {
                 name: 'fastcgi_cache_purge',
-                desc: 'Removes an entry from a fastcgi_cache zone, the usual choice for PHP-FPM setups.',
+                desc: 'Removes an entry from a `fastcgi_cache` zone, the usual choice for PHP-FPM setups.',
             },
             {
                 name: 'uwsgi_cache_purge / scgi_cache_purge',
@@ -246,7 +246,7 @@ http {
             },
             {
                 name: 'Access control',
-                desc: 'Purge endpoints are ordinary nginx locations, so allow and deny rules decide who may purge.',
+                desc: 'Purge endpoints are ordinary nginx locations, so `allow` and `deny` rules decide who may purge.',
             },
         ],
         example: `load_module modules/ngx_http_cache_purge_module.so;

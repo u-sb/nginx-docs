@@ -13,8 +13,8 @@ export const groupD: ModuleDetail[] = [
         license: 'BSD-2-Clause',
         overview: [
             'nginx-rtmp-module turns nginx into a live streaming server. It accepts RTMP streams from encoders such as OBS or FFmpeg and can repackage them as HLS or MPEG-DASH for playback in browsers and mobile apps. It also serves video on demand from FLV and MP4 files.',
-            'The module supports stream relaying with push and pull, recording streams to disk, HTTP callbacks on publish and play events, and running external commands such as FFmpeg transcoders. A built-in stats handler reports server state as XML.',
-            'RTMP configuration lives in its own top-level rtmp block, next to http, not inside it. The module is written by Roman Arutyunyan, an nginx core developer.',
+            'The module supports stream relaying with `push` and `pull`, recording streams to disk, HTTP callbacks on publish and play events, and running external commands such as FFmpeg transcoders. A built-in stats handler reports server state as XML.',
+            'RTMP configuration lives in its own top-level `rtmp` block, next to `http`, not inside it. The module is written by Roman Arutyunyan, an nginx core developer.',
         ],
         highlights: [
             {
@@ -27,11 +27,11 @@ export const groupD: ModuleDetail[] = [
             },
             {
                 name: 'hls on',
-                desc: 'Repackages the live stream as HLS segments and playlists in hls_path, served to players over plain HTTP.',
+                desc: 'Repackages the live stream as HLS segments and playlists in `hls_path`, served to players over plain HTTP.',
             },
             {
                 name: 'dash on',
-                desc: 'Produces MPEG-DASH fragments and an MPD manifest for the same stream, written to dash_path.',
+                desc: 'Produces MPEG-DASH fragments and an MPD manifest for the same stream, written to `dash_path`.',
             },
             {
                 name: 'push / pull',
@@ -67,18 +67,18 @@ rtmp {
         repo: 'https://github.com/yaoweibin/ngx_http_substitutions_filter_module',
         license: 'BSD-2-Clause',
         overview: [
-            'ngx_http_substitutions_filter_module rewrites response bodies on the fly, replacing text by fixed string or regular expression. It is similar to Apache mod_substitute and scans output buffers line by line.',
-            'Unlike the stock sub_filter module, it supports regular expressions and multiple substitution rules in one location. Typical uses are fixing absolute URLs behind a reverse proxy, switching http links to https, and masking hostnames in proxied content.',
-            'The module is written by Weibin Yao. Responses are filtered only for the MIME types listed in subs_filter_types, text/html by default.',
+            '`ngx_http_substitutions_filter_module` rewrites response bodies on the fly, replacing text by fixed string or regular expression. It is similar to Apache `mod_substitute` and scans output buffers line by line.',
+            'Unlike the stock `sub_filter` module, it supports regular expressions and multiple substitution rules in one location. Typical uses are fixing absolute URLs behind a reverse proxy, switching http links to https, and masking hostnames in proxied content.',
+            'The module is written by Weibin Yao. Responses are filtered only for the MIME types listed in `subs_filter_types`, text/html by default.',
         ],
         highlights: [
             {
                 name: 'subs_filter',
-                desc: 'Replaces a source string or regex with a destination string, with flags for global (g), case-insensitive (i), first-match-only (o), and regex (r) matching.',
+                desc: 'Replaces a source string or regex with a destination string, with flags for global (`g`), case-insensitive (`i`), first-match-only (`o`), and regex (`r`) matching.',
             },
             {
                 name: 'Multiple rules per location',
-                desc: 'Several subs_filter directives can apply in the same location, and each line of the response is checked against all of them.',
+                desc: 'Several `subs_filter` directives can apply in the same location, and each line of the response is checked against all of them.',
             },
             {
                 name: 'subs_filter_types',
@@ -90,7 +90,7 @@ rtmp {
             },
             {
                 name: 'Variable support',
-                desc: 'Both match and replacement strings may contain nginx variables such as $host, though variables in the match side disable some optimizations.',
+                desc: 'Both match and replacement strings may contain nginx variables such as `$host`, though variables in the match side disable some optimizations.',
             },
         ],
         example: `load_module modules/ngx_http_subs_filter_module.so;
@@ -123,7 +123,7 @@ http {
         highlights: [
             {
                 name: 'upload_progress',
-                desc: 'Declares a shared memory zone in the http block that holds per-upload progress state.',
+                desc: 'Declares a shared memory zone in the `http` block that holds per-upload progress state.',
             },
             {
                 name: 'track_uploads',
@@ -139,7 +139,7 @@ http {
             },
             {
                 name: 'upload_progress_template',
-                desc: 'Customizes the response body per upload state (starting, uploading, done, error) using nginx variables.',
+                desc: 'Customizes the response body per upload state (`starting`, `uploading`, `done`, `error`) using nginx variables.',
             },
         ],
         example: `load_module modules/ngx_http_uploadprogress_module.so;
@@ -176,7 +176,7 @@ http {
         highlights: [
             {
                 name: 'fair',
-                desc: 'Enables the fair scheduler for an upstream block, picking the backend with the fewest requests in flight.',
+                desc: 'Enables the fair scheduler for an `upstream` block, picking the backend with the fewest requests in flight.',
             },
             {
                 name: 'fair no_rr',
@@ -188,7 +188,7 @@ http {
             },
             {
                 name: 'fair weight_mode=peak',
-                desc: 'Enforces server weights as hard caps and returns errors rather than exceeding them, so max_fails and fail_timeout apply.',
+                desc: 'Enforces server weights as hard caps and returns errors rather than exceeding them, so `max_fails` and `fail_timeout` apply.',
             },
             {
                 name: 'upstream_fair_shm_size',

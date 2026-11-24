@@ -11,18 +11,18 @@ export const groupC: ModuleDetail[] = [
         repo: 'https://github.com/vislee/ngx_http_ipdb_module',
         license: 'GPL-2.0',
         overview: [
-            'ngx_http_ipdb_module looks up the client address in an IPDB database file from ipip.net and exposes the result as nginx variables. It covers country, region, city, ISP, coordinates, timezone, and currency fields, each available as its own $ipdb_* variable.',
+            '`ngx_http_ipdb_module` looks up the client address in an IPDB database file from ipip.net and exposes the result as nginx variables. It covers country, region, city, ISP, coordinates, timezone, and currency fields, each available as its own `$ipdb_*` variable.',
             'Operators use it the same way as a GeoIP module: route or block traffic by location, pass geolocation headers to upstreams, or log where requests come from. IPDB data is notably detailed for networks in China, which is the common reason to pick it over MaxMind databases.',
             'The module can resolve the real client address behind trusted proxies before the lookup. n.wtf builds this module from source in its own packaging; it is not part of the Debian nginx module set.',
         ],
         highlights: [
             {
                 name: 'ipdb',
-                desc: 'Sets the path to the IPDB database file and enables the lookup for the http block.',
+                desc: 'Sets the path to the IPDB database file and enables the lookup for the `http` block.',
             },
             {
                 name: 'ipdb_language',
-                desc: 'Selects the result language, EN or CN, per http, server, or location context.',
+                desc: 'Selects the result language, `EN` or `CN`, per `http`, `server`, or `location` context.',
             },
             {
                 name: 'ipdb_proxy',
@@ -34,7 +34,7 @@ export const groupC: ModuleDetail[] = [
             },
             {
                 name: '$ipdb_* variables',
-                desc: 'Per-request lookup results such as $ipdb_country_name, $ipdb_city_name, $ipdb_isp_domain, and the full record in $ipdb_raw.',
+                desc: 'Per-request lookup results such as `$ipdb_country_name`, `$ipdb_city_name`, `$ipdb_isp_domain`, and the full record in `$ipdb_raw`.',
             },
         ],
         example: `load_module modules/ngx_http_ipdb_module.so;
@@ -65,13 +65,13 @@ http {
         license: 'BSD-2-Clause',
         overview: [
             'lua-nginx-module embeds LuaJIT into nginx and runs Lua code inside the request lifecycle. Handlers hook into the rewrite, access, content, header filter, body filter, and log phases. It is the core component of OpenResty.',
-            'Lua code runs on the nginx event loop, and the ngx.* API performs network I/O without blocking a worker. That makes it practical to write authentication checks, dynamic routing, request and response rewriting, or full API endpoints in nginx configuration instead of a separate application server.',
-            'The module requires the nginx development kit (NDK), so load ndk_http_module.so before ngx_http_lua_module.so. Workers can share state through lua_shared_dict shared memory zones.',
+            'Lua code runs on the nginx event loop, and the `ngx.*` API performs network I/O without blocking a worker. That makes it practical to write authentication checks, dynamic routing, request and response rewriting, or full API endpoints in nginx configuration instead of a separate application server.',
+            'The module requires the nginx development kit (NDK), so load `ndk_http_module.so` before `ngx_http_lua_module.so`. Workers can share state through `lua_shared_dict` shared memory zones.',
         ],
         highlights: [
             {
                 name: 'content_by_lua_block',
-                desc: 'Runs Lua as the content handler for a location and generates the response with ngx.say and related calls.',
+                desc: 'Runs Lua as the content handler for a location and generates the response with `ngx.say` and related calls.',
             },
             {
                 name: 'access_by_lua_block',
@@ -139,7 +139,7 @@ http {
             },
             {
                 name: 'nchan_channel_id',
-                desc: 'Sets the channel a location publishes to or subscribes from, usually from a variable such as $arg_id.',
+                desc: 'Sets the channel a location publishes to or subscribes from, usually from a variable such as `$arg_id`.',
             },
             {
                 name: 'nchan_pubsub',
@@ -183,17 +183,17 @@ http {
         license: 'BSD-3-Clause',
         overview: [
             'The nginx development kit (NDK) extends the nginx core with extra APIs for module authors. It is a support module: it adds functions, macros, and build helpers that other third-party modules call, and it exposes no end-user features of its own.',
-            'Modules such as lua-nginx-module, set-misc, encrypted-session, and form-input are built against NDK and need it loaded first. On this repository that means keeping the load_module line for ndk_http_module.so ahead of the modules that depend on it.',
-            'You install and load NDK only because another module requires it. It needs no configuration beyond the load_module line.',
+            'Modules such as lua-nginx-module, set-misc, encrypted-session, and form-input are built against NDK and need it loaded first. On this repository that means keeping the `load_module` line for `ndk_http_module.so` ahead of the modules that depend on it.',
+            'You install and load NDK only because another module requires it. It needs no configuration beyond the `load_module` line.',
         ],
         highlights: [
             {
                 name: 'set_var submodule',
-                desc: 'Lets modules register C functions as nginx variable setters, the mechanism behind directives like set_by_lua and set_md5.',
+                desc: 'Lets modules register C functions as nginx variable setters, the mechanism behind directives like `set_by_lua` and `set_md5`.',
             },
             {
                 name: 'Configuration setters',
-                desc: 'Extra conf_set functions for regexes, complex values, script values, and paths that reduce boilerplate in module code.',
+                desc: 'Extra `conf_set` functions for regexes, complex values, script values, and paths that reduce boilerplate in module code.',
             },
             {
                 name: 'Utility macros',
