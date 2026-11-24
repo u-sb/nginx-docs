@@ -1,0 +1,46 @@
+---
+title: nginx 1.31.10
+excerpt: A small security release five days after 1.31.9. nginx 1.31.10 fixes excessive CPU usage that a client could cause on servers with ssl_early_data enabled, plus a CPU hog with SSL connections to backends.
+date: 2026-11-25
+tags: [nginx, Release, Security]
+---
+
+Upstream released [nginx 1.31.10](https://nginx.org/en/CHANGES) on November 23, 2026, five days after [1.31.9](/blog/nginx-1-31-9/), and the n.wtf packages are now published for all [supported Debian and Ubuntu releases](/install/). The release has two changes: one security fix and one bug fix, both about CPU usage in TLS code. The bundled OpenSSL stays at 4.0.3.
+
+## The security fix
+
+With the `ssl_early_data` directive in use, a client might cause excessive CPU usage ([CVE-2026-132779](https://nvd.nist.gov/vuln/detail/CVE-2026-132779)). The [nginx security advisories](https://nginx.org/en/security_advisories.html) rate it medium, scope it to TLS 1.3, and list 1.21.4 through 1.31.9 as vulnerable.
+
+`ssl_early_data` belongs to the [SSL module](/modules/ssl/) and is off by default. You are affected only if your own configuration turns it on. To check:
+
+```bash
+sudo nginx -T 2>/dev/null | grep ssl_early_data
+```
+
+No output, or only `ssl_early_data off;`, means the fix does not change anything for you. If the directive is on and you cannot upgrade right away, switching it off removes the precondition named in the advisory, at the cost of 0-RTT resumption until you do upgrade.
+
+## The bug fix
+
+nginx might hog CPU if SSL connections to backends were used. Upstream lists this one as a plain bug fix with no CVE. It is relevant if you proxy to upstreams over TLS, for example with `proxy_pass https://...`.
+
+On the stable branch, both changes are in 1.30.8.
+
+## Changes
+
+- Upgrade nginx to 1.31.10
+
+## How to upgrade
+
+```bash
+sudo apt update
+sudo apt full-upgrade
+
+nginx -v
+# nginx version: nginx-n.wtf/1.31.10
+```
+
+A configuration reload does not replace the running executable, so confirm the workers are running the new binary. If `systemctl status nginx` shows a start time from before the upgrade, run `sudo systemctl restart nginx`.
+
+The module set and configure arguments are the same as in 1.31.9.
+
+Not on the repository yet? The [install page](/install/) has extrepo, one-line, DEB822, and Docker instructions.
